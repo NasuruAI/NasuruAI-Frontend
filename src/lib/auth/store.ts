@@ -18,7 +18,10 @@ const REFRESH_KEY = "nasuru.refresh";
 
 export interface SessionUser {
   id: string;
-  email: string;
+  /** Null for accounts that signed up with a phone number (US-001). */
+  email: string | null;
+  phone_e164?: string | null;
+  phone_verified_at?: string | null;
   first_name: string;
   last_name: string;
   full_name: string;

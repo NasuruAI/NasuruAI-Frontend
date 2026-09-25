@@ -1,0 +1,15 @@
+#!/bin/sh
+# Versioned pre-commit hook: lint, format and type checks on what is being
+# committed. A failing check prints its findings and stops the commit.
+#
+# It lives in the repository, so every clone and fork has it. `npm install`
+# and `npm ci` switch it on (the `prepare` script sets core.hooksPath), and CI
+# runs the same checks, so `git commit --no-verify` only postpones the failure.
+if ! command -v npx >/dev/null 2>&1; then
+    echo "pre-commit: Node.js is not installed. Install it (see package.json engines), then commit again." >&2
+    exit 1
+fi
+echo "pre-commit: eslint and prettier on staged files..."
+npx --no-install lint-staged || exit 1
+echo "pre-commit: TypeScript (whole project: types cross files)..."
+npx --no-install tsc --noEmit || exit 1

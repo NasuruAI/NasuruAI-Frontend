@@ -18,25 +18,43 @@ export async function authFetch<T>(
   } catch (error) {
     if (!(error instanceof ApiError) || error.status !== 401) throw error;
 
+    if (!(await refreshAccessToken())) throw error;
+    return apiFetch<T>(path, { ...options, token: getAccessToken() });
+  }
+}
+
+let refreshing: Promise<boolean> | null = null;
+
+/**
+ * Swap the refresh token for a new pair. Single-flight: requests that hit a
+ * 401 together share one refresh. The server rotates refresh tokens and
+ * blacklists the old one, so a second concurrent refresh would present a
+ * token the first had just revoked, and sign the user out.
+ *
+ * Resolves true when a fresh access token is in place.
+ */
+export function refreshAccessToken(): Promise<boolean> {
+  refreshing ??= (async () => {
     const refresh = getRefreshToken();
     if (!refresh) {
       clearTokens();
-      throw error;
+      return false;
     }
-
     try {
       const renewed = await api.post<{ access: string; refresh?: string }>(
         "/api/auth/token/refresh/",
         { refresh },
       );
       setTokens(renewed);
+      return true;
     } catch {
       clearTokens();
-      throw error;
+      return false;
     }
-
-    return apiFetch<T>(path, { ...options, token: getAccessToken() });
-  }
+  })().finally(() => {
+    refreshing = null;
+  });
+  return refreshing;
 }
 
 interface AuthResponse {

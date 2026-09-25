@@ -31,11 +31,7 @@ export interface ReviewItem extends ChecklistItem {
 }
 
 export type ReviewDecision =
-  | "verified"
-  | "rejected"
-  | "waived"
-  | "not_applicable"
-  | "pending_review";
+  "verified" | "rejected" | "waived" | "not_applicable" | "pending_review";
 
 export interface StaffStudent {
   id: string;

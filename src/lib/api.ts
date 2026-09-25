@@ -63,19 +63,21 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
     payload = { detail: text };
   }
 
-  if (!response.ok) {
-    const data = (payload ?? {}) as Record<string, unknown>;
-    const detail =
-      typeof data.detail === "string" ? data.detail : `Request failed (${response.status}).`;
-    const fieldErrors: FieldErrors = {};
-    for (const [key, value] of Object.entries(data)) {
-      if (key === "detail" || key === "code") continue;
-      fieldErrors[key] = Array.isArray(value) ? value.map(String) : [String(value)];
-    }
-    throw new ApiError(detail, response.status, fieldErrors, String(data.code ?? ""));
-  }
+  if (!response.ok) throw apiErrorFrom(response.status, payload);
 
   return payload as T;
+}
+
+/** The API's error body (`detail`, `code`, per-field lists) as an ApiError. */
+export function apiErrorFrom(status: number, payload: unknown): ApiError {
+  const data = (payload && typeof payload === "object" ? payload : {}) as Record<string, unknown>;
+  const detail = typeof data.detail === "string" ? data.detail : `Request failed (${status}).`;
+  const fieldErrors: FieldErrors = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (key === "detail" || key === "code") continue;
+    fieldErrors[key] = Array.isArray(value) ? value.map(String) : [String(value)];
+  }
+  return new ApiError(detail, status, fieldErrors, String(data.code ?? ""));
 }
 
 export const api = {

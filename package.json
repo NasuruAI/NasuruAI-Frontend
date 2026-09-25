@@ -13,12 +13,21 @@
     "check:contrast": "node scripts/check-contrast.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"scripts/*.mjs\"",
     "verify": "npm run check:contrast && npm run check:launch && npm run lint && tsc --noEmit && npm run test",
-    "check:launch": "node scripts/check-launch-ready.mjs"
+    "check:launch": "node scripts/check-launch-ready.mjs",
+    "api:types": "node scripts/api-types.mjs",
+    "prepare": "node scripts/install-hooks.mjs",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"scripts/*.mjs\""
   },
   "dependencies": {
+    "@hookform/resolvers": "5.9.1",
+    "@tanstack/react-query": "5.103.2",
+    "lucide-react": "1.48.0",
     "next": "16.3.4",
+    "openapi-fetch": "0.17.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-hook-form": "7.88.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -35,9 +44,20 @@
     "eslint-config-next": "16.3.4",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "jsdom": "^30.0.1",
+    "lint-staged": "17.5.1",
+    "openapi-typescript": "7.13.0",
     "prettier": "^3.9.6",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mjs,js}": [
+      "eslint --max-warnings=0 --no-warn-ignored",
+      "prettier --check"
+    ],
+    "*.{json,css,md,yml,yaml}": [
+      "prettier --check"
+    ]
   }
 }

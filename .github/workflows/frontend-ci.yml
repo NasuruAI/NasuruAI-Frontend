@@ -1,0 +1,91 @@
+# Frontend CI: the gate every change passes before it can merge.
+#
+# Branch protection requires one check, `ci-passed`, which fails unless every
+# job below succeeded. The `checks` job runs the same lint, format and type
+# checks as the commit hook (.githooks/pre-commit) over every file, so a commit
+# made with --no-verify, or from a fork, fails here instead.
+
+name: Frontend CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  checks:
+    name: Lint, format, types, contrast and tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install (exactly the lockfile)
+        run: npm ci
+      - name: Known vulnerabilities in production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: eslint
+        run: npx eslint --max-warnings=0 .
+      - name: prettier
+        run: npm run format:check
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: Colour contrast (WCAG 2.2, both themes)
+        run: npm run check:contrast
+      - name: Unit tests
+        run: npm test
+
+  build:
+    name: Production build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_API_BASE_URL: https://api.nasuru.example
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: next build
+        run: npx next build
+
+  ci-passed:
+    name: ci-passed
+    if: always()
+    needs: [checks, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "job results: $RESULTS"
+          for result in $RESULTS; do
+            if [ "$result" != "success" ]; then
+              echo "::error::a required frontend job ended with '$result'"
+              exit 1
+            fi
+          done

@@ -228,20 +228,58 @@ export function StudentJourney() {
 
         {/* 01 Engagement */}
         <g className="sj-stage sj-s1">
-          <text className="sj-num" x="310" y="478" textAnchor="middle" fontSize="58" fontWeight="700" fill="#175fae">01</text>
+          <text
+            className="sj-num"
+            x="310"
+            y="478"
+            textAnchor="middle"
+            fontSize="58"
+            fontWeight="700"
+            fill="#175fae"
+          >
+            01
+          </text>
           <rect className="sj-band" x="180" y="518" width="260" height="44" fill="url(#sjBand)" />
-          <text x="310" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">Engagement</text>
+          <text x="310" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">
+            Engagement
+          </text>
           <g className="sj-icon sj-f1">
             <circle cx="318" cy="672" r="62" fill="#d7ebf7" />
-            <rect x="252" y="626" width="104" height="40" rx="5" fill="#fff" stroke="#1f5fa8" strokeWidth="2.5" />
+            <rect
+              x="252"
+              y="626"
+              width="104"
+              height="40"
+              rx="5"
+              fill="#fff"
+              stroke="#1f5fa8"
+              strokeWidth="2.5"
+            />
             <circle cx="270" cy="646" r="9" fill="#31c4a4" />
             <rect x="286" y="638" width="56" height="5.5" rx="2.75" fill="#9fc4e4" />
             <rect x="286" y="649" width="40" height="5.5" rx="2.75" fill="#cfe2f2" />
-            <rect x="252" y="674" width="104" height="40" rx="5" fill="#fff" stroke="#1f5fa8" strokeWidth="2.5" />
+            <rect
+              x="252"
+              y="674"
+              width="104"
+              height="40"
+              rx="5"
+              fill="#fff"
+              stroke="#1f5fa8"
+              strokeWidth="2.5"
+            />
             <circle cx="270" cy="694" r="9" fill="#31c4a4" />
             <rect x="286" y="686" width="56" height="5.5" rx="2.75" fill="#9fc4e4" />
             <rect x="286" y="697" width="40" height="5.5" rx="2.75" fill="#cfe2f2" />
-            <circle cx="333" cy="659" r="30" fill="#eaf4fb" fillOpacity=".85" stroke="#1f5fa8" strokeWidth="6" />
+            <circle
+              cx="333"
+              cy="659"
+              r="30"
+              fill="#eaf4fb"
+              fillOpacity=".85"
+              stroke="#1f5fa8"
+              strokeWidth="6"
+            />
             <path d="M 352 682 L 374 706" stroke="#1f5fa8" strokeWidth="11" strokeLinecap="round" />
             <path d="M 356 686 L 378 710" stroke="#f4b93e" strokeWidth="6" strokeLinecap="round" />
           </g>
@@ -249,9 +287,21 @@ export function StudentJourney() {
 
         {/* 02 Application */}
         <g className="sj-stage sj-s2">
-          <text className="sj-num" x="575" y="322" textAnchor="middle" fontSize="58" fontWeight="700" fill="#1a66b2">02</text>
+          <text
+            className="sj-num"
+            x="575"
+            y="322"
+            textAnchor="middle"
+            fontSize="58"
+            fontWeight="700"
+            fill="#1a66b2"
+          >
+            02
+          </text>
           <rect className="sj-band" x="445" y="352" width="260" height="44" fill="url(#sjBand)" />
-          <text x="575" y="382" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">Application</text>
+          <text x="575" y="382" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">
+            Application
+          </text>
           <g className="sj-icon sj-f2">
             <circle cx="584" cy="510" r="62" fill="#d7ebf7" />
             <rect x="527" y="452" width="98" height="122" rx="8" fill="#2fae9b" />
@@ -264,50 +314,130 @@ export function StudentJourney() {
             <rect x="548" y="525" width="34" height="7" rx="3.5" fill="#e2eef7" />
             <path d="M 520 542 L 592 476" stroke="#1b3f6b" strokeWidth="8" strokeLinecap="round" />
             <path d="M 588 480 L 600 468" stroke="#f4b93e" strokeWidth="9" strokeLinecap="round" />
-            <path d="M 512 556 q 14 -22 34 -16 q 16 5 24 16 l 8 22 q -34 12 -60 4 z" fill="#c97a4a" />
+            <path
+              d="M 512 556 q 14 -22 34 -16 q 16 5 24 16 l 8 22 q -34 12 -60 4 z"
+              fill="#c97a4a"
+            />
             <path d="M 512 556 q 14 -22 34 -16 l -6 14 q -16 -2 -28 2 z" fill="#b56a3e" />
           </g>
         </g>
 
         {/* 03 Decision */}
         <g className="sj-stage sj-s3">
-          <text className="sj-num" x="837" y="478" textAnchor="middle" fontSize="58" fontWeight="700" fill="#175fae">03</text>
+          <text
+            className="sj-num"
+            x="837"
+            y="478"
+            textAnchor="middle"
+            fontSize="58"
+            fontWeight="700"
+            fill="#175fae"
+          >
+            03
+          </text>
           <rect className="sj-band" x="707" y="518" width="260" height="44" fill="url(#sjBand)" />
-          <text x="837" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">Decision</text>
+          <text x="837" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1553a8">
+            Decision
+          </text>
           <g className="sj-icon sj-f3">
             <circle cx="845" cy="672" r="62" fill="#d7ebf7" />
             <rect x="762" y="622" width="72" height="98" rx="7" fill="#1f5fa8" />
             <rect x="770" y="630" width="56" height="82" rx="4" fill="#2a72c0" />
             <circle cx="798" cy="662" r="17" fill="none" stroke="#bfe0f2" strokeWidth="2.5" />
-            <path d="M 781 662 h 34 M 798 645 q 9 17 0 34 M 798 645 q -9 17 0 34" stroke="#bfe0f2" strokeWidth="2.5" fill="none" />
+            <path
+              d="M 781 662 h 34 M 798 645 q 9 17 0 34 M 798 645 q -9 17 0 34"
+              stroke="#bfe0f2"
+              strokeWidth="2.5"
+              fill="none"
+            />
             <rect x="784" y="690" width="28" height="5" rx="2.5" fill="#bfe0f2" />
-            <path d="M 822 616 h 62 l 22 22 v 84 a 6 6 0 0 1 -6 6 h -78 a 6 6 0 0 1 -6 -6 v -100 a 6 6 0 0 1 6 -6 z" fill="#fff" stroke="#dbe8f2" strokeWidth="2" />
+            <path
+              d="M 822 616 h 62 l 22 22 v 84 a 6 6 0 0 1 -6 6 h -78 a 6 6 0 0 1 -6 -6 v -100 a 6 6 0 0 1 6 -6 z"
+              fill="#fff"
+              stroke="#dbe8f2"
+              strokeWidth="2"
+            />
             <path d="M 884 616 v 22 h 22 z" fill="#f4d9c4" />
             <rect x="834" y="640" width="26" height="18" rx="3" fill="#f2b9c4" />
-            <text x="872" y="654" textAnchor="middle" fontSize="15" fontWeight="800" fill="#e0607a">VISA</text>
+            <text x="872" y="654" textAnchor="middle" fontSize="15" fontWeight="800" fill="#e0607a">
+              VISA
+            </text>
             <rect x="834" y="668" width="60" height="6" rx="3" fill="#dbe8f2" />
             <rect x="834" y="682" width="46" height="6" rx="3" fill="#eaf1f7" />
             <rect x="834" y="696" width="54" height="6" rx="3" fill="#eaf1f7" />
             <circle cx="886" cy="710" r="23" fill="#2fbf9b" />
-            <path d="M 875 710 l 7 8 l 14 -16" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M 875 710 l 7 8 l 14 -16"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </g>
         </g>
 
         {/* 04 Planning */}
         <g className="sj-stage sj-s4">
-          <text className="sj-num" x="1100" y="322" textAnchor="middle" fontSize="58" fontWeight="700" fill="#2a8cb8">04</text>
+          <text
+            className="sj-num"
+            x="1100"
+            y="322"
+            textAnchor="middle"
+            fontSize="58"
+            fontWeight="700"
+            fill="#2a8cb8"
+          >
+            04
+          </text>
           <rect className="sj-band" x="970" y="352" width="260" height="44" fill="url(#sjBand)" />
-          <text x="1100" y="382" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1a6fa8">Planning</text>
+          <text x="1100" y="382" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1a6fa8">
+            Planning
+          </text>
           <g className="sj-icon sj-f4">
             <circle cx="1094" cy="510" r="62" fill="#d7ebf7" />
             <rect x="1112" y="492" width="58" height="72" rx="9" fill="#f4c268" />
-            <rect x="1112" y="492" width="58" height="72" rx="9" fill="none" stroke="#e0a93f" strokeWidth="2" />
+            <rect
+              x="1112"
+              y="492"
+              width="58"
+              height="72"
+              rx="9"
+              fill="none"
+              stroke="#e0a93f"
+              strokeWidth="2"
+            />
             <path d="M 1141 492 v 72" stroke="#e0a93f" strokeWidth="3" />
-            <path d="M 1126 492 v -12 a 15 15 0 0 1 30 0 v 12" fill="none" stroke="#e0a93f" strokeWidth="5" />
-            <path d="M 1052 452 v -14 h 30 v 14" fill="none" stroke="#7f8b93" strokeWidth="6" strokeLinecap="round" />
+            <path
+              d="M 1126 492 v -12 a 15 15 0 0 1 30 0 v 12"
+              fill="none"
+              stroke="#e0a93f"
+              strokeWidth="5"
+            />
+            <path
+              d="M 1052 452 v -14 h 30 v 14"
+              fill="none"
+              stroke="#7f8b93"
+              strokeWidth="6"
+              strokeLinecap="round"
+            />
             <rect x="1032" y="452" width="70" height="112" rx="13" fill="#2fae9b" />
-            <rect x="1032" y="452" width="70" height="112" rx="13" fill="none" stroke="#1f8f7f" strokeWidth="2.5" />
-            <path d="M 1056 452 v 112 M 1078 452 v 112" stroke="#1f8f7f" strokeWidth="3" opacity=".55" />
+            <rect
+              x="1032"
+              y="452"
+              width="70"
+              height="112"
+              rx="13"
+              fill="none"
+              stroke="#1f8f7f"
+              strokeWidth="2.5"
+            />
+            <path
+              d="M 1056 452 v 112 M 1078 452 v 112"
+              stroke="#1f8f7f"
+              strokeWidth="3"
+              opacity=".55"
+            />
             <rect x="1040" y="470" width="22" height="16" rx="3" fill="#fff" opacity=".9" />
             <circle cx="1075" cy="518" r="11" fill="#fff" opacity=".9" />
             <circle cx="1075" cy="518" r="5" fill="#2fae9b" />
@@ -318,17 +448,47 @@ export function StudentJourney() {
 
         {/* 05 Arrival */}
         <g className="sj-stage sj-s5">
-          <text className="sj-num" x="1365" y="478" textAnchor="middle" fontSize="58" fontWeight="700" fill="#37acb6">05</text>
+          <text
+            className="sj-num"
+            x="1365"
+            y="478"
+            textAnchor="middle"
+            fontSize="58"
+            fontWeight="700"
+            fill="#37acb6"
+          >
+            05
+          </text>
           <rect className="sj-band" x="1235" y="518" width="260" height="44" fill="url(#sjBand)" />
-          <text x="1365" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#2a93a8">Arrival</text>
+          <text x="1365" y="548" textAnchor="middle" fontSize="20" fontWeight="700" fill="#2a93a8">
+            Arrival
+          </text>
           <g className="sj-icon sj-f5">
             <circle cx="1360" cy="672" r="62" fill="#d7ebf7" />
             <g transform="rotate(-9 1350 676)">
               <rect x="1300" y="628" width="108" height="72" rx="7" fill="#f4c268" />
-              <rect x="1300" y="628" width="108" height="72" rx="7" fill="none" stroke="#e0a93f" strokeWidth="2" />
+              <rect
+                x="1300"
+                y="628"
+                width="108"
+                height="72"
+                rx="7"
+                fill="none"
+                stroke="#e0a93f"
+                strokeWidth="2"
+              />
             </g>
             <g transform="rotate(6 1356 680)">
-              <rect x="1306" y="640" width="112" height="76" rx="7" fill="#fff" stroke="#dbe8f2" strokeWidth="2" />
+              <rect
+                x="1306"
+                y="640"
+                width="112"
+                height="76"
+                rx="7"
+                fill="#fff"
+                stroke="#dbe8f2"
+                strokeWidth="2"
+              />
               <rect x="1314" y="650" width="30" height="24" rx="4" fill="#cfe2f2" />
               <circle cx="1329" cy="659" r="6" fill="#7fb0da" />
               <path d="M 1322 671 q 7 -7 14 0 z" fill="#7fb0da" />

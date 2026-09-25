@@ -58,11 +58,7 @@ export function getPreferences() {
   return authFetch<PreferenceCentre>("/api/notifications/preferences/");
 }
 
-export function setPreference(
-  category: string,
-  channel: NotificationChannel,
-  enabled: boolean,
-) {
+export function setPreference(category: string, channel: NotificationChannel, enabled: boolean) {
   return authFetch<{ detail: string }>("/api/notifications/preferences/", {
     method: "PATCH",
     body: { category, channel, enabled },

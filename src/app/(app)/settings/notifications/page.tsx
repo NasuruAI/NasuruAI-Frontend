@@ -103,10 +103,7 @@ export default function NotificationSettingsPage() {
       announce(`${category.label} on ${channel}: ${next ? "on" : "off"}`);
     } catch (err) {
       await reload();
-      toast(
-        err instanceof ApiError ? err.message : "That change didn't save. Try again.",
-        "error",
-      );
+      toast(err instanceof ApiError ? err.message : "That change didn't save. Try again.", "error");
     } finally {
       setSaving(null);
     }
@@ -148,7 +145,10 @@ export default function NotificationSettingsPage() {
           A channel you haven&apos;t connected stays greyed out until you do.
         </p>
 
-        <ScrollableX label="Notification preferences" className="mt-4 rounded-xl border border-line">
+        <ScrollableX
+          label="Notification preferences"
+          className="mt-4 rounded-xl border border-line"
+        >
           <table className="w-full min-w-[34rem] text-left text-sm">
             <caption className="sr-only">
               Notification preferences by category and channel. Each checkbox saves immediately.
@@ -204,7 +204,9 @@ export default function NotificationSettingsPage() {
                           {category.label} by {channel.label}
                           {locked && " (always on — this is how you keep control of your account)"}
                           {!channel.available && " (unavailable)"}
-                          {channel.available && !channel.connected && !channel.locked &&
+                          {channel.available &&
+                            !channel.connected &&
+                            !channel.locked &&
                             ` (connect ${channel.label} first)`}
                         </label>
                         {locked && (
@@ -305,11 +307,7 @@ function WhatsAppCard({
           {data.whatsapp.opted_in && (
             <span className="text-xs font-medium text-success">Connected</span>
           )}
-          <Button
-            variant="secondary"
-            onClick={act}
-            disabled={busy || !data.whatsapp.number}
-          >
+          <Button variant="secondary" onClick={act} disabled={busy || !data.whatsapp.number}>
             {busy ? "Saving…" : data.whatsapp.opted_in ? "Turn off" : "Turn on"}
             <span className="sr-only"> WhatsApp messages</span>
           </Button>
@@ -375,7 +373,11 @@ function TelegramCard({
           {data.telegram.connected && (
             <span className="text-xs font-medium text-success">Connected</span>
           )}
-          <Button variant="secondary" onClick={data.telegram.connected ? disconnect : connect} disabled={busy}>
+          <Button
+            variant="secondary"
+            onClick={data.telegram.connected ? disconnect : connect}
+            disabled={busy}
+          >
             {busy ? "Working…" : data.telegram.connected ? "Disconnect" : "Connect"}
             <span className="sr-only"> Telegram</span>
           </Button>
@@ -393,7 +395,12 @@ function TelegramCard({
             refresh this page.
           </p>
           <p className="mt-2 text-sm">
-            <a href={link} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2"
+            >
               Open the chat again
             </a>{" "}
             · the link expires in 15 minutes.
@@ -411,7 +418,13 @@ function TelegramCard({
   );
 }
 
-function QuietHours({ data, onChanged }: { data: PreferenceCentre; onChanged: () => Promise<void> }) {
+function QuietHours({
+  data,
+  onChanged,
+}: {
+  data: PreferenceCentre;
+  onChanged: () => Promise<void>;
+}) {
   const { toast } = useAnnouncer();
   const [start, setStart] = useState(data.quiet_hours.start?.slice(0, 5) ?? "");
   const [end, setEnd] = useState(data.quiet_hours.end?.slice(0, 5) ?? "");

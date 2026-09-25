@@ -19,7 +19,11 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const css = readFileSync(join(here, "..", "src", "app", "globals.css"), "utf8");
+// Normalised: a Windows checkout has CRLF, and the block patterns below span lines.
+const css = readFileSync(join(here, "..", "src", "app", "globals.css"), "utf8").replace(
+  /\r\n/g,
+  "\n",
+);
 
 /** Pull one `:root`-style block's custom properties into a map. */
 function readBlock(source, startPattern) {
@@ -49,7 +53,7 @@ function readBlock(source, startPattern) {
 // The bare `:root` block carries the complete light palette; the explicit dark
 // stamp carries the complete dark palette. The `prefers-color-scheme` block is
 // identical to the latter by construction, and is checked for exactly that.
-const light = readBlock(css, "\n:root {");
+const light = readBlock(css, '\n:root,\n[data-theme="light"] {');
 const dark = readBlock(css, ':root[data-theme="dark"] {');
 const media = readBlock(css, ':root:not([data-theme="light"]) {');
 
@@ -123,12 +127,18 @@ const PAIRS = [
   ["success", "canvas", 4.5, "Inline success text", "text"],
   ["info", "info-bg", 4.5, "Info text in an info panel", "text"],
   ["info", "canvas", 4.5, "Inline info text", "text"],
+  // Nasuru AI (design-system §3.3)
+  ["ink", "highlight", 4.5, "Changed value on its highlight", "text"],
+  ["ink", "accent-soft", 4.5, "Text on a selected row or nav item", "text"],
+  ["accent", "accent-soft", 4.5, "Selected chip label", "text"],
+  ["ink-inverse", "ink", 4.5, "Toast text on an ink surface", "text"],
 
   ["danger-line", "danger-bg", 1.2, "Error panel border", "decor"],
   ["warning-line", "warning-bg", 1.2, "Warning panel border", "decor"],
   ["success-line", "success-bg", 1.2, "Success panel border", "decor"],
   ["info-line", "info-bg", 1.2, "Info panel border", "decor"],
   ["line", "canvas", 1.1, "Card border / divider", "decor"],
+  ["highlight-line", "highlight", 1.1, "Highlight border", "decor"],
 ];
 
 let failures = 0;

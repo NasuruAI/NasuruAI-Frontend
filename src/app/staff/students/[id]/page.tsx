@@ -76,7 +76,9 @@ export default function StudentRecordPage({ params }: { params: Promise<{ id: st
     { label: "Nationality", value: student.nationality || "—" },
     {
       label: "Lives in",
-      value: [student.state_of_residence, student.country_of_residence].filter(Boolean).join(", ") || "—",
+      value:
+        [student.state_of_residence, student.country_of_residence].filter(Boolean).join(", ") ||
+        "—",
     },
     { label: "Came from", value: student.source || "—" },
     { label: "Referral code", value: student.referral_code },
@@ -136,13 +138,7 @@ export default function StudentRecordPage({ params }: { params: Promise<{ id: st
   );
 }
 
-function DetailCard({
-  title,
-  rows,
-}: {
-  title: string;
-  rows: { label: string; value: string }[];
-}) {
+function DetailCard({ title, rows }: { title: string; rows: { label: string; value: string }[] }) {
   return (
     <section className="rounded-xl border border-line p-5">
       <h2 className="text-base font-semibold text-ink">{title}</h2>

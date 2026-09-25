@@ -58,6 +58,12 @@
   --color-info-bg: var(--info-bg);
   --color-info-line: var(--info-line);
 
+  --color-highlight: var(--highlight);
+  --color-highlight-line: var(--highlight-line);
+  --color-accent-soft: var(--accent-soft);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-scrim: var(--scrim);
+
   --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-schibsted), var(--font-source-sans), ui-sans-serif, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
@@ -65,7 +71,8 @@
 
 /* ---------- Light: the complete set. Every token is declared here. ---------- */
 
-:root {
+:root,
+[data-theme="light"] {
   color-scheme: light;
 
   --canvas: #ffffff;
@@ -103,6 +110,13 @@
   --info: #0b5878;
   --info-bg: #eef7fb;
   --info-line: #c2e0ee;
+
+  /* Nasuru AI (design-system §3.3). */
+  --highlight: #fff6d6;
+  --highlight-line: #f2d98c;
+  --accent-soft: #e6f4ec;
+  --ink-inverse: #ffffff;
+  --scrim: rgba(16, 35, 28, 0.48);
 }
 
 /* ---------- Dark: redefines tokens only, never introduces new ones. -------- */
@@ -144,6 +158,13 @@
     --info: #7dd3fc;
     --info-bg: #082f49;
     --info-line: #075985;
+
+    /* Nasuru AI (design-system §3.3). */
+    --highlight: #3a3212;
+    --highlight-line: #7a6524;
+    --accent-soft: #06291f;
+    --ink-inverse: #08130f;
+    --scrim: rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -183,6 +204,13 @@
   --info: #7dd3fc;
   --info-bg: #082f49;
   --info-line: #075985;
+
+  /* Nasuru AI (design-system §3.3). */
+  --highlight: #3a3212;
+  --highlight-line: #7a6524;
+  --accent-soft: #06291f;
+  --ink-inverse: #08130f;
+  --scrim: rgba(0, 0, 0, 0.6);
 }
 
 @layer base {

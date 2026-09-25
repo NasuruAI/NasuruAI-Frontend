@@ -59,11 +59,11 @@ for (const file of walk(srcDir)) {
 }
 
 const PRICING_NOTE = [
-  '  Prices are not checked here. They moved out of company.ts into the',
-  '  database (apps.payments.pricing), so this script cannot see them - run',
-  '  `make pricing`, or `make pricing ARGS=--strict` in CI, to catch an',
-  '  unverified cost figure before it reaches a page.',
-].join('\n');
+  "  Prices are not checked here. They moved out of company.ts into the",
+  "  database (apps.payments.pricing), so this script cannot see them - run",
+  "  `make pricing`, or `make pricing ARGS=--strict` in CI, to catch an",
+  "  unverified cost figure before it reaches a page.",
+].join("\n");
 
 if (findings.length === 0) {
   console.log("\n  Launch check: no unmade decisions remain in published pages.\n");
@@ -72,7 +72,9 @@ if (findings.length === 0) {
 }
 
 const total = findings.reduce((sum, f) => sum + f.count, 0);
-console.log(`\n  Launch check: ${total} unmade decision${total === 1 ? "" : "s"} still published\n`);
+console.log(
+  `\n  Launch check: ${total} unmade decision${total === 1 ? "" : "s"} still published\n`,
+);
 for (const finding of findings) {
   const detail = finding.detail ? ` — ${finding.detail}` : "";
   console.log(`    ${finding.file}  (${finding.count} × ${finding.kind}${detail})`);
