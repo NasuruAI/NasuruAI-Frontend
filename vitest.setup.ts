@@ -28,3 +28,19 @@ if (!window.requestAnimationFrame) {
 if (!Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = () => {};
 }
+
+/**
+ * jsdom has <dialog> but not showModal()/close(). The Nasuru AI Dialog and
+ * Sheet are built on the native element, so tests need the open state and the
+ * `close` event; focus trapping itself is the browser's and is covered by e2e.
+ */
+if (typeof HTMLDialogElement !== "undefined" && !HTMLDialogElement.prototype.showModal) {
+  HTMLDialogElement.prototype.showModal = function showModal(this: HTMLDialogElement) {
+    this.setAttribute("open", "");
+  };
+  HTMLDialogElement.prototype.close = function close(this: HTMLDialogElement) {
+    if (!this.hasAttribute("open")) return;
+    this.removeAttribute("open");
+    this.dispatchEvent(new Event("close"));
+  };
+}
