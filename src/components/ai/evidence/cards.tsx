@@ -221,6 +221,7 @@ export function JobCard({
   logo,
   location,
   salary,
+  salaryLine,
   trust,
   fit,
   postedAt,
@@ -235,6 +236,8 @@ export function JobCard({
   logo?: string;
   location: string;
   salary?: { naira: number; foreign?: Foreign };
+  /** A ready-made salary line (a range, or a foreign amount with no rate yet); wins over `salary`. */
+  salaryLine?: React.ReactNode;
   trust: number;
   fit?: { score: number; reasons: string[] };
   postedAt?: string;
@@ -257,10 +260,14 @@ export function JobCard({
         </div>
         <SaveButton saved={saved} onSave={onSave} what={title} />
       </div>
-      {salary && (
-        <p className="mt-2 text-body">
-          <MoneyText naira={salary.naira} foreign={salary.foreign} short />
-        </p>
+      {salaryLine ? (
+        <p className="mt-2 text-body">{salaryLine}</p>
+      ) : (
+        salary && (
+          <p className="mt-2 text-body">
+            <MoneyText naira={salary.naira} foreign={salary.foreign} short />
+          </p>
+        )
       )}
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
         <TrustMeter score={trust} compact />
