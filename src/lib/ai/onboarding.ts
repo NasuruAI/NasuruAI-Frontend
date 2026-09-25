@@ -250,7 +250,28 @@ export type Pathway = {
   band: "high" | "medium" | "low";
   leads_to_pr: boolean;
   months_to_arrival: number | null;
-  cost: { spend_ngn?: string; proof_of_funds_ngn?: string; complete?: boolean };
+  cost: {
+    spend_ngn?: string;
+    proof_of_funds_ngn?: string;
+    complete?: boolean;
+    items?: CostItem[];
+    routes_not_costed?: string[];
+  };
+};
+
+/** One priced line of a pathway (apps.pathways.services.pathway_cost). */
+export type CostItem = {
+  route: string;
+  category: string;
+  label: string;
+  amount: string;
+  currency: string;
+  ngn: string | null;
+  source_name?: string;
+  source_url?: string;
+  verified_at?: string;
+  recheck_after?: string | null;
+  is_stale?: boolean;
 };
 
 export function usePathways(enabled: boolean) {

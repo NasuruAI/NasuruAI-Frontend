@@ -90,9 +90,9 @@ export function CostBreakdown({
         <span className="text-metric tabular-nums text-ink">{formatNaira(spent)}</span>
       </div>
       <div aria-hidden className="flex h-3 overflow-hidden rounded-full border border-line">
-        {lines.map((line) => (
+        {lines.map((line, index) => (
           <span
-            key={line.label}
+            key={`${index}-${line.label}`}
             className={cx("h-full", SEGMENT[line.kind])}
             style={{
               width: `${(line.naira / all) * 100}%`,
@@ -102,8 +102,8 @@ export function CostBreakdown({
         ))}
       </div>
       <ul className="divide-y divide-line">
-        {lines.map((line) => (
-          <li key={line.label} className="flex items-start gap-3 py-2">
+        {lines.map((line, index) => (
+          <li key={`${index}-${line.label}`} className="flex items-start gap-3 py-2">
             <span
               aria-hidden
               className={cx(

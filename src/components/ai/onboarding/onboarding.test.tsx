@@ -34,7 +34,7 @@ const api = vi.mocked(ai, { deep: false }) as unknown as Record<
 const ok = (data: unknown, status = 200) =>
   Promise.resolve({ data, response: new Response(null, { status }) });
 
-afterEach(() => vi.clearAllMocks());
+afterEach(() => vi.resetAllMocks());
 
 const me = (patch: Partial<Me> = {}): Me => ({
   id: "c1",
