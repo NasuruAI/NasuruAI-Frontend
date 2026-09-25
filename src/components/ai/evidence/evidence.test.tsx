@@ -7,6 +7,7 @@ import {
   CheckList,
   CostBreakdown,
   DocumentCard,
+  PathwayCard,
   PointsBreakdown,
   QuotaMeter,
   ScamVerdict,
@@ -256,5 +257,23 @@ describe("AnswerRow", () => {
     fireEvent.click(screen.getByRole("button", { name: "No, this was wrong" }));
     expect(onFeedback).toHaveBeenCalledWith(written, false);
     expect(screen.getByText("Thanks, noted.")).toBeInTheDocument();
+  });
+});
+
+describe("PathwayCard", () => {
+  it("says a pathway isn't priced rather than showing ₦0", () => {
+    render(
+      <PathwayCard
+        rank={1}
+        title="Opportunity Card → EU Blue Card"
+        steps={[{ title: "Opportunity Card", status: "current" }]}
+        naira={null}
+        months={4}
+        leadsToPr
+        probability="medium"
+      />,
+    );
+    expect(screen.getByText("Not priced yet")).toBeInTheDocument();
+    expect(screen.queryByText("₦0")).not.toBeInTheDocument();
   });
 });

@@ -122,7 +122,8 @@ export function PathwayCard({
   rank: number;
   title: string;
   steps: TimelineStep[];
-  naira: number;
+  /** null: not priced yet. */
+  naira: number | null;
   months: number;
   leadsToPr: boolean;
   probability: "high" | "medium" | "low";
@@ -140,7 +141,7 @@ export function PathwayCard({
         <div>
           <dt className="text-caption text-muted">Total</dt>
           <dd className="text-metric-s tabular-nums text-ink">
-            {formatNaira(naira, { short: true })}
+            {naira === null ? "Not priced yet" : formatNaira(naira, { short: true })}
           </dd>
         </div>
         <div>
@@ -403,6 +404,9 @@ export function FactCard({
   onConfirm,
   onEdit,
   onDelete,
+  onSource,
+  sourceShown = false,
+  children,
 }: {
   kindLabel: string;
   title: string;
@@ -413,9 +417,14 @@ export function FactCard({
   onConfirm?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  /** Show where the fact came from (the source panel, or inline on small screens). */
+  onSource?: () => void;
+  sourceShown?: boolean;
+  /** Extra content under the actions, e.g. the source excerpt on small screens. */
+  children?: React.ReactNode;
 }) {
   return (
-    <Card className={cx(!confirmed && "border-info-line")}>
+    <Card className={cx(!confirmed && "border-info-line", sourceShown && "ring-2 ring-accent")}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-overline text-muted uppercase">{kindLabel}</span>
         {confirmed ? (
@@ -462,7 +471,19 @@ export function FactCard({
             Delete
           </Button>
         )}
+        {onSource && (
+          <Button
+            size="sm"
+            variant="tertiary"
+            aria-pressed={sourceShown}
+            onClick={onSource}
+            icon={<FileText aria-hidden className="size-4" />}
+          >
+            See source
+          </Button>
+        )}
       </div>
+      {children}
     </Card>
   );
 }

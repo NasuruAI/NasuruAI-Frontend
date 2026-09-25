@@ -356,6 +356,18 @@
   }
 }
 
+/** m-reveal (design-system §6): the eligibility result reveal. */
+@keyframes m-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /**
  * Motion is opt-out at the platform level as well as per-component, so a
  * transition added later without thinking still respects the preference (§B5).
