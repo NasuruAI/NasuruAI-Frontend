@@ -57,7 +57,7 @@ export function Tabs<T extends string>({
       role="tablist"
       aria-label={label}
       className={cx(
-        "flex gap-1 overflow-x-auto",
+        "relative flex gap-1 overflow-x-auto",
         variant === "underline" && "border-b border-line",
         className,
       )}

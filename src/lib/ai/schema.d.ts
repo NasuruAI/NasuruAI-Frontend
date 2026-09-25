@@ -20,7 +20,7 @@ export interface paths {
          *     that gates publishing, so an editor sees a problem in the suggestion before
          *     they paste it into the draft rather than at publish time.
          */
-        post: operations["api_admin_blog_ai_create"];
+        post: operations["admin_blog_ai_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -35,7 +35,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Whether the composer should show its assist controls at all. */
-        get: operations["api_admin_blog_ai_status_retrieve"];
+        get: operations["admin_blog_ai_status_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -58,7 +58,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        get: operations["api_admin_blog_authors_list"];
+        get: operations["admin_blog_authors_list"];
         put?: never;
         /**
          * @description Author profiles.
@@ -67,7 +67,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        post: operations["api_admin_blog_authors_create"];
+        post: operations["admin_blog_authors_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -88,7 +88,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        get: operations["api_admin_blog_authors_retrieve"];
+        get: operations["admin_blog_authors_retrieve"];
         /**
          * @description Author profiles.
          *
@@ -96,7 +96,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        put: operations["api_admin_blog_authors_update"];
+        put: operations["admin_blog_authors_update"];
         post?: never;
         /**
          * @description Author profiles.
@@ -105,7 +105,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        delete: operations["api_admin_blog_authors_destroy"];
+        delete: operations["admin_blog_authors_destroy"];
         options?: never;
         head?: never;
         /**
@@ -115,7 +115,7 @@ export interface paths {
          *     because a bio is published copy — and `AuthorProfile.clean()` runs it through
          *     the same house-style scan as an article.
          */
-        patch: operations["api_admin_blog_authors_partial_update"];
+        patch: operations["admin_blog_authors_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/authors/me/": {
@@ -130,7 +130,7 @@ export interface paths {
          *
          *     Saves the composer a two-step "do you have a profile yet?" dance.
          */
-        get: operations["api_admin_blog_authors_me_retrieve"];
+        get: operations["admin_blog_authors_me_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -141,7 +141,7 @@ export interface paths {
          *
          *     Saves the composer a two-step "do you have a profile yet?" dance.
          */
-        patch: operations["api_admin_blog_authors_me_partial_update"];
+        patch: operations["admin_blog_authors_me_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/categories/": {
@@ -151,9 +151,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_blog_categories_list"];
+        get: operations["admin_blog_categories_list"];
         put?: never;
-        post: operations["api_admin_blog_categories_create"];
+        post: operations["admin_blog_categories_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -167,13 +167,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_blog_categories_retrieve"];
-        put: operations["api_admin_blog_categories_update"];
+        get: operations["admin_blog_categories_retrieve"];
+        put: operations["admin_blog_categories_update"];
         post?: never;
-        delete: operations["api_admin_blog_categories_destroy"];
+        delete: operations["admin_blog_categories_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_admin_blog_categories_partial_update"];
+        patch: operations["admin_blog_categories_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/comments/": {
@@ -190,7 +190,7 @@ export interface paths {
          *     be putting words in a reader's mouth. The only writes are a status change and
          *     an agency reply, both of which are their own action and both audited.
          */
-        get: operations["api_admin_blog_comments_list"];
+        get: operations["admin_blog_comments_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -213,7 +213,7 @@ export interface paths {
          *     be putting words in a reader's mouth. The only writes are a status change and
          *     an agency reply, both of which are their own action and both audited.
          */
-        get: operations["api_admin_blog_comments_retrieve"];
+        get: operations["admin_blog_comments_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -238,7 +238,7 @@ export interface paths {
          *     be putting words in a reader's mouth. The only writes are a status change and
          *     an agency reply, both of which are their own action and both audited.
          */
-        post: operations["api_admin_blog_comments_pin_create"];
+        post: operations["admin_blog_comments_pin_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -261,7 +261,7 @@ export interface paths {
          *     be putting words in a reader's mouth. The only writes are a status change and
          *     an agency reply, both of which are their own action and both audited.
          */
-        post: operations["api_admin_blog_comments_reply_create"];
+        post: operations["admin_blog_comments_reply_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -284,7 +284,7 @@ export interface paths {
          *     through fifteen confirmations; audited per comment because "who approved
          *     this" is asked about one comment, not about a batch.
          */
-        post: operations["api_admin_blog_comments_moderate_create"];
+        post: operations["admin_blog_comments_moderate_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -305,7 +305,7 @@ export interface paths {
          *     be putting words in a reader's mouth. The only writes are a status change and
          *     an agency reply, both of which are their own action and both audited.
          */
-        get: operations["api_admin_blog_comments_summary_retrieve"];
+        get: operations["admin_blog_comments_summary_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -328,7 +328,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        get: operations["api_admin_blog_faqs_list"];
+        get: operations["admin_blog_faqs_list"];
         put?: never;
         /**
          * @description FAQ entries, addressed by post.
@@ -337,7 +337,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        post: operations["api_admin_blog_faqs_create"];
+        post: operations["admin_blog_faqs_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -358,7 +358,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        get: operations["api_admin_blog_faqs_retrieve"];
+        get: operations["admin_blog_faqs_retrieve"];
         /**
          * @description FAQ entries, addressed by post.
          *
@@ -366,7 +366,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        put: operations["api_admin_blog_faqs_update"];
+        put: operations["admin_blog_faqs_update"];
         post?: never;
         /**
          * @description FAQ entries, addressed by post.
@@ -375,7 +375,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        delete: operations["api_admin_blog_faqs_destroy"];
+        delete: operations["admin_blog_faqs_destroy"];
         options?: never;
         head?: never;
         /**
@@ -385,7 +385,7 @@ export interface paths {
          *     adds and removes one at a time, and nesting a writable list inside the post
          *     payload makes a partial save ambiguous.
          */
-        patch: operations["api_admin_blog_faqs_partial_update"];
+        patch: operations["admin_blog_faqs_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/posts/": {
@@ -402,7 +402,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        get: operations["api_admin_blog_posts_list"];
+        get: operations["admin_blog_posts_list"];
         put?: never;
         /**
          * @description The composer's backing API.
@@ -411,7 +411,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        post: operations["api_admin_blog_posts_create"];
+        post: operations["admin_blog_posts_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -432,7 +432,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        get: operations["api_admin_blog_posts_retrieve"];
+        get: operations["admin_blog_posts_retrieve"];
         /**
          * @description The composer's backing API.
          *
@@ -440,7 +440,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        put: operations["api_admin_blog_posts_update"];
+        put: operations["admin_blog_posts_update"];
         post?: never;
         /**
          * @description The composer's backing API.
@@ -449,7 +449,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        delete: operations["api_admin_blog_posts_destroy"];
+        delete: operations["admin_blog_posts_destroy"];
         options?: never;
         head?: never;
         /**
@@ -459,7 +459,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        patch: operations["api_admin_blog_posts_partial_update"];
+        patch: operations["admin_blog_posts_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/posts/{slug}/preflight/": {
@@ -470,7 +470,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description What stands between this draft and the public site. */
-        get: operations["api_admin_blog_posts_preflight_retrieve"];
+        get: operations["admin_blog_posts_preflight_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -495,7 +495,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        post: operations["api_admin_blog_posts_publish_create"];
+        post: operations["admin_blog_posts_publish_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -516,7 +516,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        get: operations["api_admin_blog_posts_revisions_list"];
+        get: operations["admin_blog_posts_revisions_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -541,7 +541,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        post: operations["api_admin_blog_posts_revisions_restore_create"];
+        post: operations["admin_blog_posts_revisions_restore_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -564,7 +564,7 @@ export interface paths {
          *     ``can_publish_content`` and is checked again on the action itself, so a
          *     writer cannot reach it by crafting the request.
          */
-        post: operations["api_admin_blog_posts_unpublish_create"];
+        post: operations["admin_blog_posts_unpublish_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -584,7 +584,7 @@ export interface paths {
          *     Behind `can_publish_content` rather than `can_write_content`: these values
          *     change what every reader sees, which is an editor's call and not a writer's.
          */
-        get: operations["api_admin_blog_settings_retrieve"];
+        get: operations["admin_blog_settings_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -596,7 +596,7 @@ export interface paths {
          *     Behind `can_publish_content` rather than `can_write_content`: these values
          *     change what every reader sees, which is an editor's call and not a writer's.
          */
-        patch: operations["api_admin_blog_settings_partial_update"];
+        patch: operations["admin_blog_settings_partial_update"];
         trace?: never;
     };
     "/api/admin/blog/tags/": {
@@ -606,9 +606,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_blog_tags_list"];
+        get: operations["admin_blog_tags_list"];
         put?: never;
-        post: operations["api_admin_blog_tags_create"];
+        post: operations["admin_blog_tags_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -622,13 +622,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_blog_tags_retrieve"];
-        put: operations["api_admin_blog_tags_update"];
+        get: operations["admin_blog_tags_retrieve"];
+        put: operations["admin_blog_tags_update"];
         post?: never;
-        delete: operations["api_admin_blog_tags_destroy"];
+        delete: operations["admin_blog_tags_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_admin_blog_tags_partial_update"];
+        patch: operations["admin_blog_tags_partial_update"];
         trace?: never;
     };
     "/api/admin/cost-estimates/": {
@@ -645,7 +645,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        get: operations["api_admin_cost_estimates_list"];
+        get: operations["admin_cost_estimates_list"];
         put?: never;
         /**
          * @description The cost rows staff maintain.
@@ -654,7 +654,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        post: operations["api_admin_cost_estimates_create"];
+        post: operations["admin_cost_estimates_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -675,7 +675,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        get: operations["api_admin_cost_estimates_retrieve"];
+        get: operations["admin_cost_estimates_retrieve"];
         /**
          * @description The cost rows staff maintain.
          *
@@ -683,7 +683,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        put: operations["api_admin_cost_estimates_update"];
+        put: operations["admin_cost_estimates_update"];
         post?: never;
         /**
          * @description The cost rows staff maintain.
@@ -692,7 +692,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        delete: operations["api_admin_cost_estimates_destroy"];
+        delete: operations["admin_cost_estimates_destroy"];
         options?: never;
         head?: never;
         /**
@@ -702,7 +702,7 @@ export interface paths {
          *     marketing figures, not our prices, and the person who notices one has gone
          *     stale is usually the person writing about it.
          */
-        patch: operations["api_admin_cost_estimates_partial_update"];
+        patch: operations["admin_cost_estimates_partial_update"];
         trace?: never;
     };
     "/api/admin/forms/": {
@@ -713,10 +713,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description The form builder's backing API (plan §7.3). */
-        get: operations["api_admin_forms_list"];
+        get: operations["admin_forms_list"];
         put?: never;
         /** @description The form builder's backing API (plan §7.3). */
-        post: operations["api_admin_forms_create"];
+        post: operations["admin_forms_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -731,16 +731,16 @@ export interface paths {
             cookie?: never;
         };
         /** @description The form builder's backing API (plan §7.3). */
-        get: operations["api_admin_forms_retrieve"];
+        get: operations["admin_forms_retrieve"];
         /** @description The form builder's backing API (plan §7.3). */
-        put: operations["api_admin_forms_update"];
+        put: operations["admin_forms_update"];
         post?: never;
         /** @description The form builder's backing API (plan §7.3). */
-        delete: operations["api_admin_forms_destroy"];
+        delete: operations["admin_forms_destroy"];
         options?: never;
         head?: never;
         /** @description The form builder's backing API (plan §7.3). */
-        patch: operations["api_admin_forms_partial_update"];
+        patch: operations["admin_forms_partial_update"];
         trace?: never;
     };
     "/api/admin/forms/{id}/new-version/": {
@@ -753,7 +753,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The form builder's backing API (plan §7.3). */
-        post: operations["api_admin_forms_new_version_create"];
+        post: operations["admin_forms_new_version_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -770,7 +770,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The form builder's backing API (plan §7.3). */
-        post: operations["api_admin_forms_publish_create"];
+        post: operations["admin_forms_publish_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -787,7 +787,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Let the builder UI check a schema before saving it. */
-        post: operations["api_admin_forms_validate_schema_create"];
+        post: operations["admin_forms_validate_schema_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -807,7 +807,7 @@ export interface paths {
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        get: operations["api_admin_gateway_configs_list"];
+        get: operations["admin_gateway_configs_list"];
         put?: never;
         /**
          * @description Gateway credentials (plan §5.1).
@@ -815,7 +815,7 @@ export interface paths {
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        post: operations["api_admin_gateway_configs_create"];
+        post: operations["admin_gateway_configs_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -835,14 +835,14 @@ export interface paths {
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        get: operations["api_admin_gateway_configs_retrieve"];
+        get: operations["admin_gateway_configs_retrieve"];
         /**
          * @description Gateway credentials (plan §5.1).
          *
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        put: operations["api_admin_gateway_configs_update"];
+        put: operations["admin_gateway_configs_update"];
         post?: never;
         /**
          * @description Gateway credentials (plan §5.1).
@@ -850,7 +850,7 @@ export interface paths {
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        delete: operations["api_admin_gateway_configs_destroy"];
+        delete: operations["admin_gateway_configs_destroy"];
         options?: never;
         head?: never;
         /**
@@ -859,7 +859,7 @@ export interface paths {
          *     Gated on ``can_manage_payment_config`` specifically, not on staff status —
          *     a document reviewer must never reach live API keys.
          */
-        patch: operations["api_admin_gateway_configs_partial_update"];
+        patch: operations["admin_gateway_configs_partial_update"];
         trace?: never;
     };
     "/api/admin/payments/": {
@@ -869,7 +869,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_payments_list"];
+        get: operations["admin_payments_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -885,7 +885,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_payments_retrieve"];
+        get: operations["admin_payments_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -903,7 +903,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_admin_payments_refund_create"];
+        post: operations["admin_payments_refund_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -917,9 +917,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_payouts_list"];
+        get: operations["admin_payouts_list"];
         put?: never;
-        post: operations["api_admin_payouts_create"];
+        post: operations["admin_payouts_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -933,7 +933,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_payouts_retrieve"];
+        get: operations["admin_payouts_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -951,7 +951,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_admin_payouts_mark_paid_create"];
+        post: operations["admin_payouts_mark_paid_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -972,7 +972,7 @@ export interface paths {
          *     charged, so it belongs with the people who already hold the gateway keys and
          *     not with everyone who can edit a page.
          */
-        get: operations["api_admin_pricing_retrieve"];
+        get: operations["admin_pricing_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -985,7 +985,7 @@ export interface paths {
          *     charged, so it belongs with the people who already hold the gateway keys and
          *     not with everyone who can edit a page.
          */
-        patch: operations["api_admin_pricing_partial_update"];
+        patch: operations["admin_pricing_partial_update"];
         trace?: never;
     };
     "/api/admin/reconciliation/": {
@@ -995,7 +995,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_reconciliation_list"];
+        get: operations["admin_reconciliation_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1011,7 +1011,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_reconciliation_retrieve"];
+        get: operations["admin_reconciliation_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1029,7 +1029,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_admin_reconciliation_run_create"];
+        post: operations["admin_reconciliation_run_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1043,9 +1043,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_referral_codes_list"];
+        get: operations["admin_referral_codes_list"];
         put?: never;
-        post: operations["api_admin_referral_codes_create"];
+        post: operations["admin_referral_codes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1059,13 +1059,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_referral_codes_retrieve"];
-        put: operations["api_admin_referral_codes_update"];
+        get: operations["admin_referral_codes_retrieve"];
+        put: operations["admin_referral_codes_update"];
         post?: never;
-        delete: operations["api_admin_referral_codes_destroy"];
+        delete: operations["admin_referral_codes_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_admin_referral_codes_partial_update"];
+        patch: operations["admin_referral_codes_partial_update"];
         trace?: never;
     };
     "/api/admin/requirement-items/": {
@@ -1075,9 +1075,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_requirement_items_list"];
+        get: operations["admin_requirement_items_list"];
         put?: never;
-        post: operations["api_admin_requirement_items_create"];
+        post: operations["admin_requirement_items_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1091,13 +1091,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_requirement_items_retrieve"];
-        put: operations["api_admin_requirement_items_update"];
+        get: operations["admin_requirement_items_retrieve"];
+        put: operations["admin_requirement_items_update"];
         post?: never;
-        delete: operations["api_admin_requirement_items_destroy"];
+        delete: operations["admin_requirement_items_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_admin_requirement_items_partial_update"];
+        patch: operations["admin_requirement_items_partial_update"];
         trace?: never;
     };
     "/api/admin/requirement-sets/": {
@@ -1108,10 +1108,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        get: operations["api_admin_requirement_sets_list"];
+        get: operations["admin_requirement_sets_list"];
         put?: never;
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        post: operations["api_admin_requirement_sets_create"];
+        post: operations["admin_requirement_sets_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1126,16 +1126,16 @@ export interface paths {
             cookie?: never;
         };
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        get: operations["api_admin_requirement_sets_retrieve"];
+        get: operations["admin_requirement_sets_retrieve"];
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        put: operations["api_admin_requirement_sets_update"];
+        put: operations["admin_requirement_sets_update"];
         post?: never;
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        delete: operations["api_admin_requirement_sets_destroy"];
+        delete: operations["admin_requirement_sets_destroy"];
         options?: never;
         head?: never;
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        patch: operations["api_admin_requirement_sets_partial_update"];
+        patch: operations["admin_requirement_sets_partial_update"];
         trace?: never;
     };
     "/api/admin/requirement-sets/{id}/clone/": {
@@ -1148,7 +1148,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Clone a template or an existing set onto a school (plan §4.1). */
-        post: operations["api_admin_requirement_sets_clone_create"];
+        post: operations["admin_requirement_sets_clone_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1165,7 +1165,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        post: operations["api_admin_requirement_sets_new_version_create"];
+        post: operations["admin_requirement_sets_new_version_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1182,7 +1182,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Versioned requirement sets, with publish / clone / new-version (plan §7.2). */
-        post: operations["api_admin_requirement_sets_publish_create"];
+        post: operations["admin_requirement_sets_publish_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1202,7 +1202,7 @@ export interface paths {
          *     A first-class, cross-student list rather than something buried inside each
          *     profile — this is the screen the team lives in daily.
          */
-        get: operations["api_admin_review_queue_list"];
+        get: operations["admin_review_queue_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1224,7 +1224,7 @@ export interface paths {
          *     A first-class, cross-student list rather than something buried inside each
          *     profile — this is the screen the team lives in daily.
          */
-        get: operations["api_admin_review_queue_retrieve"];
+        get: operations["admin_review_queue_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1240,9 +1240,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_reward_rules_list"];
+        get: operations["admin_reward_rules_list"];
         put?: never;
-        post: operations["api_admin_reward_rules_create"];
+        post: operations["admin_reward_rules_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1256,13 +1256,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_reward_rules_retrieve"];
-        put: operations["api_admin_reward_rules_update"];
+        get: operations["admin_reward_rules_retrieve"];
+        put: operations["admin_reward_rules_update"];
         post?: never;
-        delete: operations["api_admin_reward_rules_destroy"];
+        delete: operations["admin_reward_rules_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_admin_reward_rules_partial_update"];
+        patch: operations["admin_reward_rules_partial_update"];
         trace?: never;
     };
     "/api/admin/rewards/": {
@@ -1273,10 +1273,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Reward approval queue, including anything the fraud checks flagged. */
-        get: operations["api_admin_rewards_list"];
+        get: operations["admin_rewards_list"];
         put?: never;
         /** @description Reward approval queue, including anything the fraud checks flagged. */
-        post: operations["api_admin_rewards_create"];
+        post: operations["admin_rewards_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1291,7 +1291,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Reward approval queue, including anything the fraud checks flagged. */
-        get: operations["api_admin_rewards_retrieve"];
+        get: operations["admin_rewards_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1310,7 +1310,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Reward approval queue, including anything the fraud checks flagged. */
-        post: operations["api_admin_rewards_approve_create"];
+        post: operations["admin_rewards_approve_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1327,7 +1327,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Reward approval queue, including anything the fraud checks flagged. */
-        post: operations["api_admin_rewards_void_create"];
+        post: operations["admin_rewards_void_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1342,10 +1342,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Staff-facing student directory (plan §7.1). */
-        get: operations["api_admin_students_list"];
+        get: operations["admin_students_list"];
         put?: never;
         /** @description Staff-facing student directory (plan §7.1). */
-        post: operations["api_admin_students_create"];
+        post: operations["admin_students_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1360,14 +1360,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description Staff-facing student directory (plan §7.1). */
-        get: operations["api_admin_students_retrieve"];
+        get: operations["admin_students_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description Staff-facing student directory (plan §7.1). */
-        patch: operations["api_admin_students_partial_update"];
+        patch: operations["admin_students_partial_update"];
         trace?: never;
     };
     "/api/admin/students/{id}/erase/": {
@@ -1380,7 +1380,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description NDPR erasure request. Irreversible, restricted, and audited. */
-        post: operations["api_admin_students_erase_create"];
+        post: operations["admin_students_erase_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1394,7 +1394,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_submissions_list"];
+        get: operations["admin_submissions_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1410,7 +1410,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_admin_submissions_retrieve"];
+        get: operations["admin_submissions_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1427,7 +1427,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The raw webhook log — the answer to 'did they actually pay?' (§5.2). */
-        get: operations["api_admin_webhook_events_list"];
+        get: operations["admin_webhook_events_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1444,7 +1444,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The raw webhook log — the answer to 'did they actually pay?' (§5.2). */
-        get: operations["api_admin_webhook_events_retrieve"];
+        get: operations["admin_webhook_events_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1463,7 +1463,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The raw webhook log — the answer to 'did they actually pay?' (§5.2). */
-        post: operations["api_admin_webhook_events_reprocess_create"];
+        post: operations["admin_webhook_events_reprocess_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1478,10 +1478,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Adds the view's scoped throttle to POSTs, on top of the default ones. */
-        get: operations["api_ai_v1_checks_offers_list"];
+        get: operations["ai_v1_checks_offers_list"];
         put?: never;
         /** @description Adds the view's scoped throttle to POSTs, on top of the default ones. */
-        post: operations["api_ai_v1_checks_offers_create"];
+        post: operations["ai_v1_checks_offers_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1495,10 +1495,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_checks_offers_retrieve"];
+        get: operations["ai_v1_checks_offers_retrieve"];
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_checks_offers_destroy"];
+        delete: operations["ai_v1_checks_offers_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1514,7 +1514,24 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Adds the view's scoped throttle to POSTs, on top of the default ones. */
-        post: operations["api_ai_v1_checks_offers_report_create"];
+        post: operations["ai_v1_checks_offers_report_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/checks/offers/{check_id}/save/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Keep a checked offer in the candidate's documents, as an offer letter. */
+        post: operations["ai_v1_checks_offers_save_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1531,7 +1548,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The fields on the page → an answer for each (US-304: under 5 s, no model call). */
-        post: operations["api_ai_v1_extension_match_create"];
+        post: operations["ai_v1_extension_match_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1546,7 +1563,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Accepts only an extension token, and only with the view's scope. */
-        get: operations["api_ai_v1_extension_me_retrieve"];
+        get: operations["ai_v1_extension_me_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1563,7 +1580,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Accepts only an extension token, and only with the view's scope. */
-        get: operations["api_ai_v1_extension_packs_list"];
+        get: operations["ai_v1_extension_packs_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1580,7 +1597,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Accepts only an extension token, and only with the view's scope. */
-        get: operations["api_ai_v1_extension_packs_retrieve"];
+        get: operations["ai_v1_extension_packs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1599,7 +1616,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The extension exchanges a code for its scoped token. No session needed. */
-        post: operations["api_ai_v1_extension_pair_create"];
+        post: operations["ai_v1_extension_pair_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1613,7 +1630,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_facts_retrieve"];
+        get: operations["ai_v1_facts_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1630,7 +1647,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Foreign amount → naira, with the rate's own provenance (principles B4). */
-        get: operations["api_ai_v1_fx_convert_retrieve"];
+        get: operations["ai_v1_fx_convert_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1646,7 +1663,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_guide_answers_retrieve"];
+        get: operations["ai_v1_guide_answers_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1662,7 +1679,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_guide_arrival_retrieve"];
+        get: operations["ai_v1_guide_arrival_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1681,7 +1698,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Ask about a route; answered only from its official pages, with quotes (M5-8). */
-        post: operations["api_ai_v1_guide_ask_create"];
+        post: operations["ai_v1_guide_ask_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1695,7 +1712,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_guide_credentials_list"];
+        get: operations["ai_v1_guide_credentials_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1711,7 +1728,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_guide_credentials_letter_retrieve"];
+        get: operations["ai_v1_guide_credentials_letter_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1727,7 +1744,27 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_guide_fees_retrieve"];
+        get: operations["ai_v1_guide_fees_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/guide/job-offer/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description What a real offer and sponsorship process looks like, from official
+         *     sources. Public: it's the same for everyone.
+         */
+        get: operations["ai_v1_guide_job_offer_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1776,7 +1813,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_jobs_retrieve"];
+        get: operations["ai_v1_jobs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1798,7 +1835,24 @@ export interface paths {
          * @description Prepare answers for a job. Asking again returns the same pack until the
          *     profile changes.
          */
-        post: operations["api_ai_v1_jobs_answer_pack_create"];
+        post: operations["ai_v1_jobs_answer_pack_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/jobs/{job_id}/apply/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Record "Apply on the employer's site" before the browser opens it. */
+        post: operations["ai_v1_jobs_apply_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1815,7 +1869,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Adds the view's scoped throttle to POSTs, on top of the default ones. */
-        post: operations["api_ai_v1_jobs_report_create"];
+        post: operations["ai_v1_jobs_report_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1831,8 +1885,25 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_jobs_save_create"];
-        delete: operations["api_ai_v1_jobs_save_destroy"];
+        post: operations["ai_v1_jobs_save_create"];
+        delete: operations["ai_v1_jobs_save_destroy"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/jobs/{job_id}/similar/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Verified jobs with close titles in the same country, best fit first. */
+        get: operations["ai_v1_jobs_similar_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -1845,7 +1916,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_retrieve"];
+        get: operations["ai_v1_me_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1861,7 +1932,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_answer_packs_list"];
+        get: operations["ai_v1_me_answer_packs_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1877,7 +1948,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_answer_packs_retrieve"];
+        get: operations["ai_v1_me_answer_packs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1899,7 +1970,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_answer_packs_answers_partial_update"];
+        patch: operations["ai_v1_me_answer_packs_answers_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/applications/": {
@@ -1911,7 +1982,7 @@ export interface paths {
         };
         get: operations["ai_board_list"];
         put?: never;
-        post: operations["api_ai_v1_me_applications_create"];
+        post: operations["ai_v1_me_applications_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1925,13 +1996,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_applications_retrieve"];
+        get: operations["ai_v1_me_applications_retrieve"];
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_me_applications_destroy"];
+        delete: operations["ai_v1_me_applications_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_applications_partial_update"];
+        patch: operations["ai_v1_me_applications_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/applications/{card_id}/move/": {
@@ -1943,7 +2014,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_applications_move_create"];
+        post: operations["ai_v1_me_applications_move_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1959,7 +2030,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_applications_suggestions_create"];
+        post: operations["ai_v1_me_applications_suggestions_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1974,7 +2045,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put: operations["api_ai_v1_me_arrival_update"];
+        put: operations["ai_v1_me_arrival_update"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1989,7 +2060,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_changes_list"];
+        get: operations["ai_v1_me_changes_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2005,7 +2076,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_checklists_retrieve"];
+        get: operations["ai_v1_me_checklists_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2021,9 +2092,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_coaching_sessions_list"];
+        get: operations["ai_v1_me_coaching_sessions_list"];
         put?: never;
-        post: operations["api_ai_v1_me_coaching_sessions_create"];
+        post: operations["ai_v1_me_coaching_sessions_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2037,7 +2108,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_coaching_sessions_retrieve"];
+        get: operations["ai_v1_me_coaching_sessions_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2055,7 +2126,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_coaching_sessions_answers_create"];
+        post: operations["ai_v1_me_coaching_sessions_answers_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2070,7 +2141,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description All seven countries side by side (M0-4). Looking never counts as a switch. */
-        get: operations["api_ai_v1_me_compare_list"];
+        get: operations["ai_v1_me_compare_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2086,9 +2157,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_credential_requests_list"];
+        get: operations["ai_v1_me_credential_requests_list"];
         put?: never;
-        post: operations["api_ai_v1_me_credential_requests_create"];
+        post: operations["ai_v1_me_credential_requests_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2108,7 +2179,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_credential_requests_partial_update"];
+        patch: operations["ai_v1_me_credential_requests_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/data/erase/": {
@@ -2121,7 +2192,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Erase every Nasuru AI record and file. The data key is shredded at once. */
-        post: operations["api_ai_v1_me_data_erase_create"];
+        post: operations["ai_v1_me_data_erase_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2135,9 +2206,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_data_exports_retrieve"];
+        get: operations["ai_v1_me_data_exports_retrieve"];
         put?: never;
-        post: operations["api_ai_v1_me_data_exports_create"];
+        post: operations["ai_v1_me_data_exports_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2151,7 +2222,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_data_exports_download_retrieve"];
+        get: operations["ai_v1_me_data_exports_download_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2167,9 +2238,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_destination_retrieve"];
+        get: operations["ai_v1_me_destination_retrieve"];
         put?: never;
-        post: operations["api_ai_v1_me_destination_create"];
+        post: operations["ai_v1_me_destination_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2183,9 +2254,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_devices_list"];
+        get: operations["ai_v1_me_devices_list"];
         put?: never;
-        post: operations["api_ai_v1_me_devices_create"];
+        post: operations["ai_v1_me_devices_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2202,7 +2273,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_me_devices_destroy"];
+        delete: operations["ai_v1_me_devices_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2215,9 +2286,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_documents_list"];
+        get: operations["ai_v1_me_documents_list"];
         put?: never;
-        post: operations["api_ai_v1_me_documents_create"];
+        post: operations["ai_v1_me_documents_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2231,13 +2302,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_documents_retrieve"];
+        get: operations["ai_v1_me_documents_retrieve"];
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_me_documents_destroy"];
+        delete: operations["ai_v1_me_documents_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_documents_partial_update"];
+        patch: operations["ai_v1_me_documents_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/documents/{document_id}/download/": {
@@ -2248,7 +2319,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The decrypted file, to its owner only; every download is logged. */
-        get: operations["api_ai_v1_me_documents_download_retrieve"];
+        get: operations["ai_v1_me_documents_download_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2265,7 +2336,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Who opened what, and when (US-501). */
-        get: operations["api_ai_v1_me_documents_access_log_list"];
+        get: operations["ai_v1_me_documents_access_log_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2281,7 +2352,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_documents_expiring_retrieve"];
+        get: operations["ai_v1_me_documents_expiring_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2313,7 +2384,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_eligibility_retrieve"];
+        get: operations["ai_v1_me_eligibility_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2332,7 +2403,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Settings → Extension: a 6-digit code for pairing (signed-in web or app). */
-        post: operations["api_ai_v1_me_extension_pairing_code_create"];
+        post: operations["ai_v1_me_extension_pairing_code_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2346,7 +2417,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_extension_tokens_list"];
+        get: operations["ai_v1_me_extension_tokens_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2365,7 +2436,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_me_extension_tokens_destroy"];
+        delete: operations["ai_v1_me_extension_tokens_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2378,9 +2449,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_facts_list"];
+        get: operations["ai_v1_me_facts_list"];
         put?: never;
-        post: operations["api_ai_v1_me_facts_create"];
+        post: operations["ai_v1_me_facts_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2400,7 +2471,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_facts_partial_update"];
+        patch: operations["ai_v1_me_facts_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/facts/{fact_id}/confirm/": {
@@ -2412,7 +2483,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_facts_confirm_create"];
+        post: operations["ai_v1_me_facts_confirm_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2428,7 +2499,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_facts_reject_create"];
+        post: operations["ai_v1_me_facts_reject_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2444,7 +2515,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_facts_confirm_viewed_create"];
+        post: operations["ai_v1_me_facts_confirm_viewed_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2460,7 +2531,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_facts_viewed_create"];
+        post: operations["ai_v1_me_facts_viewed_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2474,9 +2545,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_funds_checks_list"];
+        get: operations["ai_v1_me_funds_checks_list"];
         put?: never;
-        post: operations["api_ai_v1_me_funds_checks_create"];
+        post: operations["ai_v1_me_funds_checks_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2490,7 +2561,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_funds_checks_retrieve"];
+        get: operations["ai_v1_me_funds_checks_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2506,9 +2577,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_generated_documents_list"];
+        get: operations["ai_v1_me_generated_documents_list"];
         put?: never;
-        post: operations["api_ai_v1_me_generated_documents_create"];
+        post: operations["ai_v1_me_generated_documents_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2522,10 +2593,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_generated_documents_retrieve"];
+        get: operations["ai_v1_me_generated_documents_retrieve"];
         put?: never;
         post?: never;
-        delete: operations["api_ai_v1_me_generated_documents_destroy"];
+        delete: operations["ai_v1_me_generated_documents_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2539,7 +2610,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The PDF or DOCX, decrypted for its owner (files are encrypted in storage). */
-        get: operations["api_ai_v1_me_generated_documents_download_retrieve"];
+        get: operations["ai_v1_me_generated_documents_download_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2556,7 +2627,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description How your degree result was converted, with the working (principle A4). */
-        get: operations["api_ai_v1_me_grade_retrieve"];
+        get: operations["ai_v1_me_grade_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2703,6 +2774,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/me/job-searches/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Saved searches (web.md §7.1). Alerts follow the ones with alerts on. */
+        get: operations["ai_v1_me_job_searches_list"];
+        put?: never;
+        /** @description Saved searches (web.md §7.1). Alerts follow the ones with alerts on. */
+        post: operations["ai_v1_me_job_searches_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/job-searches/{search_id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["ai_v1_me_job_searches_destroy"];
+        options?: never;
+        head?: never;
+        patch: operations["ai_v1_me_job_searches_partial_update"];
+        trace?: never;
+    };
     "/api/ai/v1/me/notifications/preferences/": {
         parameters: {
             query?: never;
@@ -2710,8 +2815,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_notifications_preferences_retrieve"];
-        put: operations["api_ai_v1_me_notifications_preferences_update"];
+        get: operations["ai_v1_me_notifications_preferences_retrieve"];
+        put: operations["ai_v1_me_notifications_preferences_update"];
         post?: never;
         delete?: never;
         options?: never;
@@ -2726,9 +2831,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_occupation_retrieve"];
+        get: operations["ai_v1_me_occupation_retrieve"];
         put?: never;
-        post: operations["api_ai_v1_me_occupation_create"];
+        post: operations["ai_v1_me_occupation_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2742,7 +2847,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_occupation_suggestions_list"];
+        get: operations["ai_v1_me_occupation_suggestions_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2761,7 +2866,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The last onboarding step's "Build my plan". Completing twice is fine. */
-        post: operations["api_ai_v1_me_onboarding_complete_create"];
+        post: operations["ai_v1_me_onboarding_complete_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2775,9 +2880,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_plan_retrieve"];
+        get: operations["ai_v1_me_plan_retrieve"];
         put?: never;
-        post: operations["api_ai_v1_me_plan_create"];
+        post: operations["ai_v1_me_plan_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2792,7 +2897,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Ranked pathways for the active destination (or ``?country=``). */
-        get: operations["api_ai_v1_me_plan_pathways_retrieve"];
+        get: operations["ai_v1_me_plan_pathways_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2810,8 +2915,28 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_plan_share_create"];
-        delete: operations["api_ai_v1_me_plan_share_destroy"];
+        post: operations["ai_v1_me_plan_share_create"];
+        delete: operations["ai_v1_me_plan_share_destroy"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/plan/todos/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description Add a to-do yourself: a gap from a route outside your plan, or a points
+         *     what-if ("Add this improvement to my plan").
+         */
+        post: operations["ai_v1_me_plan_todos_create"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -2830,7 +2955,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_plan_todos_partial_update"];
+        patch: operations["ai_v1_me_plan_todos_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/points/{scheme}/": {
@@ -2844,13 +2969,13 @@ export interface paths {
          * @description Your score, computed from your confirmed profile; POST to try what-ifs.
          *     What-ifs never write anything.
          */
-        get: operations["api_ai_v1_me_points_retrieve"];
+        get: operations["ai_v1_me_points_retrieve"];
         put?: never;
         /**
          * @description Your score, computed from your confirmed profile; POST to try what-ifs.
          *     What-ifs never write anything.
          */
-        post: operations["api_ai_v1_me_points_create"];
+        post: operations["ai_v1_me_points_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2868,7 +2993,7 @@ export interface paths {
          * @description Exactly what the rules engine sees. Shown to the candidate on request:
          *     no hidden inputs.
          */
-        get: operations["api_ai_v1_me_profile_retrieve"];
+        get: operations["ai_v1_me_profile_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2884,13 +3009,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_questionnaire_retrieve"];
+        get: operations["ai_v1_me_questionnaire_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_me_questionnaire_partial_update"];
+        patch: operations["ai_v1_me_questionnaire_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/me/saved-jobs/": {
@@ -2901,7 +3026,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Saved jobs stay listed after they close or lose trust, marked so. */
-        get: operations["api_ai_v1_me_saved_jobs_retrieve"];
+        get: operations["ai_v1_me_saved_jobs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2917,7 +3042,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_subscription_retrieve"];
+        get: operations["ai_v1_me_subscription_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2935,7 +3060,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_subscription_cancel_create"];
+        post: operations["ai_v1_me_subscription_cancel_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2951,7 +3076,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_subscription_checkout_create"];
+        post: operations["ai_v1_me_subscription_checkout_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2967,7 +3092,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_uploads_create"];
+        post: operations["ai_v1_me_uploads_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2981,7 +3106,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_me_uploads_retrieve"];
+        get: operations["ai_v1_me_uploads_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2999,7 +3124,7 @@ export interface paths {
         };
         get?: never;
         /** @description ``PUT`` the raw bytes of chunk ``index`` (``application/octet-stream``). */
-        put: operations["api_ai_v1_me_uploads_chunks_update"];
+        put: operations["ai_v1_me_uploads_chunks_update"];
         post?: never;
         delete?: never;
         options?: never;
@@ -3016,7 +3141,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_me_uploads_complete_create"];
+        post: operations["ai_v1_me_uploads_complete_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3037,7 +3162,7 @@ export interface paths {
          *     forced-update screen, so an old client never talks to an API that can no
          *     longer serve it.
          */
-        get: operations["api_ai_v1_meta_retrieve"];
+        get: operations["ai_v1_meta_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3053,7 +3178,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_occupations_search_list"];
+        get: operations["ai_v1_occupations_search_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3073,7 +3198,7 @@ export interface paths {
          * @description What the pricing page shows. Prices come from the plan rows: the number
          *     on the page is the number the gateway charges.
          */
-        get: operations["api_ai_v1_plans_list"];
+        get: operations["ai_v1_plans_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3089,7 +3214,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_routes_list"];
+        get: operations["ai_v1_routes_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3106,7 +3231,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The requirements in force today, each with its source (route guides, web.md §3.4). */
-        get: operations["api_ai_v1_routes_retrieve"];
+        get: operations["ai_v1_routes_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3123,7 +3248,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Confirmed scams, public by design (principle A8). Nothing about reporters. */
-        get: operations["api_ai_v1_scams_list"];
+        get: operations["ai_v1_scams_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3140,7 +3265,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Public, no login: what a parent or sponsor sees through the link. */
-        get: operations["api_ai_v1_share_retrieve"];
+        get: operations["ai_v1_share_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3157,7 +3282,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description What a SourceLine links to. Public: evidence is not behind a login. */
-        get: operations["api_ai_v1_sources_retrieve"];
+        get: operations["ai_v1_sources_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3173,9 +3298,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_arrival_items_list"];
+        get: operations["ai_v1_staff_arrival_items_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_arrival_items_create"];
+        post: operations["ai_v1_staff_arrival_items_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3189,13 +3314,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_arrival_items_retrieve"];
-        put: operations["api_ai_v1_staff_arrival_items_update"];
+        get: operations["ai_v1_staff_arrival_items_retrieve"];
+        put: operations["ai_v1_staff_arrival_items_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_arrival_items_destroy"];
+        delete: operations["ai_v1_staff_arrival_items_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_arrival_items_partial_update"];
+        patch: operations["ai_v1_staff_arrival_items_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/ats-health/": {
@@ -3205,7 +3330,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_ats_health_retrieve"];
+        get: operations["ai_v1_staff_ats_health_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3237,7 +3362,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_candidates_retrieve"];
+        get: operations["ai_v1_staff_candidates_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3256,7 +3381,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Opening a candidate's document needs a reason; it is logged and the candidate is told. */
-        post: operations["api_ai_v1_staff_candidates_documents_open_create"];
+        post: operations["ai_v1_staff_candidates_documents_open_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3272,7 +3397,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_candidates_extend_create"];
+        post: operations["ai_v1_staff_candidates_extend_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3288,7 +3413,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_candidates_recompute_create"];
+        post: operations["ai_v1_staff_candidates_recompute_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3302,9 +3427,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_checklist_items_list"];
+        get: operations["ai_v1_staff_checklist_items_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_checklist_items_create"];
+        post: operations["ai_v1_staff_checklist_items_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3318,13 +3443,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_checklist_items_retrieve"];
-        put: operations["api_ai_v1_staff_checklist_items_update"];
+        get: operations["ai_v1_staff_checklist_items_retrieve"];
+        put: operations["ai_v1_staff_checklist_items_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_checklist_items_destroy"];
+        delete: operations["ai_v1_staff_checklist_items_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_checklist_items_partial_update"];
+        patch: operations["ai_v1_staff_checklist_items_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/credential-guides/": {
@@ -3334,9 +3459,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_credential_guides_list"];
+        get: operations["ai_v1_staff_credential_guides_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_credential_guides_create"];
+        post: operations["ai_v1_staff_credential_guides_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3350,13 +3475,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_credential_guides_retrieve"];
-        put: operations["api_ai_v1_staff_credential_guides_update"];
+        get: operations["ai_v1_staff_credential_guides_retrieve"];
+        put: operations["ai_v1_staff_credential_guides_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_credential_guides_destroy"];
+        delete: operations["ai_v1_staff_credential_guides_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_credential_guides_partial_update"];
+        patch: operations["ai_v1_staff_credential_guides_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/employers/": {
@@ -3366,7 +3491,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_employers_list"];
+        get: operations["ai_v1_staff_employers_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3382,13 +3507,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_employers_retrieve"];
-        put: operations["api_ai_v1_staff_employers_update"];
+        get: operations["ai_v1_staff_employers_retrieve"];
+        put: operations["ai_v1_staff_employers_update"];
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_employers_partial_update"];
+        patch: operations["ai_v1_staff_employers_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/facts/": {
@@ -3398,9 +3523,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_facts_list"];
+        get: operations["ai_v1_staff_facts_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_facts_create"];
+        post: operations["ai_v1_staff_facts_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3414,13 +3539,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_facts_retrieve"];
-        put: operations["api_ai_v1_staff_facts_update"];
+        get: operations["ai_v1_staff_facts_retrieve"];
+        put: operations["ai_v1_staff_facts_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_facts_destroy"];
+        delete: operations["ai_v1_staff_facts_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_facts_partial_update"];
+        patch: operations["ai_v1_staff_facts_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/feeds/": {
@@ -3430,9 +3555,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_feeds_list"];
+        get: operations["ai_v1_staff_feeds_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_feeds_create"];
+        post: operations["ai_v1_staff_feeds_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3446,13 +3571,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_feeds_retrieve"];
-        put: operations["api_ai_v1_staff_feeds_update"];
+        get: operations["ai_v1_staff_feeds_retrieve"];
+        put: operations["ai_v1_staff_feeds_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_feeds_destroy"];
+        delete: operations["ai_v1_staff_feeds_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_feeds_partial_update"];
+        patch: operations["ai_v1_staff_feeds_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/feeds/{id}/poll-now/": {
@@ -3464,7 +3589,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_feeds_poll_now_create"];
+        post: operations["ai_v1_staff_feeds_poll_now_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3478,7 +3603,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_freshness_list"];
+        get: operations["ai_v1_staff_freshness_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3494,9 +3619,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_fx_rates_list"];
+        get: operations["ai_v1_staff_fx_rates_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_fx_rates_create"];
+        post: operations["ai_v1_staff_fx_rates_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3510,13 +3635,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_fx_rates_retrieve"];
-        put: operations["api_ai_v1_staff_fx_rates_update"];
+        get: operations["ai_v1_staff_fx_rates_retrieve"];
+        put: operations["ai_v1_staff_fx_rates_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_fx_rates_destroy"];
+        delete: operations["ai_v1_staff_fx_rates_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_fx_rates_partial_update"];
+        patch: operations["ai_v1_staff_fx_rates_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/handoffs/": {
@@ -3527,7 +3652,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The agency's queue of consented requests (US-404). */
-        get: operations["api_ai_v1_staff_handoffs_list"];
+        get: operations["ai_v1_staff_handoffs_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3544,14 +3669,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description The agency's queue of consented requests (US-404). */
-        get: operations["api_ai_v1_staff_handoffs_retrieve"];
+        get: operations["ai_v1_staff_handoffs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description The agency's queue of consented requests (US-404). */
-        patch: operations["api_ai_v1_staff_handoffs_partial_update"];
+        patch: operations["ai_v1_staff_handoffs_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/ingestion-runs/": {
@@ -3561,7 +3686,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_ingestion_runs_list"];
+        get: operations["ai_v1_staff_ingestion_runs_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3577,9 +3702,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_institutions_list"];
+        get: operations["ai_v1_staff_institutions_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_institutions_create"];
+        post: operations["ai_v1_staff_institutions_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3593,13 +3718,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_institutions_retrieve"];
-        put: operations["api_ai_v1_staff_institutions_update"];
+        get: operations["ai_v1_staff_institutions_retrieve"];
+        put: operations["ai_v1_staff_institutions_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_institutions_destroy"];
+        delete: operations["ai_v1_staff_institutions_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_institutions_partial_update"];
+        patch: operations["ai_v1_staff_institutions_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/intakes/": {
@@ -3609,9 +3734,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_intakes_list"];
+        get: operations["ai_v1_staff_intakes_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_intakes_create"];
+        post: operations["ai_v1_staff_intakes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3625,13 +3750,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_intakes_retrieve"];
-        put: operations["api_ai_v1_staff_intakes_update"];
+        get: operations["ai_v1_staff_intakes_retrieve"];
+        put: operations["ai_v1_staff_intakes_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_intakes_destroy"];
+        delete: operations["ai_v1_staff_intakes_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_intakes_partial_update"];
+        patch: operations["ai_v1_staff_intakes_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/jobs/": {
@@ -3641,7 +3766,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_jobs_list"];
+        get: operations["ai_v1_staff_jobs_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3657,7 +3782,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_jobs_retrieve"];
+        get: operations["ai_v1_staff_jobs_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3675,7 +3800,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_jobs_hide_create"];
+        post: operations["ai_v1_staff_jobs_hide_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3691,7 +3816,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_jobs_reverify_create"];
+        post: operations["ai_v1_staff_jobs_reverify_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3707,7 +3832,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_jobs_unhide_create"];
+        post: operations["ai_v1_staff_jobs_unhide_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3721,9 +3846,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_nationality_gates_list"];
+        get: operations["ai_v1_staff_nationality_gates_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_nationality_gates_create"];
+        post: operations["ai_v1_staff_nationality_gates_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3737,13 +3862,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_nationality_gates_retrieve"];
-        put: operations["api_ai_v1_staff_nationality_gates_update"];
+        get: operations["ai_v1_staff_nationality_gates_retrieve"];
+        put: operations["ai_v1_staff_nationality_gates_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_nationality_gates_destroy"];
+        delete: operations["ai_v1_staff_nationality_gates_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_nationality_gates_partial_update"];
+        patch: operations["ai_v1_staff_nationality_gates_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/overview/": {
@@ -3753,7 +3878,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_overview_retrieve"];
+        get: operations["ai_v1_staff_overview_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3770,10 +3895,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Prices sit with whoever holds the gateway keys (as for the access fee). */
-        get: operations["api_ai_v1_staff_plans_list"];
+        get: operations["ai_v1_staff_plans_list"];
         put?: never;
         /** @description Prices sit with whoever holds the gateway keys (as for the access fee). */
-        post: operations["api_ai_v1_staff_plans_create"];
+        post: operations["ai_v1_staff_plans_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3788,14 +3913,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description Prices sit with whoever holds the gateway keys (as for the access fee). */
-        get: operations["api_ai_v1_staff_plans_retrieve"];
+        get: operations["ai_v1_staff_plans_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description Prices sit with whoever holds the gateway keys (as for the access fee). */
-        patch: operations["api_ai_v1_staff_plans_partial_update"];
+        patch: operations["ai_v1_staff_plans_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/portal-fees/": {
@@ -3805,9 +3930,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_portal_fees_list"];
+        get: operations["ai_v1_staff_portal_fees_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_portal_fees_create"];
+        post: operations["ai_v1_staff_portal_fees_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3821,13 +3946,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_portal_fees_retrieve"];
-        put: operations["api_ai_v1_staff_portal_fees_update"];
+        get: operations["ai_v1_staff_portal_fees_retrieve"];
+        put: operations["ai_v1_staff_portal_fees_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_portal_fees_destroy"];
+        delete: operations["ai_v1_staff_portal_fees_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_portal_fees_partial_update"];
+        patch: operations["ai_v1_staff_portal_fees_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/postings/": {
@@ -3837,7 +3962,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_postings_list"];
+        get: operations["ai_v1_staff_postings_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3853,7 +3978,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_postings_retrieve"];
+        get: operations["ai_v1_staff_postings_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3869,9 +3994,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_programme_requirements_list"];
+        get: operations["ai_v1_staff_programme_requirements_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_programme_requirements_create"];
+        post: operations["ai_v1_staff_programme_requirements_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3885,13 +4010,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_programme_requirements_retrieve"];
-        put: operations["api_ai_v1_staff_programme_requirements_update"];
+        get: operations["ai_v1_staff_programme_requirements_retrieve"];
+        put: operations["ai_v1_staff_programme_requirements_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_programme_requirements_destroy"];
+        delete: operations["ai_v1_staff_programme_requirements_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_programme_requirements_partial_update"];
+        patch: operations["ai_v1_staff_programme_requirements_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/programmes/": {
@@ -3901,9 +4026,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_programmes_list"];
+        get: operations["ai_v1_staff_programmes_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_programmes_create"];
+        post: operations["ai_v1_staff_programmes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3917,13 +4042,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_programmes_retrieve"];
-        put: operations["api_ai_v1_staff_programmes_update"];
+        get: operations["ai_v1_staff_programmes_retrieve"];
+        put: operations["ai_v1_staff_programmes_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_programmes_destroy"];
+        delete: operations["ai_v1_staff_programmes_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_programmes_partial_update"];
+        patch: operations["ai_v1_staff_programmes_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/question-sets/": {
@@ -3933,9 +4058,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_question_sets_list"];
+        get: operations["ai_v1_staff_question_sets_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_question_sets_create"];
+        post: operations["ai_v1_staff_question_sets_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3949,13 +4074,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_question_sets_retrieve"];
-        put: operations["api_ai_v1_staff_question_sets_update"];
+        get: operations["ai_v1_staff_question_sets_retrieve"];
+        put: operations["ai_v1_staff_question_sets_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_question_sets_destroy"];
+        delete: operations["ai_v1_staff_question_sets_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_question_sets_partial_update"];
+        patch: operations["ai_v1_staff_question_sets_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/review-items/": {
@@ -3966,7 +4091,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The researcher's home screen (ui/staff-console.md §3). */
-        get: operations["api_ai_v1_staff_review_items_list"];
+        get: operations["ai_v1_staff_review_items_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3983,7 +4108,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The researcher's home screen (ui/staff-console.md §3). */
-        get: operations["api_ai_v1_staff_review_items_retrieve"];
+        get: operations["ai_v1_staff_review_items_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4002,7 +4127,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The researcher's home screen (ui/staff-console.md §3). */
-        post: operations["api_ai_v1_staff_review_items_resolve_create"];
+        post: operations["ai_v1_staff_review_items_resolve_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4016,9 +4141,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_route_costs_list"];
+        get: operations["ai_v1_staff_route_costs_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_route_costs_create"];
+        post: operations["ai_v1_staff_route_costs_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4032,13 +4157,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_route_costs_retrieve"];
-        put: operations["api_ai_v1_staff_route_costs_update"];
+        get: operations["ai_v1_staff_route_costs_retrieve"];
+        put: operations["ai_v1_staff_route_costs_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_route_costs_destroy"];
+        delete: operations["ai_v1_staff_route_costs_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_route_costs_partial_update"];
+        patch: operations["ai_v1_staff_route_costs_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/routes/": {
@@ -4048,9 +4173,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_routes_list"];
+        get: operations["ai_v1_staff_routes_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_routes_create"];
+        post: operations["ai_v1_staff_routes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4064,13 +4189,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_routes_retrieve"];
-        put: operations["api_ai_v1_staff_routes_update"];
+        get: operations["ai_v1_staff_routes_retrieve"];
+        put: operations["ai_v1_staff_routes_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_routes_destroy"];
+        delete: operations["ai_v1_staff_routes_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_routes_partial_update"];
+        patch: operations["ai_v1_staff_routes_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/rule-variables/": {
@@ -4081,7 +4206,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Every context variable a rule may read, for the editor's autocomplete. */
-        get: operations["api_ai_v1_staff_rule_variables_retrieve"];
+        get: operations["ai_v1_staff_rule_variables_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4098,10 +4223,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        get: operations["api_ai_v1_staff_rules_list"];
+        get: operations["ai_v1_staff_rules_list"];
         put?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        post: operations["api_ai_v1_staff_rules_create"];
+        post: operations["ai_v1_staff_rules_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4116,15 +4241,15 @@ export interface paths {
             cookie?: never;
         };
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        get: operations["api_ai_v1_staff_rules_retrieve"];
+        get: operations["ai_v1_staff_rules_retrieve"];
         put?: never;
         post?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        delete: operations["api_ai_v1_staff_rules_destroy"];
+        delete: operations["ai_v1_staff_rules_destroy"];
         options?: never;
         head?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        patch: operations["api_ai_v1_staff_rules_partial_update"];
+        patch: operations["ai_v1_staff_rules_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/rules/{id}/approve/": {
@@ -4137,7 +4262,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        post: operations["api_ai_v1_staff_rules_approve_create"];
+        post: operations["ai_v1_staff_rules_approve_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4154,7 +4279,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        post: operations["api_ai_v1_staff_rules_preview_create"];
+        post: operations["ai_v1_staff_rules_preview_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4171,7 +4296,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        post: operations["api_ai_v1_staff_rules_reject_create"];
+        post: operations["ai_v1_staff_rules_reject_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4188,7 +4313,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Drafts are editable; published versions never change (a new draft replaces them). */
-        post: operations["api_ai_v1_staff_rules_submit_create"];
+        post: operations["ai_v1_staff_rules_submit_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4202,7 +4327,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_scam_reports_list"];
+        get: operations["ai_v1_staff_scam_reports_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4218,7 +4343,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_scam_reports_retrieve"];
+        get: operations["ai_v1_staff_scam_reports_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4236,7 +4361,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_scam_reports_review_create"];
+        post: operations["ai_v1_staff_scam_reports_review_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4250,9 +4375,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_scholarships_list"];
+        get: operations["ai_v1_staff_scholarships_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_scholarships_create"];
+        post: operations["ai_v1_staff_scholarships_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4266,13 +4391,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_scholarships_retrieve"];
-        put: operations["api_ai_v1_staff_scholarships_update"];
+        get: operations["ai_v1_staff_scholarships_retrieve"];
+        put: operations["ai_v1_staff_scholarships_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_scholarships_destroy"];
+        delete: operations["ai_v1_staff_scholarships_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_scholarships_partial_update"];
+        patch: operations["ai_v1_staff_scholarships_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/sources/": {
@@ -4282,9 +4407,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_sources_list"];
+        get: operations["ai_v1_staff_sources_list"];
         put?: never;
-        post: operations["api_ai_v1_staff_sources_create"];
+        post: operations["ai_v1_staff_sources_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4298,13 +4423,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_sources_retrieve"];
-        put: operations["api_ai_v1_staff_sources_update"];
+        get: operations["ai_v1_staff_sources_retrieve"];
+        put: operations["ai_v1_staff_sources_update"];
         post?: never;
-        delete: operations["api_ai_v1_staff_sources_destroy"];
+        delete: operations["ai_v1_staff_sources_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_ai_v1_staff_sources_partial_update"];
+        patch: operations["ai_v1_staff_sources_partial_update"];
         trace?: never;
     };
     "/api/ai/v1/staff/sources/{id}/check-now/": {
@@ -4316,7 +4441,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_sources_check_now_create"];
+        post: operations["ai_v1_staff_sources_check_now_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4330,7 +4455,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_sources_history_list"];
+        get: operations["ai_v1_staff_sources_history_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4348,7 +4473,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_sources_verify_create"];
+        post: operations["ai_v1_staff_sources_verify_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4362,7 +4487,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_staff_task_queue_retrieve"];
+        get: operations["ai_v1_staff_task_queue_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4380,7 +4505,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_staff_task_queue_replay_create"];
+        post: operations["ai_v1_staff_task_queue_replay_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4410,7 +4535,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_study_programmes_retrieve"];
+        get: operations["ai_v1_study_programmes_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4427,7 +4552,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Scholarships the candidate can hold, by nationality and level (US-403). */
-        get: operations["api_ai_v1_study_scholarships_list"];
+        get: operations["ai_v1_study_scholarships_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4443,7 +4568,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_ai_v1_tasks_retrieve"];
+        get: operations["ai_v1_tasks_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4461,7 +4586,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_ai_v1_tasks_cancel_create"];
+        post: operations["ai_v1_tasks_cancel_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4478,7 +4603,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description The free public calculators (web.md §3.3): typed-in inputs, no account. */
-        post: operations["api_ai_v1_tools_points_create"];
+        post: operations["ai_v1_tools_points_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4493,7 +4618,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The live numbers on the public trust page (web.md §2 ``/trust``). */
-        get: operations["api_ai_v1_trust_freshness_list"];
+        get: operations["ai_v1_trust_freshness_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4510,10 +4635,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description A student's applications. Checklist generation happens on create. */
-        get: operations["api_applications_list"];
+        get: operations["applications_list"];
         put?: never;
         /** @description A student's applications. Checklist generation happens on create. */
-        post: operations["api_applications_create"];
+        post: operations["applications_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4528,16 +4653,16 @@ export interface paths {
             cookie?: never;
         };
         /** @description A student's applications. Checklist generation happens on create. */
-        get: operations["api_applications_retrieve"];
+        get: operations["applications_retrieve"];
         /** @description A student's applications. Checklist generation happens on create. */
-        put: operations["api_applications_update"];
+        put: operations["applications_update"];
         post?: never;
         /** @description A student's applications. Checklist generation happens on create. */
-        delete: operations["api_applications_destroy"];
+        delete: operations["applications_destroy"];
         options?: never;
         head?: never;
         /** @description A student's applications. Checklist generation happens on create. */
-        patch: operations["api_applications_partial_update"];
+        patch: operations["applications_partial_update"];
         trace?: never;
     };
     "/api/applications/{id}/checklist/": {
@@ -4548,7 +4673,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description A student's applications. Checklist generation happens on create. */
-        get: operations["api_applications_checklist_retrieve"];
+        get: operations["applications_checklist_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4567,7 +4692,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description A student's applications. Checklist generation happens on create. */
-        post: operations["api_applications_generate_checklist_create"];
+        post: operations["applications_generate_checklist_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4587,7 +4712,7 @@ export interface paths {
          *     Re-sync is never automatic (plan §4.3) — staff see exactly what would
          *     change before a student's checklist moves.
          */
-        get: operations["api_applications_resync_checklist_retrieve"];
+        get: operations["applications_resync_checklist_retrieve"];
         put?: never;
         /**
          * @description GET previews the change; POST applies it.
@@ -4595,7 +4720,7 @@ export interface paths {
          *     Re-sync is never automatic (plan §4.3) — staff see exactly what would
          *     change before a student's checklist moves.
          */
-        post: operations["api_applications_resync_checklist_create"];
+        post: operations["applications_resync_checklist_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4612,7 +4737,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description A student's applications. Checklist generation happens on create. */
-        post: operations["api_applications_status_create"];
+        post: operations["applications_status_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4628,7 +4753,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_login_create"];
+        post: operations["auth_login_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4643,14 +4768,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description The signed-in user, plus whichever profile their role carries. */
-        get: operations["api_auth_me_retrieve"];
+        get: operations["auth_me_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description The signed-in user, plus whichever profile their role carries. */
-        patch: operations["api_auth_me_partial_update"];
+        patch: operations["auth_me_partial_update"];
         trace?: never;
     };
     "/api/auth/mfa/": {
@@ -4661,7 +4786,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description What this account's second factor looks like right now. */
-        get: operations["api_auth_mfa_retrieve"];
+        get: operations["auth_mfa_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4680,7 +4805,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Step two: verify the first code, then return the recovery codes once. */
-        post: operations["api_auth_mfa_confirm_create"];
+        post: operations["auth_mfa_confirm_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4697,7 +4822,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Switch MFA off. Requires a current code, and staff may not. */
-        post: operations["api_auth_mfa_disable_create"];
+        post: operations["auth_mfa_disable_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4720,7 +4845,7 @@ export interface paths {
          *     proves they can generate a code from it, so a mistyped secret is caught now
          *     rather than at the next sign-in.
          */
-        post: operations["api_auth_mfa_enrol_create"];
+        post: operations["auth_mfa_enrol_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4737,7 +4862,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Mint a fresh set, invalidating the old one. Requires a current code. */
-        post: operations["api_auth_mfa_recovery_codes_create"];
+        post: operations["auth_mfa_recovery_codes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4753,7 +4878,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_password_change_create"];
+        post: operations["auth_password_change_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4769,7 +4894,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_password_reset_create"];
+        post: operations["auth_password_reset_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4785,7 +4910,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_password_reset_confirm_create"];
+        post: operations["auth_password_reset_confirm_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4805,7 +4930,7 @@ export interface paths {
          * @description Send a sign-in code by SMS, or by WhatsApp once the SMS has had a minute.
          *     The same call signs up a new number and signs in an existing one.
          */
-        post: operations["api_auth_phone_code_create"];
+        post: operations["auth_phone_code_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4825,7 +4950,7 @@ export interface paths {
          * @description Check the code. Signs in the number's account, or creates it once the
          *     terms are accepted (`terms_required` asks for them).
          */
-        post: operations["api_auth_phone_verify_create"];
+        post: operations["auth_phone_verify_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4841,7 +4966,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_resend_verification_create"];
+        post: operations["auth_resend_verification_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4861,7 +4986,7 @@ export interface paths {
          * @description Public registration. Rate-limited — an unprotected public signup form
          *     gets scraped and spammed (plan §10).
          */
-        post: operations["api_auth_signup_create"];
+        post: operations["auth_signup_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4881,7 +5006,7 @@ export interface paths {
          * @description Takes a refresh type JSON web token and returns an access type JSON web
          *     token if the refresh token is valid.
          */
-        post: operations["api_auth_token_refresh_create"];
+        post: operations["auth_token_refresh_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4901,7 +5026,7 @@ export interface paths {
          * @description Takes a token and indicates if it is valid.  This view provides no
          *     information about a token's fitness for a particular use.
          */
-        post: operations["api_auth_token_verify_create"];
+        post: operations["auth_token_verify_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4917,7 +5042,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_auth_verify_email_create"];
+        post: operations["auth_verify_email_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4937,7 +5062,7 @@ export interface paths {
          *     Only for profiles that opted in *and* have something to show — an author
          *     page with no posts is a thin page, and thin pages cost the whole site.
          */
-        get: operations["api_blog_authors_list"];
+        get: operations["blog_authors_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4959,7 +5084,7 @@ export interface paths {
          *     Only for profiles that opted in *and* have something to show — an author
          *     page with no posts is a thin page, and thin pages cost the whole site.
          */
-        get: operations["api_blog_authors_retrieve"];
+        get: operations["blog_authors_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4981,7 +5106,7 @@ export interface paths {
          *     Only for profiles that opted in *and* have something to show — an author
          *     page with no posts is a thin page, and thin pages cost the whole site.
          */
-        get: operations["api_blog_authors_posts_list"];
+        get: operations["blog_authors_posts_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -4997,7 +5122,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_blog_categories_list"];
+        get: operations["blog_categories_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5013,7 +5138,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_blog_categories_retrieve"];
+        get: operations["blog_categories_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5036,7 +5161,7 @@ export interface paths {
          *     :meth:`PostQuerySet.live` compares against the clock on every request
          *     rather than trusting a flag some job was meant to flip.
          */
-        get: operations["api_blog_posts_list"];
+        get: operations["blog_posts_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5059,7 +5184,7 @@ export interface paths {
          *     :meth:`PostQuerySet.live` compares against the clock on every request
          *     rather than trusting a flag some job was meant to flip.
          */
-        get: operations["api_blog_posts_retrieve"];
+        get: operations["blog_posts_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5084,7 +5209,7 @@ export interface paths {
          *     apps.blog.moderation.submit — the view's only jobs are to find the post,
          *     pass the request metadata through, and translate the outcome.
          */
-        post: operations["api_blog_posts_comments_create"];
+        post: operations["blog_posts_comments_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5105,7 +5230,7 @@ export interface paths {
          *     whether to show a byline. Verification codes, blocklists and the analytics id
          *     stay on the staff endpoint.
          */
-        get: operations["api_blog_settings_retrieve"];
+        get: operations["blog_settings_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5128,7 +5253,7 @@ export interface paths {
          *     frontend means a new content type appears in the sitemap by shipping the
          *     backend, and the dates are the database's, not a build timestamp.
          */
-        get: operations["api_blog_sitemap_retrieve"];
+        get: operations["blog_sitemap_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5144,7 +5269,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_blog_tags_list"];
+        get: operations["blog_tags_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5160,7 +5285,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_blog_tags_retrieve"];
+        get: operations["blog_tags_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5177,7 +5302,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Checklist items, plus the upload and review actions. */
-        get: operations["api_checklist_items_list"];
+        get: operations["checklist_items_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5194,7 +5319,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Checklist items, plus the upload and review actions. */
-        get: operations["api_checklist_items_retrieve"];
+        get: operations["checklist_items_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5213,7 +5338,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Verify, reject or waive an item. The review queue's write endpoint. */
-        post: operations["api_checklist_items_review_create"];
+        post: operations["checklist_items_review_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5236,7 +5361,7 @@ export interface paths {
          *     previously reviewed file is never overwritten, so a rejection dispute
          *     stays answerable.
          */
-        post: operations["api_checklist_items_upload_create"];
+        post: operations["checklist_items_upload_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5250,7 +5375,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_countries_list"];
+        get: operations["countries_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5266,7 +5391,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_countries_retrieve"];
+        get: operations["countries_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5283,10 +5408,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description The student's document vault (plan §8.4). */
-        get: operations["api_documents_list"];
+        get: operations["documents_list"];
         put?: never;
         /** @description The student's document vault (plan §8.4). */
-        post: operations["api_documents_create"];
+        post: operations["documents_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5301,15 +5426,15 @@ export interface paths {
             cookie?: never;
         };
         /** @description The student's document vault (plan §8.4). */
-        get: operations["api_documents_retrieve"];
+        get: operations["documents_retrieve"];
         put?: never;
         post?: never;
         /** @description The student's document vault (plan §8.4). */
-        delete: operations["api_documents_destroy"];
+        delete: operations["documents_destroy"];
         options?: never;
         head?: never;
         /** @description The student's document vault (plan §8.4). */
-        patch: operations["api_documents_partial_update"];
+        patch: operations["documents_partial_update"];
         trace?: never;
     };
     "/api/forms/{slug}/": {
@@ -5325,7 +5450,7 @@ export interface paths {
          *     The audience check runs here, server-side, on every request — hiding a form
          *     in the UI is not a permission (plan §3.4).
          */
-        get: operations["api_forms_retrieve"];
+        get: operations["forms_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5343,7 +5468,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_forms_submit_create"];
+        post: operations["forms_submit_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5357,7 +5482,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_my_submissions_list"];
+        get: operations["my_submissions_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5380,10 +5505,10 @@ export interface paths {
          *     is complete even for a user who has switched every delivery channel off —
          *     and it is the answer when somebody says they were never told.
          */
-        get: operations["api_notifications_retrieve"];
+        get: operations["notifications_retrieve"];
         put?: never;
         /** @description Mark everything read. Per-item read state is not worth the round trip. */
-        post: operations["api_notifications_create"];
+        post: operations["notifications_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5398,14 +5523,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description Everything the preference screen needs, in one response. */
-        get: operations["api_notifications_preferences_retrieve"];
+        get: operations["notifications_preferences_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description Everything the preference screen needs, in one response. */
-        patch: operations["api_notifications_preferences_partial_update"];
+        patch: operations["notifications_preferences_partial_update"];
         trace?: never;
     };
     "/api/notifications/quiet-hours/": {
@@ -5416,7 +5541,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put: operations["api_notifications_quiet_hours_update"];
+        put: operations["notifications_quiet_hours_update"];
         post?: never;
         delete?: never;
         options?: never;
@@ -5441,7 +5566,7 @@ export interface paths {
          *     ``t.me/<bot>?start=<token>``, and let the webhook below match the chat that
          *     arrives back to the account that asked.
          */
-        post: operations["api_notifications_telegram_create"];
+        post: operations["notifications_telegram_create"];
         /**
          * @description Mint a deep link that connects this account to a Telegram chat.
          *
@@ -5450,7 +5575,7 @@ export interface paths {
          *     ``t.me/<bot>?start=<token>``, and let the webhook below match the chat that
          *     arrives back to the account that asked.
          */
-        delete: operations["api_notifications_telegram_destroy"];
+        delete: operations["notifications_telegram_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -5472,7 +5597,7 @@ export interface paths {
          *     before the first message. Holding somebody's number is not consent, so this
          *     is a deliberate action with a timestamp rather than a checkbox default.
          */
-        post: operations["api_notifications_whatsapp_create"];
+        post: operations["notifications_whatsapp_create"];
         /**
          * @description Record or withdraw consent to be messaged on WhatsApp.
          *
@@ -5480,7 +5605,7 @@ export interface paths {
          *     before the first message. Holding somebody's number is not consent, so this
          *     is a deliberate action with a timestamp rather than a checkbox default.
          */
-        delete: operations["api_notifications_whatsapp_destroy"];
+        delete: operations["notifications_whatsapp_destroy"];
         options?: never;
         head?: never;
         patch?: never;
@@ -5494,7 +5619,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Which gateways are live right now, so checkout offers only those (§5.1). */
-        get: operations["api_payments_gateways_list"];
+        get: operations["payments_gateways_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5512,7 +5637,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_payments_initiate_create"];
+        post: operations["payments_initiate_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5526,7 +5651,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_payments_mine_list"];
+        get: operations["payments_mine_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5552,7 +5677,7 @@ export interface paths {
          *     landed, it is a no-op. A `pending`/`processing` answer here is normal and
          *     the UI should say "confirming your payment", not "paid".
          */
-        post: operations["api_payments_verify_create"];
+        post: operations["payments_verify_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5573,7 +5698,7 @@ export interface paths {
          *     the checkout screen, the policy pages and the share card. A price behind a
          *     token is a price that gets hardcoded somewhere it cannot reach.
          */
-        get: operations["api_pricing_retrieve"];
+        get: operations["pricing_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5590,14 +5715,14 @@ export interface paths {
             cookie?: never;
         };
         /** @description The student's own profile. Staff use the admin viewset instead. */
-        get: operations["api_profile_retrieve"];
+        get: operations["profile_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** @description The student's own profile. Staff use the admin viewset instead. */
-        patch: operations["api_profile_partial_update"];
+        patch: operations["profile_partial_update"];
         trace?: never;
     };
     "/api/programmes/": {
@@ -5607,9 +5732,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_programmes_list"];
+        get: operations["programmes_list"];
         put?: never;
-        post: operations["api_programmes_create"];
+        post: operations["programmes_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5623,13 +5748,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_programmes_retrieve"];
-        put: operations["api_programmes_update"];
+        get: operations["programmes_retrieve"];
+        put: operations["programmes_update"];
         post?: never;
-        delete: operations["api_programmes_destroy"];
+        delete: operations["programmes_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_programmes_partial_update"];
+        patch: operations["programmes_partial_update"];
         trace?: never;
     };
     "/api/referrals/check/": {
@@ -5644,7 +5769,7 @@ export interface paths {
          *
          *     Returns only whether the code works — never who owns it.
          */
-        get: operations["api_referrals_check_retrieve"];
+        get: operations["referrals_check_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5661,7 +5786,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The referrer's own dashboard (plan §6.3). */
-        get: operations["api_referrals_mine_retrieve"];
+        get: operations["referrals_mine_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5679,7 +5804,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["api_referrals_payout_create"];
+        post: operations["referrals_payout_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5693,9 +5818,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_requirement_categories_list"];
+        get: operations["requirement_categories_list"];
         put?: never;
-        post: operations["api_requirement_categories_create"];
+        post: operations["requirement_categories_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5709,13 +5834,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["api_requirement_categories_retrieve"];
-        put: operations["api_requirement_categories_update"];
+        get: operations["requirement_categories_retrieve"];
+        put: operations["requirement_categories_update"];
         post?: never;
-        delete: operations["api_requirement_categories_destroy"];
+        delete: operations["requirement_categories_destroy"];
         options?: never;
         head?: never;
-        patch: operations["api_requirement_categories_partial_update"];
+        patch: operations["requirement_categories_partial_update"];
         trace?: never;
     };
     "/api/schools/": {
@@ -5726,10 +5851,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        get: operations["api_schools_list"];
+        get: operations["schools_list"];
         put?: never;
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        post: operations["api_schools_create"];
+        post: operations["schools_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5744,16 +5869,16 @@ export interface paths {
             cookie?: never;
         };
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        get: operations["api_schools_retrieve"];
+        get: operations["schools_retrieve"];
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        put: operations["api_schools_update"];
+        put: operations["schools_update"];
         post?: never;
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        delete: operations["api_schools_destroy"];
+        delete: operations["schools_destroy"];
         options?: never;
         head?: never;
         /** @description Schools. Students read; staff with can_manage_schools write. */
-        patch: operations["api_schools_partial_update"];
+        patch: operations["schools_partial_update"];
         trace?: never;
     };
     "/api/schools/{id}/requirements/": {
@@ -5764,7 +5889,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description The live requirement set — what a student would be asked for today. */
-        get: operations["api_schools_requirements_retrieve"];
+        get: operations["schools_requirements_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5791,7 +5916,7 @@ export interface paths {
          *     else is acknowledged and ignored, because a bot that replies to arbitrary
          *     text invites people to use it as a support channel it is not.
          */
-        post: operations["api_webhooks_telegram_create"];
+        post: operations["webhooks_telegram_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5809,6 +5934,14 @@ export interface components {
          * @enum {string}
          */
         ActorEnum: "candidate" | "system" | "suggestion";
+        AddTodoRequest: {
+            /** @description Stable per thing added, e.g. gb-skilled-worker:english or points:ca_crs:french-clb-7. */
+            key: string;
+            title: string;
+            /** @default  */
+            detail: string;
+            route?: string;
+        };
         /**
          * @description The moderation queue's row.
          *
@@ -5923,10 +6056,7 @@ export interface components {
             meta_title?: string;
             /** @description Falls back to the excerpt. Truncated near 155. */
             meta_description?: string;
-            /**
-             * Format: uri
-             * @description Only when this article was published elsewhere first.
-             */
+            /** @description Only when this article was published elsewhere first. */
             canonical_url?: string;
             /** @description Keep out of search results. Thin or duplicate pages only. */
             noindex?: boolean;
@@ -5973,10 +6103,7 @@ export interface components {
             meta_title?: string;
             /** @description Falls back to the excerpt. Truncated near 155. */
             meta_description?: string;
-            /**
-             * Format: uri
-             * @description Only when this article was published elsewhere first.
-             */
+            /** @description Only when this article was published elsewhere first. */
             canonical_url?: string;
             /** @description Keep out of search results. Thin or duplicate pages only. */
             noindex?: boolean;
@@ -6198,6 +6325,12 @@ export interface components {
          * @enum {string}
          */
         ApplicationStatusEnum: "draft" | "preparing" | "ready_to_submit" | "submitted" | "additional_info" | "offer" | "conditional_offer" | "rejected" | "accepted_offer" | "visa_applied" | "visa_granted" | "visa_refused" | "enrolled" | "withdrawn";
+        ApplyClick: {
+            /** Format: uri */
+            apply_url: string;
+            /** Format: date-time */
+            clicked_at: string;
+        };
         ApproveRequest: {
             /** @default  */
             note: string;
@@ -6262,14 +6395,9 @@ export interface components {
             /** Format: uri */
             avatar?: string | null;
             avatar_alt?: string;
-            /** Format: uri */
             website?: string;
-            /** Format: uri */
             linkedin_url?: string;
-            /**
-             * X / Twitter URL
-             * Format: uri
-             */
+            /** X / Twitter URL */
             x_url?: string;
             /** @description An author page exists only when the author has opted into having one. */
             is_public?: boolean;
@@ -6296,14 +6424,9 @@ export interface components {
             /** Format: binary */
             avatar?: string | null;
             avatar_alt?: string;
-            /** Format: uri */
             website?: string;
-            /** Format: uri */
             linkedin_url?: string;
-            /**
-             * X / Twitter URL
-             * Format: uri
-             */
+            /** X / Twitter URL */
             x_url?: string;
             /** @description An author page exists only when the author has opted into having one. */
             is_public?: boolean;
@@ -6517,7 +6640,6 @@ export interface components {
             city?: string;
             kind?: components["schemas"]["CatalogueInstitutionKindEnum"];
             is_public?: boolean | null;
-            /** Format: uri */
             website?: string;
             /** @description UK: on the register of licensed student sponsors. */
             licensed_student_sponsor?: boolean | null;
@@ -6546,7 +6668,6 @@ export interface components {
             city?: string;
             kind?: components["schemas"]["CatalogueInstitutionKindEnum"];
             is_public?: boolean | null;
-            /** Format: uri */
             website?: string;
             /** @description UK: on the register of licensed student sponsors. */
             licensed_student_sponsor?: boolean | null;
@@ -6608,7 +6729,6 @@ export interface components {
             tuition_amount?: string | null;
             tuition_currency?: string;
             tuition_period?: components["schemas"]["TuitionPeriodEnum"];
-            /** Format: uri */
             url?: string;
             /** @description Leads to a post-study work permit. */
             post_study_work?: boolean | null;
@@ -6652,7 +6772,6 @@ export interface components {
             tuition_amount?: string | null;
             tuition_currency?: string;
             tuition_period?: components["schemas"]["TuitionPeriodEnum"];
-            /** Format: uri */
             url?: string;
             /** @description Leads to a post-study work permit. */
             post_study_work?: boolean | null;
@@ -6689,7 +6808,6 @@ export interface components {
             deadline?: string | null;
             return_home_required?: boolean | null;
             return_home_note?: string;
-            /** Format: uri */
             url?: string;
             readonly source_name: string;
             readonly source_url: string;
@@ -6762,7 +6880,6 @@ export interface components {
             deadline?: string | null;
             return_home_required?: boolean | null;
             return_home_note?: string;
-            /** Format: uri */
             url?: string;
             is_active?: boolean;
             /** Format: uuid */
@@ -6803,7 +6920,6 @@ export interface components {
             deadline?: string | null;
             return_home_required?: boolean | null;
             return_home_note?: string;
-            /** Format: uri */
             url?: string;
             is_active?: boolean;
             /** Format: uuid */
@@ -6997,8 +7113,7 @@ export interface components {
             kind: components["schemas"]["InterviewKindEnum"];
             /** Format: uuid */
             job?: string | null;
-            /** @default  */
-            route: string;
+            route?: string;
         };
         CommentModerationRequest: {
             status: components["schemas"]["CommentStatusEnum"];
@@ -7022,9 +7137,7 @@ export interface components {
         CommentSubmissionRequest: {
             body: string;
             name?: string;
-            /** Format: email */
             email?: string;
-            /** Format: uri */
             website?: string;
             /** Format: uuid */
             parent?: string | null;
@@ -7587,11 +7700,8 @@ export interface components {
         };
         FundsCheckRequestRequest: {
             documents: string[];
-            /**
-             * @description e.g. gb-student
-             * @default
-             */
-            route: string;
+            /** @description e.g. gb-student */
+            route?: string;
         };
         FxRate: {
             /** Format: uuid */
@@ -7893,7 +8003,6 @@ export interface components {
             /** Format: decimal */
             amount: string;
             currency: string;
-            /** Format: uri */
             url?: string;
             /** @description Which Nigerian cards usually work, limits, FX surcharges. */
             card_notes?: string;
@@ -7915,7 +8024,6 @@ export interface components {
             /** Format: decimal */
             amount: string;
             currency: string;
-            /** Format: uri */
             url?: string;
             /** @description Which Nigerian cards usually work, limits, FX surcharges. */
             card_notes?: string;
@@ -7928,6 +8036,16 @@ export interface components {
         GuideQuestionRequest: {
             route: string;
             question: string;
+        };
+        GuideSource: {
+            name: string;
+            /** Format: uri */
+            url: string;
+        };
+        GuideStep: {
+            title: string;
+            detail: string;
+            sources: components["schemas"]["GuideSource"][];
         };
         Handoff: {
             /** Format: uuid */
@@ -8058,7 +8176,6 @@ export interface components {
             purpose: components["schemas"]["PaymentPurposeEnum"];
             /** Format: uuid */
             application?: string | null;
-            /** Format: uri */
             callback_url?: string;
         };
         /**
@@ -8093,11 +8210,133 @@ export interface components {
             points: number;
             max_points: number;
             evidence: string;
-            /** Format: uri */
             source_url?: string;
             /** Format: date-time */
             checked_at: string;
         };
+        /**
+         * @description The search filters (apps.jobs.filters.Filters): the list's query
+         *     string, and what a saved search keeps.
+         */
+        JobFilters: {
+            /**
+             * @description Words in the job title.
+             * @default
+             */
+            q: string;
+            /** @default false */
+            remote: boolean;
+            /** @description Any of these places. */
+            cities?: string[];
+            /**
+             * @description A route code: jobs in its country, meeting its salary rule where we check it.
+             * @default
+             */
+            route: string;
+            /**
+             * @description Only jobs whose salary passed the visa threshold check.
+             * @default false
+             */
+            meets_salary_threshold: boolean;
+            /**
+             * @description english: leave out jobs that ask for German.
+             *
+             *     * `any` - any
+             *     * `english` - english
+             * @default any
+             */
+            language: components["schemas"]["LanguageEnum"];
+            /** @description Days. */
+            posted_within?: number | null;
+            /**
+             * @description confirmed: the sponsor check passed. register: found on an official sponsor register.
+             *
+             *     * `any` - any
+             *     * `confirmed` - confirmed
+             *     * `register` - register
+             * @default any
+             */
+            sponsor: components["schemas"]["SponsorEnum"];
+        };
+        /**
+         * @description The search filters (apps.jobs.filters.Filters): the list's query
+         *     string, and what a saved search keeps.
+         */
+        JobFiltersRequest: {
+            /**
+             * @description Words in the job title.
+             * @default
+             */
+            q: string;
+            /** @default false */
+            remote: boolean;
+            /** @description Any of these places. */
+            cities?: string[];
+            /**
+             * @description A route code: jobs in its country, meeting its salary rule where we check it.
+             * @default
+             */
+            route: string;
+            /**
+             * @description Only jobs whose salary passed the visa threshold check.
+             * @default false
+             */
+            meets_salary_threshold: boolean;
+            /**
+             * @description english: leave out jobs that ask for German.
+             *
+             *     * `any` - any
+             *     * `english` - english
+             * @default any
+             */
+            language: components["schemas"]["LanguageEnum"];
+            /** @description Days. */
+            posted_within?: number | null;
+            /**
+             * @description confirmed: the sponsor check passed. register: found on an official sponsor register.
+             *
+             *     * `any` - any
+             *     * `confirmed` - confirmed
+             *     * `register` - register
+             * @default any
+             */
+            sponsor: components["schemas"]["SponsorEnum"];
+        };
+        /** @description What a real offer and sponsorship process looks like (apps.jobs.guide). */
+        JobOfferGuide: {
+            country: string;
+            country_name: string;
+            /** @description False: only the rules that hold everywhere, for now. */
+            steps_written: boolean;
+            route: string;
+            /** Format: date */
+            checked_on: string | null;
+            steps: components["schemas"]["GuideStep"][];
+            red_flags: string[];
+            rules: string[];
+        };
+        /** @description A saved search. With alerts on, the daily digest follows it. */
+        JobSearch: {
+            /** Format: uuid */
+            readonly id: string;
+            name: string;
+            filters: components["schemas"]["JobFilters"];
+            alerts?: boolean;
+            /** Format: date-time */
+            readonly created_at: string;
+        };
+        /** @description A saved search. With alerts on, the daily digest follows it. */
+        JobSearchRequest: {
+            name: string;
+            filters: components["schemas"]["JobFiltersRequest"];
+            alerts?: boolean;
+        };
+        /**
+         * @description * `any` - any
+         *     * `english` - english
+         * @enum {string}
+         */
+        LanguageEnum: "any" | "english";
         /**
          * @description * `featured` - One lead article, then a grid
          *     * `grid` - Equal cards in a grid
@@ -8232,6 +8471,11 @@ export interface components {
             task_id?: string | null;
             /** Format: uuid */
             employer?: string | null;
+            /**
+             * Format: uuid
+             * @description The offer, kept in the candidate's documents (web.md §7.4).
+             */
+            saved_document?: string | null;
             /** Format: date-time */
             readonly created_at: string;
             /** Format: date-time */
@@ -8241,6 +8485,13 @@ export interface components {
             text?: string;
             /** Format: binary */
             file?: string;
+        };
+        OfferSaveRequest: {
+            /**
+             * @description Save an offer that didn't pass our checks, as a record.
+             * @default false
+             */
+            keep_anyway: boolean;
         };
         OpsExtendRequest: {
             days: number;
@@ -9098,10 +9349,7 @@ export interface components {
             meta_title?: string;
             /** @description Falls back to the excerpt. Truncated near 155. */
             meta_description?: string;
-            /**
-             * Format: uri
-             * @description Only when this article was published elsewhere first.
-             */
+            /** @description Only when this article was published elsewhere first. */
             canonical_url?: string;
             /** @description Keep out of search results. Thin or duplicate pages only. */
             noindex?: boolean;
@@ -9149,14 +9397,9 @@ export interface components {
             /** Format: binary */
             avatar?: string | null;
             avatar_alt?: string;
-            /** Format: uri */
             website?: string;
-            /** Format: uri */
             linkedin_url?: string;
-            /**
-             * X / Twitter URL
-             * Format: uri
-             */
+            /** X / Twitter URL */
             x_url?: string;
             /** @description An author page exists only when the author has opted into having one. */
             is_public?: boolean;
@@ -9250,7 +9493,6 @@ export interface components {
             city?: string;
             kind?: components["schemas"]["CatalogueInstitutionKindEnum"];
             is_public?: boolean | null;
-            /** Format: uri */
             website?: string;
             /** @description UK: on the register of licensed student sponsors. */
             licensed_student_sponsor?: boolean | null;
@@ -9293,7 +9535,6 @@ export interface components {
             tuition_amount?: string | null;
             tuition_currency?: string;
             tuition_period?: components["schemas"]["TuitionPeriodEnum"];
-            /** Format: uri */
             url?: string;
             /** @description Leads to a post-study work permit. */
             post_study_work?: boolean | null;
@@ -9345,7 +9586,6 @@ export interface components {
             deadline?: string | null;
             return_home_required?: boolean | null;
             return_home_note?: string;
-            /** Format: uri */
             url?: string;
             is_active?: boolean;
             /** Format: uuid */
@@ -9502,7 +9742,6 @@ export interface components {
             /** Format: decimal */
             amount?: string;
             currency?: string;
-            /** Format: uri */
             url?: string;
             /** @description Which Nigerian cards usually work, limits, FX surcharges. */
             card_notes?: string;
@@ -9517,6 +9756,12 @@ export interface components {
             enabled?: boolean;
             min_fit?: number;
             max_jobs?: number;
+        };
+        /** @description A saved search. With alerts on, the daily digest follows it. */
+        PatchedJobSearchRequest: {
+            name?: string;
+            filters?: components["schemas"]["JobFiltersRequest"];
+            alerts?: boolean;
         };
         PatchedNotesRequest: {
             notes?: string;
@@ -9726,7 +9971,6 @@ export interface components {
             /** Format: uuid */
             country?: string | null;
             city?: string;
-            /** Format: uri */
             website?: string;
             /** Format: binary */
             logo?: string | null;
@@ -9812,7 +10056,6 @@ export interface components {
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
-            /** Format: email */
             partner_email?: string;
             partner_phone?: string;
             is_active?: boolean;
@@ -10100,10 +10343,7 @@ export interface components {
             readonly updated_at: string;
             readonly seo_title: string;
             readonly seo_description: string;
-            /**
-             * Format: uri
-             * @description Only when this article was published elsewhere first.
-             */
+            /** @description Only when this article was published elsewhere first. */
             canonical_url?: string;
             /** @description Keep out of search results. Thin or duplicate pages only. */
             noindex?: boolean;
@@ -10449,7 +10689,6 @@ export interface components {
             countries?: unknown;
             remote?: boolean | null;
             employment_type?: string;
-            /** Format: uri */
             apply_url?: string;
             /** Format: date-time */
             posted_at?: string | null;
@@ -11033,7 +11272,6 @@ export interface components {
             country?: string | null;
             readonly country_name: string;
             city?: string;
-            /** Format: uri */
             website?: string;
             /** Format: uri */
             logo?: string | null;
@@ -11058,7 +11296,6 @@ export interface components {
             /** Format: uuid */
             country?: string | null;
             city?: string;
-            /** Format: uri */
             website?: string;
             /** Format: binary */
             logo?: string | null;
@@ -11199,6 +11436,13 @@ export interface components {
          * @enum {string}
          */
         SourceStatusEnum: "new" | "ok" | "changed" | "failing" | "blocked";
+        /**
+         * @description * `any` - any
+         *     * `confirmed` - confirmed
+         *     * `register` - register
+         * @enum {string}
+         */
+        SponsorEnum: "any" | "confirmed" | "register";
         StaffGate: {
             /** Format: uuid */
             readonly id: string;
@@ -11269,7 +11513,6 @@ export interface components {
             location_text?: string;
             remote?: boolean | null;
             employment_type?: string;
-            /** Format: uri */
             apply_url?: string;
             /** Format: decimal */
             salary_min?: string | null;
@@ -11385,7 +11628,6 @@ export interface components {
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
-            /** Format: email */
             partner_email?: string;
             partner_phone?: string;
             is_active?: boolean;
@@ -11407,7 +11649,6 @@ export interface components {
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
-            /** Format: email */
             partner_email?: string;
             partner_phone?: string;
             is_active?: boolean;
@@ -11815,7 +12056,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    api_admin_blog_ai_create: {
+    admin_blog_ai_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -11839,7 +12080,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_ai_status_retrieve: {
+    admin_blog_ai_status_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -11857,7 +12098,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_list: {
+    admin_blog_authors_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -11881,7 +12122,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_create: {
+    admin_blog_authors_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -11906,7 +12147,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_retrieve: {
+    admin_blog_authors_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -11928,7 +12169,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_update: {
+    admin_blog_authors_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -11956,7 +12197,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_destroy: {
+    admin_blog_authors_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -11977,7 +12218,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_partial_update: {
+    admin_blog_authors_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12005,7 +12246,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_me_retrieve: {
+    admin_blog_authors_me_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12024,7 +12265,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_authors_me_partial_update: {
+    admin_blog_authors_me_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12049,7 +12290,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_list: {
+    admin_blog_categories_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12073,7 +12314,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_create: {
+    admin_blog_categories_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12098,7 +12339,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_retrieve: {
+    admin_blog_categories_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12119,7 +12360,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_update: {
+    admin_blog_categories_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12146,7 +12387,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_destroy: {
+    admin_blog_categories_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -12166,7 +12407,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_categories_partial_update: {
+    admin_blog_categories_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12193,7 +12434,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_list: {
+    admin_blog_comments_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12221,7 +12462,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_retrieve: {
+    admin_blog_comments_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12243,7 +12484,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_pin_create: {
+    admin_blog_comments_pin_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12265,7 +12506,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_reply_create: {
+    admin_blog_comments_reply_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12293,7 +12534,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_moderate_create: {
+    admin_blog_comments_moderate_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12317,7 +12558,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_comments_summary_retrieve: {
+    admin_blog_comments_summary_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12335,7 +12576,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_list: {
+    admin_blog_faqs_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12359,7 +12600,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_create: {
+    admin_blog_faqs_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12384,7 +12625,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_retrieve: {
+    admin_blog_faqs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12406,7 +12647,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_update: {
+    admin_blog_faqs_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12434,7 +12675,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_destroy: {
+    admin_blog_faqs_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -12455,7 +12696,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_faqs_partial_update: {
+    admin_blog_faqs_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12483,7 +12724,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_list: {
+    admin_blog_posts_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12511,7 +12752,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_create: {
+    admin_blog_posts_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12536,7 +12777,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_retrieve: {
+    admin_blog_posts_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12557,7 +12798,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_update: {
+    admin_blog_posts_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12584,7 +12825,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_destroy: {
+    admin_blog_posts_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -12604,7 +12845,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_partial_update: {
+    admin_blog_posts_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12631,7 +12872,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_preflight_retrieve: {
+    admin_blog_posts_preflight_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12651,7 +12892,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_publish_create: {
+    admin_blog_posts_publish_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12678,7 +12919,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_revisions_list: {
+    admin_blog_posts_revisions_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12708,7 +12949,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_revisions_restore_create: {
+    admin_blog_posts_revisions_restore_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12736,7 +12977,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_posts_unpublish_create: {
+    admin_blog_posts_unpublish_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12763,7 +13004,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_settings_retrieve: {
+    admin_blog_settings_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12782,7 +13023,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_settings_partial_update: {
+    admin_blog_settings_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12807,7 +13048,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_list: {
+    admin_blog_tags_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12831,7 +13072,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_create: {
+    admin_blog_tags_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -12856,7 +13097,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_retrieve: {
+    admin_blog_tags_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -12877,7 +13118,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_update: {
+    admin_blog_tags_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12904,7 +13145,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_destroy: {
+    admin_blog_tags_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -12924,7 +13165,7 @@ export interface operations {
             };
         };
     };
-    api_admin_blog_tags_partial_update: {
+    admin_blog_tags_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -12951,7 +13192,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_list: {
+    admin_cost_estimates_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -12975,7 +13216,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_create: {
+    admin_cost_estimates_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13000,7 +13241,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_retrieve: {
+    admin_cost_estimates_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13022,7 +13263,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_update: {
+    admin_cost_estimates_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13050,7 +13291,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_destroy: {
+    admin_cost_estimates_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -13071,7 +13312,7 @@ export interface operations {
             };
         };
     };
-    api_admin_cost_estimates_partial_update: {
+    admin_cost_estimates_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13099,7 +13340,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_list: {
+    admin_forms_list: {
         parameters: {
             query?: {
                 /**
@@ -13150,7 +13391,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_create: {
+    admin_forms_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13175,7 +13416,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_retrieve: {
+    admin_forms_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13197,7 +13438,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_update: {
+    admin_forms_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13225,7 +13466,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_destroy: {
+    admin_forms_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -13246,7 +13487,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_partial_update: {
+    admin_forms_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13274,7 +13515,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_new_version_create: {
+    admin_forms_new_version_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13302,7 +13543,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_publish_create: {
+    admin_forms_publish_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13330,7 +13571,7 @@ export interface operations {
             };
         };
     };
-    api_admin_forms_validate_schema_create: {
+    admin_forms_validate_schema_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13355,7 +13596,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_list: {
+    admin_gateway_configs_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -13383,7 +13624,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_create: {
+    admin_gateway_configs_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13408,7 +13649,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_retrieve: {
+    admin_gateway_configs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13430,7 +13671,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_update: {
+    admin_gateway_configs_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13458,7 +13699,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_destroy: {
+    admin_gateway_configs_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -13479,7 +13720,7 @@ export interface operations {
             };
         };
     };
-    api_admin_gateway_configs_partial_update: {
+    admin_gateway_configs_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13507,7 +13748,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payments_list: {
+    admin_payments_list: {
         parameters: {
             query?: {
                 confirmed_by_webhook?: boolean;
@@ -13564,7 +13805,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payments_retrieve: {
+    admin_payments_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13586,7 +13827,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payments_refund_create: {
+    admin_payments_refund_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13608,7 +13849,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payouts_list: {
+    admin_payouts_list: {
         parameters: {
             query?: {
                 code?: string;
@@ -13645,7 +13886,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payouts_create: {
+    admin_payouts_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13670,7 +13911,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payouts_retrieve: {
+    admin_payouts_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13692,7 +13933,7 @@ export interface operations {
             };
         };
     };
-    api_admin_payouts_mark_paid_create: {
+    admin_payouts_mark_paid_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13720,7 +13961,7 @@ export interface operations {
             };
         };
     };
-    api_admin_pricing_retrieve: {
+    admin_pricing_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13739,7 +13980,7 @@ export interface operations {
             };
         };
     };
-    api_admin_pricing_partial_update: {
+    admin_pricing_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13764,7 +14005,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reconciliation_list: {
+    admin_reconciliation_list: {
         parameters: {
             query?: {
                 /**
@@ -13799,7 +14040,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reconciliation_retrieve: {
+    admin_reconciliation_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13821,7 +14062,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reconciliation_run_create: {
+    admin_reconciliation_run_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13840,7 +14081,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_list: {
+    admin_referral_codes_list: {
         parameters: {
             query?: {
                 is_active?: boolean;
@@ -13875,7 +14116,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_create: {
+    admin_referral_codes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -13900,7 +14141,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_retrieve: {
+    admin_referral_codes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -13922,7 +14163,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_update: {
+    admin_referral_codes_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13950,7 +14191,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_destroy: {
+    admin_referral_codes_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -13971,7 +14212,7 @@ export interface operations {
             };
         };
     };
-    api_admin_referral_codes_partial_update: {
+    admin_referral_codes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -13999,7 +14240,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_list: {
+    admin_requirement_items_list: {
         parameters: {
             query?: {
                 category?: string;
@@ -14031,7 +14272,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_create: {
+    admin_requirement_items_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14056,7 +14297,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_retrieve: {
+    admin_requirement_items_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14078,7 +14319,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_update: {
+    admin_requirement_items_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14106,7 +14347,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_destroy: {
+    admin_requirement_items_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -14127,7 +14368,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_items_partial_update: {
+    admin_requirement_items_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14155,7 +14396,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_list: {
+    admin_requirement_sets_list: {
         parameters: {
             query?: {
                 is_template?: boolean;
@@ -14192,7 +14433,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_create: {
+    admin_requirement_sets_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14217,7 +14458,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_retrieve: {
+    admin_requirement_sets_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14239,7 +14480,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_update: {
+    admin_requirement_sets_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14267,7 +14508,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_destroy: {
+    admin_requirement_sets_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -14288,7 +14529,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_partial_update: {
+    admin_requirement_sets_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14316,7 +14557,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_clone_create: {
+    admin_requirement_sets_clone_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14344,7 +14585,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_new_version_create: {
+    admin_requirement_sets_new_version_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14372,7 +14613,7 @@ export interface operations {
             };
         };
     };
-    api_admin_requirement_sets_publish_create: {
+    admin_requirement_sets_publish_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14400,7 +14641,7 @@ export interface operations {
             };
         };
     };
-    api_admin_review_queue_list: {
+    admin_review_queue_list: {
         parameters: {
             query?: {
                 category_slug?: string;
@@ -14441,7 +14682,7 @@ export interface operations {
             };
         };
     };
-    api_admin_review_queue_retrieve: {
+    admin_review_queue_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14463,7 +14704,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_list: {
+    admin_reward_rules_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -14491,7 +14732,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_create: {
+    admin_reward_rules_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14516,7 +14757,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_retrieve: {
+    admin_reward_rules_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14538,7 +14779,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_update: {
+    admin_reward_rules_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14566,7 +14807,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_destroy: {
+    admin_reward_rules_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -14587,7 +14828,7 @@ export interface operations {
             };
         };
     };
-    api_admin_reward_rules_partial_update: {
+    admin_reward_rules_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14615,7 +14856,7 @@ export interface operations {
             };
         };
     };
-    api_admin_rewards_list: {
+    admin_rewards_list: {
         parameters: {
             query?: {
                 code?: string;
@@ -14651,7 +14892,7 @@ export interface operations {
             };
         };
     };
-    api_admin_rewards_create: {
+    admin_rewards_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14670,7 +14911,7 @@ export interface operations {
             };
         };
     };
-    api_admin_rewards_retrieve: {
+    admin_rewards_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14692,7 +14933,7 @@ export interface operations {
             };
         };
     };
-    api_admin_rewards_approve_create: {
+    admin_rewards_approve_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14714,7 +14955,7 @@ export interface operations {
             };
         };
     };
-    api_admin_rewards_void_create: {
+    admin_rewards_void_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14736,7 +14977,7 @@ export interface operations {
             };
         };
     };
-    api_admin_students_list: {
+    admin_students_list: {
         parameters: {
             query?: {
                 assigned_counsellor?: string;
@@ -14787,7 +15028,7 @@ export interface operations {
             };
         };
     };
-    api_admin_students_create: {
+    admin_students_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14812,7 +15053,7 @@ export interface operations {
             };
         };
     };
-    api_admin_students_retrieve: {
+    admin_students_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14834,7 +15075,7 @@ export interface operations {
             };
         };
     };
-    api_admin_students_partial_update: {
+    admin_students_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -14862,7 +15103,7 @@ export interface operations {
             };
         };
     };
-    api_admin_students_erase_create: {
+    admin_students_erase_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -14890,7 +15131,7 @@ export interface operations {
             };
         };
     };
-    api_admin_submissions_list: {
+    admin_submissions_list: {
         parameters: {
             query?: {
                 form_slug?: string;
@@ -14927,7 +15168,7 @@ export interface operations {
             };
         };
     };
-    api_admin_submissions_retrieve: {
+    admin_submissions_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -14949,7 +15190,7 @@ export interface operations {
             };
         };
     };
-    api_admin_webhook_events_list: {
+    admin_webhook_events_list: {
         parameters: {
             query?: {
                 event_type?: string;
@@ -14995,7 +15236,7 @@ export interface operations {
             };
         };
     };
-    api_admin_webhook_events_retrieve: {
+    admin_webhook_events_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15017,7 +15258,7 @@ export interface operations {
             };
         };
     };
-    api_admin_webhook_events_reprocess_create: {
+    admin_webhook_events_reprocess_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15039,7 +15280,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_checks_offers_list: {
+    ai_v1_checks_offers_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -15058,7 +15299,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_checks_offers_create: {
+    ai_v1_checks_offers_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15083,7 +15324,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_checks_offers_retrieve: {
+    ai_v1_checks_offers_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15104,7 +15345,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_checks_offers_destroy: {
+    ai_v1_checks_offers_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -15124,7 +15365,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_checks_offers_report_create: {
+    ai_v1_checks_offers_report_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15151,7 +15392,34 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_extension_match_create: {
+    ai_v1_checks_offers_save_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                check_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["OfferSaveRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["OfferSaveRequest"];
+                "multipart/form-data": components["schemas"]["OfferSaveRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CandidateDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_extension_match_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15178,7 +15446,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_extension_me_retrieve: {
+    ai_v1_extension_me_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15199,7 +15467,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_extension_packs_list: {
+    ai_v1_extension_packs_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -15218,7 +15486,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_extension_packs_retrieve: {
+    ai_v1_extension_packs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15239,7 +15507,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_extension_pair_create: {
+    ai_v1_extension_pair_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15266,7 +15534,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_facts_retrieve: {
+    ai_v1_facts_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15287,7 +15555,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_fx_convert_retrieve: {
+    ai_v1_fx_convert_retrieve: {
         parameters: {
             query: {
                 amount: string;
@@ -15316,7 +15584,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_answers_retrieve: {
+    ai_v1_guide_answers_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15337,7 +15605,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_arrival_retrieve: {
+    ai_v1_guide_arrival_retrieve: {
         parameters: {
             query: {
                 /** @description YYYY-MM-DD */
@@ -15363,7 +15631,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_ask_create: {
+    ai_v1_guide_ask_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15396,7 +15664,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_credentials_list: {
+    ai_v1_guide_credentials_list: {
         parameters: {
             query: {
                 q: string;
@@ -15417,7 +15685,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_credentials_letter_retrieve: {
+    ai_v1_guide_credentials_letter_retrieve: {
         parameters: {
             query?: {
                 recipient?: string;
@@ -15442,7 +15710,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_guide_fees_retrieve: {
+    ai_v1_guide_fees_retrieve: {
         parameters: {
             query: {
                 country: string;
@@ -15461,6 +15729,27 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     };
+                };
+            };
+        };
+    };
+    ai_v1_guide_job_offer_retrieve: {
+        parameters: {
+            query: {
+                country: "CA" | "CH" | "DE" | "GB" | "IE" | "NL" | "US";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOfferGuide"];
                 };
             };
         };
@@ -15487,15 +15776,24 @@ export interface operations {
     ai_jobs_list: {
         parameters: {
             query?: {
+                /** @description A place in the job's location; repeat for several. */
+                city?: string[];
                 /** @description Defaults to the active destination. */
                 country?: string;
                 /** @description Also show caution jobs (trust 40–59). */
                 include_caution?: boolean;
+                language?: "any" | "english";
+                meets_salary_threshold?: boolean;
                 page?: number;
+                /** @description Days, 1–90. */
+                posted_within?: number;
                 /** @description Words in the job title. */
                 q?: string;
                 remote?: boolean;
+                /** @description A route code: its country, and its salary rule where checked. */
+                route?: string;
                 sort?: "fit" | "recent" | "trust";
+                sponsor?: "any" | "confirmed" | "register";
             };
             header?: never;
             path?: never;
@@ -15515,7 +15813,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_jobs_retrieve: {
+    ai_v1_jobs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15538,7 +15836,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_jobs_answer_pack_create: {
+    ai_v1_jobs_answer_pack_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15567,7 +15865,28 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_jobs_report_create: {
+    ai_v1_jobs_apply_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApplyClick"];
+                };
+            };
+        };
+    };
+    ai_v1_jobs_report_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15594,7 +15913,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_jobs_save_create: {
+    ai_v1_jobs_save_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15621,7 +15940,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_jobs_save_destroy: {
+    ai_v1_jobs_save_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -15641,7 +15960,30 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_retrieve: {
+    ai_v1_jobs_similar_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    ai_v1_me_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15660,7 +16002,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_answer_packs_list: {
+    ai_v1_me_answer_packs_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -15679,7 +16021,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_answer_packs_retrieve: {
+    ai_v1_me_answer_packs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15700,7 +16042,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_answer_packs_answers_partial_update: {
+    ai_v1_me_answer_packs_answers_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -15749,7 +16091,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_create: {
+    ai_v1_me_applications_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15782,7 +16124,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_retrieve: {
+    ai_v1_me_applications_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15803,7 +16145,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_destroy: {
+    ai_v1_me_applications_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -15823,7 +16165,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_partial_update: {
+    ai_v1_me_applications_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -15850,7 +16192,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_move_create: {
+    ai_v1_me_applications_move_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15887,7 +16229,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_applications_suggestions_create: {
+    ai_v1_me_applications_suggestions_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -15920,7 +16262,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_arrival_update: {
+    ai_v1_me_arrival_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -15946,7 +16288,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_changes_list: {
+    ai_v1_me_changes_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -15965,7 +16307,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_checklists_retrieve: {
+    ai_v1_me_checklists_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -15988,7 +16330,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_coaching_sessions_list: {
+    ai_v1_me_coaching_sessions_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16007,7 +16349,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_coaching_sessions_create: {
+    ai_v1_me_coaching_sessions_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16032,7 +16374,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_coaching_sessions_retrieve: {
+    ai_v1_me_coaching_sessions_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16053,7 +16395,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_coaching_sessions_answers_create: {
+    ai_v1_me_coaching_sessions_answers_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16080,7 +16422,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_compare_list: {
+    ai_v1_me_compare_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16099,7 +16441,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_credential_requests_list: {
+    ai_v1_me_credential_requests_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16118,7 +16460,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_credential_requests_create: {
+    ai_v1_me_credential_requests_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16143,7 +16485,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_credential_requests_partial_update: {
+    ai_v1_me_credential_requests_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -16170,7 +16512,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_data_erase_create: {
+    ai_v1_me_data_erase_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16197,7 +16539,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_data_exports_retrieve: {
+    ai_v1_me_data_exports_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16218,7 +16560,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_data_exports_create: {
+    ai_v1_me_data_exports_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16239,7 +16581,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_data_exports_download_retrieve: {
+    ai_v1_me_data_exports_download_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16260,7 +16602,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_destination_retrieve: {
+    ai_v1_me_destination_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16279,7 +16621,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_destination_create: {
+    ai_v1_me_destination_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16304,7 +16646,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_devices_list: {
+    ai_v1_me_devices_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16323,7 +16665,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_devices_create: {
+    ai_v1_me_devices_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16348,7 +16690,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_devices_destroy: {
+    ai_v1_me_devices_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -16368,7 +16710,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_list: {
+    ai_v1_me_documents_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16387,7 +16729,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_create: {
+    ai_v1_me_documents_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16411,7 +16753,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_retrieve: {
+    ai_v1_me_documents_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16432,7 +16774,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_destroy: {
+    ai_v1_me_documents_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -16452,7 +16794,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_partial_update: {
+    ai_v1_me_documents_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -16479,7 +16821,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_download_retrieve: {
+    ai_v1_me_documents_download_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16500,7 +16842,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_access_log_list: {
+    ai_v1_me_documents_access_log_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16519,7 +16861,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_documents_expiring_retrieve: {
+    ai_v1_me_documents_expiring_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16562,7 +16904,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_eligibility_retrieve: {
+    ai_v1_me_eligibility_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16583,7 +16925,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_extension_pairing_code_create: {
+    ai_v1_me_extension_pairing_code_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16604,7 +16946,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_extension_tokens_list: {
+    ai_v1_me_extension_tokens_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16623,7 +16965,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_extension_tokens_destroy: {
+    ai_v1_me_extension_tokens_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -16643,7 +16985,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_list: {
+    ai_v1_me_facts_list: {
         parameters: {
             query?: {
                 kind?: "certification" | "education" | "language" | "skill" | "test_score" | "work";
@@ -16665,7 +17007,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_create: {
+    ai_v1_me_facts_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16690,7 +17032,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_partial_update: {
+    ai_v1_me_facts_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -16717,7 +17059,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_confirm_create: {
+    ai_v1_me_facts_confirm_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16744,7 +17086,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_reject_create: {
+    ai_v1_me_facts_reject_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16771,7 +17113,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_confirm_viewed_create: {
+    ai_v1_me_facts_confirm_viewed_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16792,7 +17134,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_facts_viewed_create: {
+    ai_v1_me_facts_viewed_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16819,7 +17161,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_funds_checks_list: {
+    ai_v1_me_funds_checks_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16838,7 +17180,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_funds_checks_create: {
+    ai_v1_me_funds_checks_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16863,7 +17205,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_funds_checks_retrieve: {
+    ai_v1_me_funds_checks_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16884,7 +17226,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_generated_documents_list: {
+    ai_v1_me_generated_documents_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -16903,7 +17245,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_generated_documents_create: {
+    ai_v1_me_generated_documents_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -16928,7 +17270,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_generated_documents_retrieve: {
+    ai_v1_me_generated_documents_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -16949,7 +17291,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_generated_documents_destroy: {
+    ai_v1_me_generated_documents_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -16969,7 +17311,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_generated_documents_download_retrieve: {
+    ai_v1_me_generated_documents_download_retrieve: {
         parameters: {
             query?: {
                 format?: "docx" | "pdf";
@@ -16992,7 +17334,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_grade_retrieve: {
+    ai_v1_me_grade_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17241,7 +17583,98 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_notifications_preferences_retrieve: {
+    ai_v1_me_job_searches_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobSearch"][];
+                };
+            };
+        };
+    };
+    ai_v1_me_job_searches_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["JobSearchRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["JobSearchRequest"];
+                "multipart/form-data": components["schemas"]["JobSearchRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobSearch"];
+                };
+            };
+        };
+    };
+    ai_v1_me_job_searches_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                search_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ai_v1_me_job_searches_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                search_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedJobSearchRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedJobSearchRequest"];
+                "multipart/form-data": components["schemas"]["PatchedJobSearchRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobSearch"];
+                };
+            };
+        };
+    };
+    ai_v1_me_notifications_preferences_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17262,7 +17695,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_notifications_preferences_update: {
+    ai_v1_me_notifications_preferences_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -17289,7 +17722,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_occupation_retrieve: {
+    ai_v1_me_occupation_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17308,7 +17741,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_occupation_create: {
+    ai_v1_me_occupation_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17333,7 +17766,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_occupation_suggestions_list: {
+    ai_v1_me_occupation_suggestions_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -17352,7 +17785,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_onboarding_complete_create: {
+    ai_v1_me_onboarding_complete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17371,7 +17804,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_retrieve: {
+    ai_v1_me_plan_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17392,7 +17825,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_create: {
+    ai_v1_me_plan_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17419,7 +17852,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_pathways_retrieve: {
+    ai_v1_me_plan_pathways_retrieve: {
         parameters: {
             query?: {
                 /** @description Every pathway, not just the top three. */
@@ -17444,7 +17877,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_share_create: {
+    ai_v1_me_plan_share_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17465,7 +17898,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_share_destroy: {
+    ai_v1_me_plan_share_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -17483,7 +17916,40 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_plan_todos_partial_update: {
+    ai_v1_me_plan_todos_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddTodoRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AddTodoRequest"];
+                "multipart/form-data": components["schemas"]["AddTodoRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Todo"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Todo"];
+                };
+            };
+        };
+    };
+    ai_v1_me_plan_todos_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -17510,7 +17976,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_points_retrieve: {
+    ai_v1_me_points_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17531,7 +17997,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_points_create: {
+    ai_v1_me_points_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17558,7 +18024,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_profile_retrieve: {
+    ai_v1_me_profile_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17579,7 +18045,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_questionnaire_retrieve: {
+    ai_v1_me_questionnaire_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17598,7 +18064,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_questionnaire_partial_update: {
+    ai_v1_me_questionnaire_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -17623,7 +18089,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_saved_jobs_retrieve: {
+    ai_v1_me_saved_jobs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17644,7 +18110,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_subscription_retrieve: {
+    ai_v1_me_subscription_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17663,7 +18129,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_subscription_cancel_create: {
+    ai_v1_me_subscription_cancel_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17684,7 +18150,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_subscription_checkout_create: {
+    ai_v1_me_subscription_checkout_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17711,7 +18177,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_uploads_create: {
+    ai_v1_me_uploads_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17736,7 +18202,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_uploads_retrieve: {
+    ai_v1_me_uploads_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17757,7 +18223,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_uploads_chunks_update: {
+    ai_v1_me_uploads_chunks_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -17785,7 +18251,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_me_uploads_complete_create: {
+    ai_v1_me_uploads_complete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -17814,7 +18280,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_meta_retrieve: {
+    ai_v1_meta_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17833,7 +18299,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_occupations_search_list: {
+    ai_v1_occupations_search_list: {
         parameters: {
             query: {
                 q: string;
@@ -17855,7 +18321,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_plans_list: {
+    ai_v1_plans_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -17874,7 +18340,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_routes_list: {
+    ai_v1_routes_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -17895,7 +18361,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_routes_retrieve: {
+    ai_v1_routes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17916,7 +18382,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_scams_list: {
+    ai_v1_scams_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -17935,7 +18401,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_share_retrieve: {
+    ai_v1_share_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17956,7 +18422,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_sources_retrieve: {
+    ai_v1_sources_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -17977,7 +18443,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_list: {
+    ai_v1_staff_arrival_items_list: {
         parameters: {
             query?: {
                 /**
@@ -18016,7 +18482,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_create: {
+    ai_v1_staff_arrival_items_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18041,7 +18507,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_retrieve: {
+    ai_v1_staff_arrival_items_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18063,7 +18529,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_update: {
+    ai_v1_staff_arrival_items_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18091,7 +18557,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_destroy: {
+    ai_v1_staff_arrival_items_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -18112,7 +18578,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_arrival_items_partial_update: {
+    ai_v1_staff_arrival_items_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18140,7 +18606,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_ats_health_retrieve: {
+    ai_v1_staff_ats_health_retrieve: {
         parameters: {
             query?: {
                 days?: number;
@@ -18187,7 +18653,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_candidates_retrieve: {
+    ai_v1_staff_candidates_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18210,7 +18676,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_candidates_documents_open_create: {
+    ai_v1_staff_candidates_documents_open_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18238,7 +18704,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_candidates_extend_create: {
+    ai_v1_staff_candidates_extend_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18267,7 +18733,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_candidates_recompute_create: {
+    ai_v1_staff_candidates_recompute_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18287,7 +18753,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_list: {
+    ai_v1_staff_checklist_items_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -18316,7 +18782,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_create: {
+    ai_v1_staff_checklist_items_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18341,7 +18807,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_retrieve: {
+    ai_v1_staff_checklist_items_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18363,7 +18829,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_update: {
+    ai_v1_staff_checklist_items_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18391,7 +18857,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_destroy: {
+    ai_v1_staff_checklist_items_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -18412,7 +18878,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_checklist_items_partial_update: {
+    ai_v1_staff_checklist_items_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18440,7 +18906,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_list: {
+    ai_v1_staff_credential_guides_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -18468,7 +18934,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_create: {
+    ai_v1_staff_credential_guides_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18493,7 +18959,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_retrieve: {
+    ai_v1_staff_credential_guides_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18515,7 +18981,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_update: {
+    ai_v1_staff_credential_guides_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18543,7 +19009,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_destroy: {
+    ai_v1_staff_credential_guides_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -18564,7 +19030,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_credential_guides_partial_update: {
+    ai_v1_staff_credential_guides_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18592,7 +19058,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_employers_list: {
+    ai_v1_staff_employers_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -18629,7 +19095,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_employers_retrieve: {
+    ai_v1_staff_employers_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18651,7 +19117,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_employers_update: {
+    ai_v1_staff_employers_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18679,7 +19145,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_employers_partial_update: {
+    ai_v1_staff_employers_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18707,7 +19173,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_list: {
+    ai_v1_staff_facts_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -18736,7 +19202,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_create: {
+    ai_v1_staff_facts_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18761,7 +19227,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_retrieve: {
+    ai_v1_staff_facts_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18783,7 +19249,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_update: {
+    ai_v1_staff_facts_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18811,7 +19277,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_destroy: {
+    ai_v1_staff_facts_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -18832,7 +19298,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_facts_partial_update: {
+    ai_v1_staff_facts_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18860,7 +19326,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_list: {
+    ai_v1_staff_feeds_list: {
         parameters: {
             query?: {
                 is_active?: boolean;
@@ -18903,7 +19369,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_create: {
+    ai_v1_staff_feeds_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -18928,7 +19394,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_retrieve: {
+    ai_v1_staff_feeds_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -18950,7 +19416,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_update: {
+    ai_v1_staff_feeds_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -18978,7 +19444,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_destroy: {
+    ai_v1_staff_feeds_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -18999,7 +19465,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_partial_update: {
+    ai_v1_staff_feeds_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19027,7 +19493,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_feeds_poll_now_create: {
+    ai_v1_staff_feeds_poll_now_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19048,7 +19514,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_freshness_list: {
+    ai_v1_staff_freshness_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -19067,7 +19533,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_list: {
+    ai_v1_staff_fx_rates_list: {
         parameters: {
             query?: {
                 base?: string;
@@ -19103,7 +19569,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_create: {
+    ai_v1_staff_fx_rates_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19128,7 +19594,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_retrieve: {
+    ai_v1_staff_fx_rates_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19150,7 +19616,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_update: {
+    ai_v1_staff_fx_rates_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19178,7 +19644,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_destroy: {
+    ai_v1_staff_fx_rates_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -19199,7 +19665,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_fx_rates_partial_update: {
+    ai_v1_staff_fx_rates_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19227,7 +19693,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_handoffs_list: {
+    ai_v1_staff_handoffs_list: {
         parameters: {
             query?: {
                 assigned_to?: string;
@@ -19263,7 +19729,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_handoffs_retrieve: {
+    ai_v1_staff_handoffs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19285,7 +19751,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_handoffs_partial_update: {
+    ai_v1_staff_handoffs_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19313,7 +19779,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_ingestion_runs_list: {
+    ai_v1_staff_ingestion_runs_list: {
         parameters: {
             query?: {
                 feed?: string;
@@ -19347,7 +19813,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_list: {
+    ai_v1_staff_institutions_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -19384,7 +19850,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_create: {
+    ai_v1_staff_institutions_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19409,7 +19875,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_retrieve: {
+    ai_v1_staff_institutions_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19431,7 +19897,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_update: {
+    ai_v1_staff_institutions_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19459,7 +19925,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_destroy: {
+    ai_v1_staff_institutions_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -19480,7 +19946,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_institutions_partial_update: {
+    ai_v1_staff_institutions_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19508,7 +19974,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_list: {
+    ai_v1_staff_intakes_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -19537,7 +20003,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_create: {
+    ai_v1_staff_intakes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19562,7 +20028,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_retrieve: {
+    ai_v1_staff_intakes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19584,7 +20050,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_update: {
+    ai_v1_staff_intakes_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19612,7 +20078,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_destroy: {
+    ai_v1_staff_intakes_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -19633,7 +20099,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_intakes_partial_update: {
+    ai_v1_staff_intakes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19661,7 +20127,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_jobs_list: {
+    ai_v1_staff_jobs_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -19701,7 +20167,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_jobs_retrieve: {
+    ai_v1_staff_jobs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19723,7 +20189,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_jobs_hide_create: {
+    ai_v1_staff_jobs_hide_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19751,7 +20217,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_jobs_reverify_create: {
+    ai_v1_staff_jobs_reverify_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19772,7 +20238,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_jobs_unhide_create: {
+    ai_v1_staff_jobs_unhide_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19800,7 +20266,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_list: {
+    ai_v1_staff_nationality_gates_list: {
         parameters: {
             query?: {
                 nationality?: string;
@@ -19830,7 +20296,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_create: {
+    ai_v1_staff_nationality_gates_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -19855,7 +20321,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_retrieve: {
+    ai_v1_staff_nationality_gates_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19877,7 +20343,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_update: {
+    ai_v1_staff_nationality_gates_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19905,7 +20371,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_destroy: {
+    ai_v1_staff_nationality_gates_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -19926,7 +20392,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_nationality_gates_partial_update: {
+    ai_v1_staff_nationality_gates_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -19954,7 +20420,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_overview_retrieve: {
+    ai_v1_staff_overview_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -19975,7 +20441,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_plans_list: {
+    ai_v1_staff_plans_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -20003,7 +20469,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_plans_create: {
+    ai_v1_staff_plans_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20028,7 +20494,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_plans_retrieve: {
+    ai_v1_staff_plans_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20050,7 +20516,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_plans_partial_update: {
+    ai_v1_staff_plans_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20078,7 +20544,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_list: {
+    ai_v1_staff_portal_fees_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -20107,7 +20573,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_create: {
+    ai_v1_staff_portal_fees_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20132,7 +20598,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_retrieve: {
+    ai_v1_staff_portal_fees_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20154,7 +20620,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_update: {
+    ai_v1_staff_portal_fees_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20182,7 +20648,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_destroy: {
+    ai_v1_staff_portal_fees_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -20203,7 +20669,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_portal_fees_partial_update: {
+    ai_v1_staff_portal_fees_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20231,7 +20697,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_postings_list: {
+    ai_v1_staff_postings_list: {
         parameters: {
             query?: {
                 feed?: string;
@@ -20261,7 +20727,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_postings_retrieve: {
+    ai_v1_staff_postings_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20283,7 +20749,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_list: {
+    ai_v1_staff_programme_requirements_list: {
         parameters: {
             query?: {
                 /**
@@ -20323,7 +20789,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_create: {
+    ai_v1_staff_programme_requirements_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20348,7 +20814,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_retrieve: {
+    ai_v1_staff_programme_requirements_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20370,7 +20836,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_update: {
+    ai_v1_staff_programme_requirements_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20398,7 +20864,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_destroy: {
+    ai_v1_staff_programme_requirements_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -20419,7 +20885,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programme_requirements_partial_update: {
+    ai_v1_staff_programme_requirements_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20447,7 +20913,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_list: {
+    ai_v1_staff_programmes_list: {
         parameters: {
             query?: {
                 institution?: string;
@@ -20486,7 +20952,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_create: {
+    ai_v1_staff_programmes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20511,7 +20977,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_retrieve: {
+    ai_v1_staff_programmes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20533,7 +20999,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_update: {
+    ai_v1_staff_programmes_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20561,7 +21027,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_destroy: {
+    ai_v1_staff_programmes_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -20582,7 +21048,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_programmes_partial_update: {
+    ai_v1_staff_programmes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20610,7 +21076,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_list: {
+    ai_v1_staff_question_sets_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -20647,7 +21113,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_create: {
+    ai_v1_staff_question_sets_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20672,7 +21138,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_retrieve: {
+    ai_v1_staff_question_sets_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20694,7 +21160,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_update: {
+    ai_v1_staff_question_sets_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20722,7 +21188,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_destroy: {
+    ai_v1_staff_question_sets_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -20743,7 +21209,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_question_sets_partial_update: {
+    ai_v1_staff_question_sets_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20771,7 +21237,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_review_items_list: {
+    ai_v1_staff_review_items_list: {
         parameters: {
             query?: {
                 /**
@@ -20813,7 +21279,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_review_items_retrieve: {
+    ai_v1_staff_review_items_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20835,7 +21301,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_review_items_resolve_create: {
+    ai_v1_staff_review_items_resolve_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20863,7 +21329,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_list: {
+    ai_v1_staff_route_costs_list: {
         parameters: {
             query?: {
                 /**
@@ -20904,7 +21370,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_create: {
+    ai_v1_staff_route_costs_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -20929,7 +21395,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_retrieve: {
+    ai_v1_staff_route_costs_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -20951,7 +21417,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_update: {
+    ai_v1_staff_route_costs_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -20979,7 +21445,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_destroy: {
+    ai_v1_staff_route_costs_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -21000,7 +21466,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_route_costs_partial_update: {
+    ai_v1_staff_route_costs_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21028,7 +21494,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_list: {
+    ai_v1_staff_routes_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -21069,7 +21535,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_create: {
+    ai_v1_staff_routes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21094,7 +21560,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_retrieve: {
+    ai_v1_staff_routes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21116,7 +21582,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_update: {
+    ai_v1_staff_routes_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21144,7 +21610,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_destroy: {
+    ai_v1_staff_routes_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -21165,7 +21631,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_routes_partial_update: {
+    ai_v1_staff_routes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21193,7 +21659,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rule_variables_retrieve: {
+    ai_v1_staff_rule_variables_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21214,7 +21680,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_list: {
+    ai_v1_staff_rules_list: {
         parameters: {
             query?: {
                 key?: string;
@@ -21251,7 +21717,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_create: {
+    ai_v1_staff_rules_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21276,7 +21742,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_retrieve: {
+    ai_v1_staff_rules_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21298,7 +21764,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_destroy: {
+    ai_v1_staff_rules_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -21319,7 +21785,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_partial_update: {
+    ai_v1_staff_rules_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21347,7 +21813,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_approve_create: {
+    ai_v1_staff_rules_approve_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21375,7 +21841,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_preview_create: {
+    ai_v1_staff_rules_preview_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21399,7 +21865,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_reject_create: {
+    ai_v1_staff_rules_reject_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21427,7 +21893,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_rules_submit_create: {
+    ai_v1_staff_rules_submit_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21449,7 +21915,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scam_reports_list: {
+    ai_v1_staff_scam_reports_list: {
         parameters: {
             query?: {
                 employer?: string;
@@ -21486,7 +21952,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scam_reports_retrieve: {
+    ai_v1_staff_scam_reports_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21508,7 +21974,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scam_reports_review_create: {
+    ai_v1_staff_scam_reports_review_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21536,7 +22002,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_list: {
+    ai_v1_staff_scholarships_list: {
         parameters: {
             query?: {
                 automatic?: boolean;
@@ -21567,7 +22033,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_create: {
+    ai_v1_staff_scholarships_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21592,7 +22058,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_retrieve: {
+    ai_v1_staff_scholarships_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21614,7 +22080,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_update: {
+    ai_v1_staff_scholarships_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21642,7 +22108,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_destroy: {
+    ai_v1_staff_scholarships_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -21663,7 +22129,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_scholarships_partial_update: {
+    ai_v1_staff_scholarships_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21691,7 +22157,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_list: {
+    ai_v1_staff_sources_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -21740,7 +22206,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_create: {
+    ai_v1_staff_sources_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21765,7 +22231,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_retrieve: {
+    ai_v1_staff_sources_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21787,7 +22253,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_update: {
+    ai_v1_staff_sources_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21815,7 +22281,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_destroy: {
+    ai_v1_staff_sources_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -21836,7 +22302,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_partial_update: {
+    ai_v1_staff_sources_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -21864,7 +22330,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_check_now_create: {
+    ai_v1_staff_sources_check_now_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21885,7 +22351,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_history_list: {
+    ai_v1_staff_sources_history_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -21937,7 +22403,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_sources_verify_create: {
+    ai_v1_staff_sources_verify_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -21964,7 +22430,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_task_queue_retrieve: {
+    ai_v1_staff_task_queue_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -21985,7 +22451,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_staff_task_queue_replay_create: {
+    ai_v1_staff_task_queue_replay_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22044,7 +22510,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_study_programmes_retrieve: {
+    ai_v1_study_programmes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22067,7 +22533,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_study_scholarships_list: {
+    ai_v1_study_scholarships_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -22089,7 +22555,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_tasks_retrieve: {
+    ai_v1_tasks_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22117,7 +22583,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_tasks_cancel_create: {
+    ai_v1_tasks_cancel_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22145,7 +22611,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_tools_points_create: {
+    ai_v1_tools_points_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22172,7 +22638,7 @@ export interface operations {
             };
         };
     };
-    api_ai_v1_trust_freshness_list: {
+    ai_v1_trust_freshness_list: {
         parameters: {
             query?: {
                 /** @description ISO code; omit for all. */
@@ -22194,7 +22660,7 @@ export interface operations {
             };
         };
     };
-    api_applications_list: {
+    applications_list: {
         parameters: {
             query?: {
                 intake?: string;
@@ -22241,7 +22707,7 @@ export interface operations {
             };
         };
     };
-    api_applications_create: {
+    applications_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22266,7 +22732,7 @@ export interface operations {
             };
         };
     };
-    api_applications_retrieve: {
+    applications_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22288,7 +22754,7 @@ export interface operations {
             };
         };
     };
-    api_applications_update: {
+    applications_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -22316,7 +22782,7 @@ export interface operations {
             };
         };
     };
-    api_applications_destroy: {
+    applications_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -22337,7 +22803,7 @@ export interface operations {
             };
         };
     };
-    api_applications_partial_update: {
+    applications_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -22365,7 +22831,7 @@ export interface operations {
             };
         };
     };
-    api_applications_checklist_retrieve: {
+    applications_checklist_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22387,7 +22853,7 @@ export interface operations {
             };
         };
     };
-    api_applications_generate_checklist_create: {
+    applications_generate_checklist_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22415,7 +22881,7 @@ export interface operations {
             };
         };
     };
-    api_applications_resync_checklist_retrieve: {
+    applications_resync_checklist_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22437,7 +22903,7 @@ export interface operations {
             };
         };
     };
-    api_applications_resync_checklist_create: {
+    applications_resync_checklist_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22465,7 +22931,7 @@ export interface operations {
             };
         };
     };
-    api_applications_status_create: {
+    applications_status_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22493,7 +22959,7 @@ export interface operations {
             };
         };
     };
-    api_auth_login_create: {
+    auth_login_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22518,7 +22984,7 @@ export interface operations {
             };
         };
     };
-    api_auth_me_retrieve: {
+    auth_me_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22536,7 +23002,7 @@ export interface operations {
             };
         };
     };
-    api_auth_me_partial_update: {
+    auth_me_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -22561,7 +23027,7 @@ export interface operations {
             };
         };
     };
-    api_auth_mfa_retrieve: {
+    auth_mfa_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22580,7 +23046,7 @@ export interface operations {
             };
         };
     };
-    api_auth_mfa_confirm_create: {
+    auth_mfa_confirm_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22604,7 +23070,7 @@ export interface operations {
             };
         };
     };
-    api_auth_mfa_disable_create: {
+    auth_mfa_disable_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22628,7 +23094,7 @@ export interface operations {
             };
         };
     };
-    api_auth_mfa_enrol_create: {
+    auth_mfa_enrol_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22646,7 +23112,7 @@ export interface operations {
             };
         };
     };
-    api_auth_mfa_recovery_codes_create: {
+    auth_mfa_recovery_codes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22670,7 +23136,7 @@ export interface operations {
             };
         };
     };
-    api_auth_password_change_create: {
+    auth_password_change_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22694,7 +23160,7 @@ export interface operations {
             };
         };
     };
-    api_auth_password_reset_create: {
+    auth_password_reset_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22718,7 +23184,7 @@ export interface operations {
             };
         };
     };
-    api_auth_password_reset_confirm_create: {
+    auth_password_reset_confirm_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22742,7 +23208,7 @@ export interface operations {
             };
         };
     };
-    api_auth_phone_code_create: {
+    auth_phone_code_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22767,7 +23233,7 @@ export interface operations {
             };
         };
     };
-    api_auth_phone_verify_create: {
+    auth_phone_verify_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22792,7 +23258,7 @@ export interface operations {
             };
         };
     };
-    api_auth_resend_verification_create: {
+    auth_resend_verification_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22810,7 +23276,7 @@ export interface operations {
             };
         };
     };
-    api_auth_signup_create: {
+    auth_signup_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22835,7 +23301,7 @@ export interface operations {
             };
         };
     };
-    api_auth_token_refresh_create: {
+    auth_token_refresh_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22860,7 +23326,7 @@ export interface operations {
             };
         };
     };
-    api_auth_token_verify_create: {
+    auth_token_verify_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22884,7 +23350,7 @@ export interface operations {
             };
         };
     };
-    api_auth_verify_email_create: {
+    auth_verify_email_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -22908,7 +23374,7 @@ export interface operations {
             };
         };
     };
-    api_blog_authors_list: {
+    blog_authors_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -22932,7 +23398,7 @@ export interface operations {
             };
         };
     };
-    api_blog_authors_retrieve: {
+    blog_authors_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -22953,7 +23419,7 @@ export interface operations {
             };
         };
     };
-    api_blog_authors_posts_list: {
+    blog_authors_posts_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -22979,7 +23445,7 @@ export interface operations {
             };
         };
     };
-    api_blog_categories_list: {
+    blog_categories_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -23003,7 +23469,7 @@ export interface operations {
             };
         };
     };
-    api_blog_categories_retrieve: {
+    blog_categories_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23024,7 +23490,7 @@ export interface operations {
             };
         };
     };
-    api_blog_posts_list: {
+    blog_posts_list: {
         parameters: {
             query?: {
                 /** @description Category slug. */
@@ -23056,7 +23522,7 @@ export interface operations {
             };
         };
     };
-    api_blog_posts_retrieve: {
+    blog_posts_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23077,7 +23543,7 @@ export interface operations {
             };
         };
     };
-    api_blog_posts_comments_create: {
+    blog_posts_comments_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23103,7 +23569,7 @@ export interface operations {
             };
         };
     };
-    api_blog_settings_retrieve: {
+    blog_settings_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23121,7 +23587,7 @@ export interface operations {
             };
         };
     };
-    api_blog_sitemap_retrieve: {
+    blog_sitemap_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23139,7 +23605,7 @@ export interface operations {
             };
         };
     };
-    api_blog_tags_list: {
+    blog_tags_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -23163,7 +23629,7 @@ export interface operations {
             };
         };
     };
-    api_blog_tags_retrieve: {
+    blog_tags_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23184,7 +23650,7 @@ export interface operations {
             };
         };
     };
-    api_checklist_items_list: {
+    checklist_items_list: {
         parameters: {
             query?: {
                 category_slug?: string;
@@ -23226,7 +23692,7 @@ export interface operations {
             };
         };
     };
-    api_checklist_items_retrieve: {
+    checklist_items_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23248,7 +23714,7 @@ export interface operations {
             };
         };
     };
-    api_checklist_items_review_create: {
+    checklist_items_review_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23276,7 +23742,7 @@ export interface operations {
             };
         };
     };
-    api_checklist_items_upload_create: {
+    checklist_items_upload_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23304,7 +23770,7 @@ export interface operations {
             };
         };
     };
-    api_countries_list: {
+    countries_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -23332,7 +23798,7 @@ export interface operations {
             };
         };
     };
-    api_countries_retrieve: {
+    countries_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23354,7 +23820,7 @@ export interface operations {
             };
         };
     };
-    api_documents_list: {
+    documents_list: {
         parameters: {
             query?: {
                 category?: string;
@@ -23384,7 +23850,7 @@ export interface operations {
             };
         };
     };
-    api_documents_create: {
+    documents_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23409,7 +23875,7 @@ export interface operations {
             };
         };
     };
-    api_documents_retrieve: {
+    documents_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23431,7 +23897,7 @@ export interface operations {
             };
         };
     };
-    api_documents_destroy: {
+    documents_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -23452,7 +23918,7 @@ export interface operations {
             };
         };
     };
-    api_documents_partial_update: {
+    documents_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -23480,7 +23946,7 @@ export interface operations {
             };
         };
     };
-    api_forms_retrieve: {
+    forms_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23508,7 +23974,7 @@ export interface operations {
             };
         };
     };
-    api_forms_submit_create: {
+    forms_submit_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23535,7 +24001,7 @@ export interface operations {
             };
         };
     };
-    api_my_submissions_list: {
+    my_submissions_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -23554,7 +24020,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_retrieve: {
+    notifications_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23573,7 +24039,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_create: {
+    notifications_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23591,7 +24057,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_preferences_retrieve: {
+    notifications_preferences_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23609,7 +24075,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_preferences_partial_update: {
+    notifications_preferences_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -23633,7 +24099,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_quiet_hours_update: {
+    notifications_quiet_hours_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -23657,7 +24123,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_telegram_create: {
+    notifications_telegram_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23675,7 +24141,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_telegram_destroy: {
+    notifications_telegram_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -23693,7 +24159,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_whatsapp_create: {
+    notifications_whatsapp_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23711,7 +24177,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_whatsapp_destroy: {
+    notifications_whatsapp_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -23729,7 +24195,7 @@ export interface operations {
             };
         };
     };
-    api_payments_gateways_list: {
+    payments_gateways_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -23748,7 +24214,7 @@ export interface operations {
             };
         };
     };
-    api_payments_initiate_create: {
+    payments_initiate_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23772,7 +24238,7 @@ export interface operations {
             };
         };
     };
-    api_payments_mine_list: {
+    payments_mine_list: {
         parameters: {
             query?: never;
             header?: never;
@@ -23791,7 +24257,7 @@ export interface operations {
             };
         };
     };
-    api_payments_verify_create: {
+    payments_verify_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23816,7 +24282,7 @@ export interface operations {
             };
         };
     };
-    api_pricing_retrieve: {
+    pricing_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23834,7 +24300,7 @@ export interface operations {
             };
         };
     };
-    api_profile_retrieve: {
+    profile_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23853,7 +24319,7 @@ export interface operations {
             };
         };
     };
-    api_profile_partial_update: {
+    profile_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -23878,7 +24344,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_list: {
+    programmes_list: {
         parameters: {
             query?: {
                 is_active?: boolean;
@@ -23916,7 +24382,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_create: {
+    programmes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -23941,7 +24407,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_retrieve: {
+    programmes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23963,7 +24429,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_update: {
+    programmes_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -23991,7 +24457,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_destroy: {
+    programmes_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -24012,7 +24478,7 @@ export interface operations {
             };
         };
     };
-    api_programmes_partial_update: {
+    programmes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -24040,7 +24506,7 @@ export interface operations {
             };
         };
     };
-    api_referrals_check_retrieve: {
+    referrals_check_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -24058,7 +24524,7 @@ export interface operations {
             };
         };
     };
-    api_referrals_mine_retrieve: {
+    referrals_mine_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -24076,7 +24542,7 @@ export interface operations {
             };
         };
     };
-    api_referrals_payout_create: {
+    referrals_payout_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -24101,7 +24567,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_list: {
+    requirement_categories_list: {
         parameters: {
             query?: {
                 /** @description Which field to use when ordering the results. */
@@ -24129,7 +24595,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_create: {
+    requirement_categories_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -24154,7 +24620,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_retrieve: {
+    requirement_categories_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -24176,7 +24642,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_update: {
+    requirement_categories_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -24204,7 +24670,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_destroy: {
+    requirement_categories_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -24225,7 +24691,7 @@ export interface operations {
             };
         };
     };
-    api_requirement_categories_partial_update: {
+    requirement_categories_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -24253,7 +24719,7 @@ export interface operations {
             };
         };
     };
-    api_schools_list: {
+    schools_list: {
         parameters: {
             query?: {
                 country?: string;
@@ -24292,7 +24758,7 @@ export interface operations {
             };
         };
     };
-    api_schools_create: {
+    schools_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -24317,7 +24783,7 @@ export interface operations {
             };
         };
     };
-    api_schools_retrieve: {
+    schools_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -24339,7 +24805,7 @@ export interface operations {
             };
         };
     };
-    api_schools_update: {
+    schools_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -24367,7 +24833,7 @@ export interface operations {
             };
         };
     };
-    api_schools_destroy: {
+    schools_destroy: {
         parameters: {
             query?: never;
             header?: never;
@@ -24388,7 +24854,7 @@ export interface operations {
             };
         };
     };
-    api_schools_partial_update: {
+    schools_partial_update: {
         parameters: {
             query?: never;
             header?: never;
@@ -24416,7 +24882,7 @@ export interface operations {
             };
         };
     };
-    api_schools_requirements_retrieve: {
+    schools_requirements_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -24438,7 +24904,7 @@ export interface operations {
             };
         };
     };
-    api_webhooks_telegram_create: {
+    webhooks_telegram_create: {
         parameters: {
             query?: never;
             header?: never;

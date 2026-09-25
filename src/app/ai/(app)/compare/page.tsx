@@ -1,13 +1,7 @@
-import { PagePlaceholder } from "@/components/ai/shell/PagePlaceholder";
+import { CompareView } from "@/components/ai/routes/CompareView";
 
 export const metadata = { title: "Compare countries · Nasuru AI" };
 
 export default function ComparePage() {
-  return (
-    <PagePlaceholder
-      title="Compare countries"
-      what="All seven destinations side by side, without switching."
-      module="F7"
-    />
-  );
+  return <CompareView />;
 }

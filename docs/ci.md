@@ -36,7 +36,7 @@ Every action is pinned to a full commit SHA.
 ```bash
 npm run lint           # eslint
 npm run format:check   # prettier
-npx tsc --noEmit       # types
+npm run typecheck      # route types (next typegen), then tsc
 npm run check:contrast # WCAG pairs from src/app/globals.css
 npm test               # vitest
 npm run api:types      # regenerate src/lib/ai/schema.d.ts from the backend (API_SCHEMA=… to override)

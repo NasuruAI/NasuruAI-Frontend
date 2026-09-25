@@ -12,4 +12,7 @@ fi
 echo "pre-commit: eslint and prettier on staged files..."
 npx --no-install lint-staged || exit 1
 echo "pre-commit: TypeScript (whole project: types cross files)..."
+# typegen first: PageProps and the route types live in .next/types, which a
+# fresh clone (or a cleared .next) doesn't have yet.
+npx --no-install next typegen >/dev/null || exit 1
 npx --no-install tsc --noEmit || exit 1

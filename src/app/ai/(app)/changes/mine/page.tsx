@@ -1,13 +1,7 @@
-import { PagePlaceholder } from "@/components/ai/shell/PagePlaceholder";
+import { ChangesView } from "@/components/ai/routes/ChangesView";
 
-export const metadata = { title: "Rule changes · Nasuru AI" };
+export const metadata = { title: "Changes that affected you · Nasuru AI" };
 
-export default function ChangesMinePage() {
-  return (
-    <PagePlaceholder
-      title="Rule changes"
-      what="Rule changes that affected your results, with what changed."
-      module="F7"
-    />
-  );
+export default function ChangesPage() {
+  return <ChangesView />;
 }
