@@ -1,7 +1,8 @@
 "use client";
 
 /**
- * Ctrl/Cmd-K search across students and the review queue.
+ * Ctrl/Cmd-K search. Staff search students and the review queue (the
+ * default); the Nasuru AI shell passes its own `search` and quick actions.
  *
  * Nothing in this product used to be findable except by navigation
  * (docs/enterprise-readiness.md §D4). Staff overwhelmingly arrive with an
@@ -18,13 +19,46 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { listStudents, listReviewQueue } from "@/lib/staff";
 
-interface Result {
+export interface PaletteResult {
   id: string;
   title: string;
   detail: string;
   href: string;
   group: string;
 }
+type Result = PaletteResult;
+
+/** The staff search: students and review-queue items. */
+export async function searchStaff(term: string): Promise<PaletteResult[]> {
+  const [students, queue] = await Promise.all([
+    listStudents({ search: term }).catch(() => null),
+    listReviewQueue({ search: term }).catch(() => null),
+  ]);
+  return [
+    ...(students?.results ?? []).slice(0, 6).map((student) => ({
+      id: `student-${student.id}`,
+      title: student.user.full_name || student.user.email || "",
+      detail: `${student.user.email ?? ""} · ${student.stage_display}`,
+      href: `/staff/students/${student.id}`,
+      group: "Students",
+    })),
+    ...(queue?.results ?? []).slice(0, 6).map((item) => ({
+      id: `item-${item.id}`,
+      title: item.label,
+      detail: item.student_email ?? item.category_name,
+      href: `/staff/review?item=${item.id}`,
+      group: "Review queue",
+    })),
+  ];
+}
+
+type PaletteOptions = {
+  search?: (term: string) => Promise<PaletteResult[]>;
+  /** Shown before anything is typed, e.g. "Check an offer". */
+  suggestions?: PaletteResult[];
+  label?: string;
+  placeholder?: string;
+};
 
 export interface PaletteController {
   isOpen: boolean;
@@ -52,15 +86,24 @@ export function useCommandPalette(): PaletteController {
   return { isOpen, open, close };
 }
 
-export function CommandPalette({ controller }: { controller: PaletteController }) {
+export function CommandPalette({
+  controller,
+  ...options
+}: { controller: PaletteController } & PaletteOptions) {
   // Mounted only while open, so every open starts from clean state. The
   // alternative — one always-mounted component resetting itself in an effect
   // keyed on `isOpen` — is a second render every time and a lint error.
   if (!controller.isOpen) return null;
-  return <PaletteDialog close={controller.close} />;
+  return <PaletteDialog close={controller.close} {...options} />;
 }
 
-function PaletteDialog({ close }: { close: () => void }) {
+function PaletteDialog({
+  close,
+  search = searchStaff,
+  suggestions = [],
+  label = "Search students and the review queue",
+  placeholder = "Search by name, email or document…",
+}: { close: () => void } & PaletteOptions) {
   const router = useRouter();
   const listId = useId();
 
@@ -88,28 +131,8 @@ function PaletteDialog({ close }: { close: () => void }) {
     const timer = setTimeout(async () => {
       setSearching(true);
       try {
-        const [students, queue] = await Promise.all([
-          listStudents({ search: trimmed }).catch(() => null),
-          listReviewQueue({ search: trimmed }).catch(() => null),
-        ]);
+        const found = await search(trimmed).catch(() => [] as Result[]);
         if (cancelled) return;
-
-        const found: Result[] = [
-          ...(students?.results ?? []).slice(0, 6).map((student) => ({
-            id: `student-${student.id}`,
-            title: student.user.full_name || student.user.email,
-            detail: `${student.user.email} · ${student.stage_display}`,
-            href: `/staff/students/${student.id}`,
-            group: "Students",
-          })),
-          ...(queue?.results ?? []).slice(0, 6).map((item) => ({
-            id: `item-${item.id}`,
-            title: item.label,
-            detail: item.student_email ?? item.category_name,
-            href: `/staff/review?item=${item.id}`,
-            group: "Review queue",
-          })),
-        ];
         setResults(found);
         setActive(0);
       } finally {
@@ -121,13 +144,13 @@ function PaletteDialog({ close }: { close: () => void }) {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [term]);
+  }, [term, search]);
 
   /**
    * A stale result list from a previous term must never be shown while the
    * term is too short to have searched for it.
    */
-  const visible = term.trim().length < 2 ? [] : results;
+  const visible = term.trim().length < 2 ? suggestions : results;
   const highlighted = Math.min(active, Math.max(0, visible.length - 1));
 
   /**
@@ -184,7 +207,7 @@ function PaletteDialog({ close }: { close: () => void }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Search students and the review queue"
+        aria-label={label}
         className="relative w-full max-w-xl overflow-hidden rounded-xl border border-line bg-surface shadow-2xl"
       >
         <input
@@ -200,7 +223,7 @@ function PaletteDialog({ close }: { close: () => void }) {
           value={term}
           onChange={(event) => setTerm(event.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="Search by name, email or document…"
+          placeholder={placeholder}
           className="w-full border-b border-line bg-transparent px-4 py-3.5 text-sm text-ink placeholder:text-subtle"
         />
 

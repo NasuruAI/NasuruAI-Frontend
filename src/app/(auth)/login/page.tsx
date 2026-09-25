@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { safeNext } from "@/lib/safe-next";
 import { useState } from "react";
 import { ApiError } from "@/lib/api";
 import { login } from "@/lib/auth/client";
@@ -23,7 +24,8 @@ export default function LoginPage() {
     try {
       await login(email, password);
       await refresh();
-      router.push("/dashboard");
+      // Read at submit time, not with useSearchParams: the page stays static.
+      router.push(safeNext(new URLSearchParams(window.location.search).get("next")));
     } catch (err) {
       // The API returns one message for both wrong-password and no-such-account,
       // deliberately — the form must not confirm which addresses are registered.

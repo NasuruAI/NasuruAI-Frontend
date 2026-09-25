@@ -5363,7 +5363,7 @@ export interface paths {
          *     is complete even for a user who has switched every delivery channel off —
          *     and it is the answer when somebody says they were never told.
          */
-        get: operations["api_notifications_list"];
+        get: operations["api_notifications_retrieve"];
         put?: never;
         /** @description Mark everything read. Per-item read state is not worth the round trip. */
         post: operations["api_notifications_create"];
@@ -7247,6 +7247,34 @@ export interface components {
             is_blocked?: boolean;
             moderation_note?: string;
         };
+        /** @description What GET /me/subscription/ returns (apps.billing.services.entitlements). */
+        Entitlements: {
+            plan: components["schemas"]["EntitlementsPlan"];
+            subscription: components["schemas"]["EntitlementsSubscription"] | null;
+            period: string;
+            /** @description Keyed by meter: answer_pack, cv, coaching_session. */
+            meters: {
+                [key: string]: components["schemas"]["Meter"];
+            };
+            /** @description Keyed by feature: extension, email_tracking, priority_alerts. */
+            features: {
+                [key: string]: boolean;
+            };
+        };
+        EntitlementsPlan: {
+            code: string;
+            name: string;
+        };
+        EntitlementsSubscription: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date-time */
+            starts_at: string;
+            /** Format: date-time */
+            ends_at: string | null;
+            auto_renew: boolean;
+            cancelled: boolean;
+        };
         ErasureRequest: {
             password: string;
             /** @description Type "DELETE MY DATA". */
@@ -7967,6 +7995,11 @@ export interface components {
          * @enum {string}
          */
         InboxConnectionStatusEnum: "active" | "revoked" | "error";
+        /** @description What GET /api/notifications/ returns: the unread count and the latest items. */
+        InboxResponse: {
+            unread: number;
+            results: components["schemas"]["Inbox"][];
+        };
         InboxSyncResult: {
             suggestions: number;
         };
@@ -8091,6 +8124,12 @@ export interface components {
             readonly questionnaire_complete: boolean;
             /** Format: date-time */
             onboarding_completed_at?: string | null;
+        };
+        Meter: {
+            /** @description None means unlimited. */
+            limit: number | null;
+            used: number;
+            remaining: number | null;
         };
         /** @description A 6-digit authenticator code, or a recovery code. */
         MfaCodeRequest: {
@@ -17583,9 +17622,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["Entitlements"];
                 };
             };
         };
@@ -23481,7 +23518,7 @@ export interface operations {
             };
         };
     };
-    api_notifications_list: {
+    api_notifications_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -23495,7 +23532,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Inbox"][];
+                    "application/json": components["schemas"]["InboxResponse"];
                 };
             };
         };
