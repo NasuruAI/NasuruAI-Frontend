@@ -115,7 +115,7 @@ export function AiShell({ children }: { children: React.ReactNode }) {
   }, [session]);
 
   useEffect(() => {
-    if (!loading && !session) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+    if (!loading && !session) router.replace(`/ai/login?next=${encodeURIComponent(pathname)}`);
   }, [loading, session, router, pathname]);
 
   if (loading || !session) {
