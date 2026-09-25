@@ -7,27 +7,28 @@ import { ApiError } from "@/lib/api";
 import {
   checkRows,
   daysSince,
-  DEFAULT_FILTERS,
+  useApplyClick,
   useJob,
-  useJobs,
   useReportJob,
   useSaveJob,
+  useSimilarJobs,
 } from "@/lib/ai/jobs";
 import { Button } from "../Button";
 import { cx } from "../cx";
 import { JobCard } from "../evidence/cards";
-import { CheckList, FitScore, TrustMeter } from "../evidence/Trust";
+import { formatDate } from "../evidence/format";
+import { CheckList, TrustMeter } from "../evidence/Trust";
 import { EmptyState, InlineAlert, Skeleton } from "../feedback";
-import { PrepareButton, ReportDialog, SalaryText } from "./parts";
+import { FitBreakdown, PrepareButton, ReportDialog, SalaryText } from "./parts";
 
 const EXCLUDED: Record<string, string> = {
   german: "This job needs German at B2 or above, which your profile doesn't show yet.",
 };
 
-function Similar({ id, title }: { id: string; title: string }) {
-  const words = title.split(/\s+/).slice(0, 2).join(" ");
-  const jobs = useJobs({ ...DEFAULT_FILTERS, q: words });
-  const similar = (jobs.data?.results ?? []).filter((job) => job.id !== id).slice(0, 3);
+/** Close titles in the same country, verified only, best fit first. */
+function Similar({ id }: { id: string }) {
+  const jobs = useSimilarJobs(id);
+  const similar = jobs.data ?? [];
   if (!similar.length) return null;
   return (
     <section aria-labelledby="similar-heading" className="mt-10">
@@ -43,6 +44,7 @@ function Similar({ id, title }: { id: string; title: string }) {
               location={job.location_text}
               salaryLine={<SalaryText job={job} />}
               trust={job.trust_score ?? 0}
+              fit={job.fit}
               postedAt={job.posted_at ?? undefined}
               href={`/ai/jobs/${job.id}`}
             />
@@ -101,6 +103,7 @@ export function JobDetailView({ id }: { id: string }) {
   const job = useJob(id);
   const save = useSaveJob();
   const report = useReportJob();
+  const apply = useApplyClick();
   const [reporting, setReporting] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
 
@@ -176,6 +179,8 @@ export function JobDetailView({ id }: { id: string }) {
               href={data.apply_url}
               target="_blank"
               rel="noopener noreferrer"
+              // Recorded as the link opens; the link never waits for it.
+              onClick={() => apply.mutate(data.id)}
               className="inline-flex h-11 items-center gap-2 rounded-r-md border border-field-line px-4 text-body font-semibold text-ink hover:bg-sunken"
             >
               Apply on the employer&apos;s site
@@ -184,6 +189,11 @@ export function JobDetailView({ id }: { id: string }) {
             </a>
           )}
         </div>
+        {data.last_apply_click && (
+          <p className="text-body-s text-muted">
+            You opened the application on {formatDate(data.last_apply_click)}.
+          </p>
+        )}
       </header>
 
       {data.fit.excluded && (
@@ -218,7 +228,7 @@ export function JobDetailView({ id }: { id: string }) {
           <h2 id="fit-heading" className="mb-3 text-h3 text-ink">
             How well it fits you
           </h2>
-          <FitScore score={data.fit.score} reasons={data.fit.reasons} />
+          <FitBreakdown fit={data.fit} />
           <p className="mt-3 text-body-s text-muted">
             Worked out from the details you confirmed.{" "}
             <Link href="/ai/how-ranking-works" className="text-accent underline underline-offset-3">
@@ -250,7 +260,7 @@ export function JobDetailView({ id }: { id: string }) {
         </button>
       </p>
 
-      <Similar id={data.id} title={data.title} />
+      <Similar id={data.id} />
 
       {reporting && (
         <ReportDialog

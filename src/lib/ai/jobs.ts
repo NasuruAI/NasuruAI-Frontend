@@ -6,7 +6,7 @@
  */
 
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Check } from "@/components/ai/evidence/Trust";
+import type { Check, HardFilter, RankFactor } from "@/components/ai/evidence/Trust";
 import { ai, unwrap } from "./client";
 import type { components } from "./schema";
 
@@ -16,6 +16,10 @@ export type OfferCheck = Schemas["OfferCheck"];
 export type AnswerPack = Schemas["AnswerPack"];
 export type AlertSettings = Schemas["JobAlertSettings"];
 export type AlertSent = Schemas["JobAlertSent"];
+export type JobSearch = Schemas["JobSearch"];
+export type SearchFilters = Schemas["JobFiltersRequest"];
+export type JobOfferGuide = Schemas["JobOfferGuide"];
+export type RouteSummary = Schemas["RouteSummary"];
 
 export type Job = {
   id: string;
@@ -35,11 +39,24 @@ export type Job = {
   trust_score: number | null;
   trust_band: string;
   checked_at: string | null;
-  fit: { score: number; reasons: string[]; excluded?: string | null };
+  fit: {
+    score: number;
+    reasons: string[];
+    excluded?: string | null;
+    /** The score factor by factor (experience, skills, salary). */
+    factors?: (RankFactor & { key: string })[];
+    /** Must-haves checked before scoring (German at B2). */
+    hard_filters?: (HardFilter & { key: string })[];
+  };
   saved: boolean;
 };
 
-export type JobDetail = Job & { description_html: string; checks: JobCheck[] };
+export type JobDetail = Job & {
+  description_html: string;
+  checks: JobCheck[];
+  /** When you last opened "Apply on the employer's site". */
+  last_apply_click?: string | null;
+};
 
 export type JobsPage = {
   country: string;
@@ -62,11 +79,22 @@ export type SavedJob = Omit<Job, "fit" | "saved"> & {
   closed: boolean;
 };
 
+export type Language = "any" | "english";
+export type SponsorEvidence = "any" | "confirmed" | "register";
+
 export type JobFilters = {
   q: string;
   remote: boolean;
   include_caution: boolean;
   sort: "fit" | "recent" | "trust";
+  cities: string[];
+  /** A route code: the route's country, and its salary rule where the checks track it. */
+  route: string;
+  meets_salary_threshold: boolean;
+  language: Language;
+  /** Days. */
+  posted_within: number | null;
+  sponsor: SponsorEvidence;
 };
 
 export const DEFAULT_FILTERS: JobFilters = {
@@ -74,7 +102,116 @@ export const DEFAULT_FILTERS: JobFilters = {
   remote: false,
   include_caution: false,
   sort: "fit",
+  cities: [],
+  route: "",
+  meets_salary_threshold: false,
+  language: "any",
+  posted_within: null,
+  sponsor: "any",
 };
+
+export const POSTED_WITHIN = [1, 3, 7, 14, 30];
+
+const POSTED_LABEL: Record<number, string> = {
+  1: "Last 24 hours",
+  3: "Last 3 days",
+  7: "Last week",
+  14: "Last 2 weeks",
+  30: "Last month",
+};
+
+export function postedLabel(days: number): string {
+  return POSTED_LABEL[days] ?? `Last ${days} days`;
+}
+
+export const SPONSOR_LABEL: Record<SponsorEvidence, string> = {
+  any: "Any",
+  confirmed: "Sponsor check passed",
+  register: "On an official sponsor register",
+};
+
+export type FilterChip = { key: string; label: string; clear: Partial<JobFilters> };
+
+/**
+ * The filters in words, one chip each, with what removing it resets. Title
+ * words and remote come first; `routeNames` turns route codes into names.
+ */
+export function filterChips(
+  filters: Omit<JobFilters, "include_caution" | "sort">,
+  routeNames: Record<string, string> = {},
+): FilterChip[] {
+  const chips: FilterChip[] = [];
+  if (filters.q.trim()) chips.push({ key: "q", label: `“${filters.q.trim()}”`, clear: { q: "" } });
+  if (filters.remote) chips.push({ key: "remote", label: "Remote", clear: { remote: false } });
+  for (const city of filters.cities) {
+    chips.push({
+      key: `city:${city}`,
+      label: city,
+      clear: { cities: filters.cities.filter((other) => other !== city) },
+    });
+  }
+  if (filters.route) {
+    chips.push({
+      key: "route",
+      label: `Fits the ${routeNames[filters.route] ?? filters.route}`,
+      clear: { route: "" },
+    });
+  }
+  if (filters.meets_salary_threshold) {
+    chips.push({
+      key: "salary",
+      label: "Meets the salary threshold",
+      clear: { meets_salary_threshold: false },
+    });
+  }
+  if (filters.language === "english") {
+    chips.push({ key: "language", label: "English-speaking", clear: { language: "any" } });
+  }
+  if (filters.posted_within) {
+    chips.push({
+      key: "posted",
+      label: postedLabel(filters.posted_within),
+      clear: { posted_within: null },
+    });
+  }
+  if (filters.sponsor !== "any") {
+    chips.push({
+      key: "sponsor",
+      label: SPONSOR_LABEL[filters.sponsor],
+      clear: { sponsor: "any" },
+    });
+  }
+  return chips;
+}
+
+/** What a saved search keeps: the filters, not the sort or the caution toggle. */
+export function searchFromFilters(filters: JobFilters): SearchFilters {
+  return {
+    q: filters.q.trim(),
+    remote: filters.remote,
+    cities: filters.cities,
+    route: filters.route,
+    meets_salary_threshold: filters.meets_salary_threshold,
+    language: filters.language,
+    posted_within: filters.posted_within,
+    sponsor: filters.sponsor,
+  };
+}
+
+export function filtersFromSearch(search: Pick<JobSearch, "filters">): JobFilters {
+  const saved = search.filters;
+  return {
+    ...DEFAULT_FILTERS,
+    q: saved.q ?? "",
+    remote: Boolean(saved.remote),
+    cities: saved.cities ?? [],
+    route: saved.route ?? "",
+    meets_salary_threshold: Boolean(saved.meets_salary_threshold),
+    language: saved.language ?? "any",
+    posted_within: saved.posted_within ?? null,
+    sponsor: saved.sponsor ?? "any",
+  };
+}
 
 export const jobKeys = {
   list: (filters: JobFilters, page: number) => ["ai", "jobs", filters, page] as const,
@@ -83,6 +220,10 @@ export const jobKeys = {
   saved: ["ai", "saved-jobs"] as const,
   fx: (currency: string) => ["fx", currency] as const,
   alerts: ["ai", "job-alerts"] as const,
+  searches: ["ai", "job-searches"] as const,
+  similar: (id: string) => ["ai", "job", id, "similar"] as const,
+  workRoutes: (country: string) => ["ai", "routes", country, "work"] as const,
+  guide: (country: string) => ["ai", "guide", "job-offer", country] as const,
   alertHistory: ["ai", "job-alerts", "sent"] as const,
   offers: ["ai", "offer-checks"] as const,
   offer: (id: string) => ["ai", "offer-check", id] as const,
@@ -92,11 +233,17 @@ export const jobKeys = {
 export function jobQuery(
   filters: JobFilters,
   page: number,
-): Record<string, string | number | boolean> {
-  const query: Record<string, string | number | boolean> = { sort: filters.sort };
+): Record<string, string | number | boolean | string[]> {
+  const query: Record<string, string | number | boolean | string[]> = { sort: filters.sort };
   if (filters.q.trim()) query.q = filters.q.trim();
   if (filters.remote) query.remote = true;
   if (filters.include_caution) query.include_caution = true;
+  if (filters.cities.length) query.city = filters.cities;
+  if (filters.route) query.route = filters.route;
+  if (filters.meets_salary_threshold) query.meets_salary_threshold = true;
+  if (filters.language !== "any") query.language = filters.language;
+  if (filters.posted_within) query.posted_within = filters.posted_within;
+  if (filters.sponsor !== "any") query.sponsor = filters.sponsor;
   if (page > 1) query.page = page;
   return query;
 }
@@ -120,6 +267,45 @@ export function useJob(id: string) {
         ai.GET("/api/ai/v1/jobs/{job_id}/", { params: { path: { job_id: id } } }),
       )) as unknown as JobDetail,
     retry: false,
+  });
+}
+
+/** Close titles in the same country, verified only, best fit first. */
+export function useSimilarJobs(id: string) {
+  return useQuery({
+    queryKey: jobKeys.similar(id),
+    queryFn: async () =>
+      (
+        (await unwrap(
+          ai.GET("/api/ai/v1/jobs/{job_id}/similar/", { params: { path: { job_id: id } } }),
+        )) as unknown as { results: Job[] }
+      ).results,
+  });
+}
+
+/** Record "Apply on the employer's site". The link itself opens as a normal link. */
+export function useApplyClick() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) =>
+      unwrap(ai.POST("/api/ai/v1/jobs/{job_id}/apply/", { params: { path: { job_id: id } } })),
+    onSuccess: (click, id) =>
+      client.setQueryData<JobDetail>(jobKeys.detail(id), (job) =>
+        job ? { ...job, last_apply_click: click.clicked_at } : job,
+      ),
+  });
+}
+
+/** The destination's work routes, for the route filter. */
+export function useWorkRoutes(country: string | null | undefined) {
+  return useQuery({
+    queryKey: jobKeys.workRoutes(country ?? ""),
+    queryFn: async () =>
+      (
+        await unwrap(ai.GET("/api/ai/v1/routes/", { params: { query: { country: country! } } }))
+      ).filter((route) => route.family === "work"),
+    enabled: Boolean(country),
+    staleTime: 60 * 60 * 1000,
   });
 }
 
@@ -252,6 +438,57 @@ export function useAlertHistory() {
   });
 }
 
+// --- Saved searches: each can be an alert rule ------------------------------------
+
+export function useJobSearches() {
+  return useQuery({
+    queryKey: jobKeys.searches,
+    queryFn: () => unwrap(ai.GET("/api/ai/v1/me/job-searches/")),
+  });
+}
+
+export function useCreateSearch() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { name: string; filters: SearchFilters; alerts: boolean }) =>
+      unwrap(ai.POST("/api/ai/v1/me/job-searches/", { body })),
+    onSuccess: () => void client.invalidateQueries({ queryKey: jobKeys.searches }),
+  });
+}
+
+export function useUpdateSearch() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...body }: { id: string; alerts?: boolean; name?: string }) =>
+      unwrap(
+        ai.PATCH("/api/ai/v1/me/job-searches/{search_id}/", {
+          params: { path: { search_id: id } },
+          body,
+        }),
+      ),
+    onSuccess: (search) =>
+      client.setQueryData<JobSearch[]>(jobKeys.searches, (list) =>
+        list?.map((other) => (other.id === search.id ? search : other)),
+      ),
+  });
+}
+
+export function useDeleteSearch() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) =>
+      unwrap(
+        ai.DELETE("/api/ai/v1/me/job-searches/{search_id}/", {
+          params: { path: { search_id: id } },
+        }),
+      ),
+    onSuccess: (_result, id) =>
+      client.setQueryData<JobSearch[]>(jobKeys.searches, (list) =>
+        list?.filter((search) => search.id !== id),
+      ),
+  });
+}
+
 // --- The offer checker (M2-9) ------------------------------------------------------
 
 export type OfferResult = {
@@ -277,14 +514,18 @@ export function useOfferChecks() {
   });
 }
 
-/** One check, polled every 2 s while it runs. */
+/** One check, polled every 2 s while it runs. A finished check refreshes the history. */
 export function useOfferCheck(id: string | null) {
+  const client = useQueryClient();
   return useQuery({
     queryKey: jobKeys.offer(id ?? ""),
-    queryFn: () =>
-      unwrap(
+    queryFn: async () => {
+      const check = await unwrap(
         ai.GET("/api/ai/v1/checks/offers/{check_id}/", { params: { path: { check_id: id! } } }),
-      ),
+      );
+      if (check.status !== "checking") void client.invalidateQueries({ queryKey: jobKeys.offers });
+      return check;
+    },
     enabled: Boolean(id),
     refetchInterval: (query) => (query.state.data?.status === "checking" ? 2000 : false),
   });
@@ -323,6 +564,40 @@ export function useReportOffer() {
           body,
         }),
       ),
+  });
+}
+
+/** Keep a checked offer in your documents. Offers that didn't pass need `keepAnyway`. */
+export function useSaveOffer() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, keepAnyway = false }: { id: string; keepAnyway?: boolean }) =>
+      unwrap(
+        ai.POST("/api/ai/v1/checks/offers/{check_id}/save/", {
+          params: { path: { check_id: id } },
+          body: { keep_anyway: keepAnyway },
+        }),
+      ),
+    onSuccess: (document, { id }) =>
+      client.setQueryData<OfferCheck>(jobKeys.offer(id), (check) =>
+        check ? { ...check, saved_document: document.id } : check,
+      ),
+  });
+}
+
+/** What a real offer and sponsorship process looks like, from official sources. */
+export function useJobOfferGuide(country: string | null | undefined) {
+  return useQuery({
+    queryKey: jobKeys.guide(country ?? ""),
+    queryFn: () =>
+      unwrap(
+        ai.GET("/api/ai/v1/guide/job-offer/", {
+          params: { query: { country: country as never } },
+        }),
+      ),
+    enabled: Boolean(country),
+    staleTime: 24 * 60 * 60 * 1000,
+    retry: false,
   });
 }
 

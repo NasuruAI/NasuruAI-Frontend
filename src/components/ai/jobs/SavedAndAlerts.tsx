@@ -1,14 +1,24 @@
 "use client";
 
-import { ArrowLeft, Bell, Bookmark } from "lucide-react";
+import { ArrowLeft, Bell, Bookmark, Search } from "lucide-react";
 import Link from "next/link";
+import { useAnnouncer } from "@/components/ui/Announcer";
 import {
+  filterChips,
+  filtersFromSearch,
+  type JobSearch,
   useAlertHistory,
   useAlertSettings,
+  useDeleteSearch,
+  useJobSearches,
   useSavedJobs,
   useSaveJob,
   useUpdateAlerts,
+  useUpdateSearch,
+  useWorkRoutes,
 } from "@/lib/ai/jobs";
+import { useMe } from "@/lib/ai/shell";
+import { Button } from "../Button";
 import { Pill } from "../Chip";
 import { Switch } from "../choice";
 import { JobCard } from "../evidence/cards";
@@ -89,6 +99,95 @@ const MAX_JOBS = [1, 3, 5, 10, 20].map((value) => ({
   label: `${value} job${value === 1 ? "" : "s"}`,
 }));
 
+/** Saved searches: each one an alert rule when its alerts are on (web.md §7.1). */
+function SavedSearches({ enabled }: { enabled: boolean }) {
+  const me = useMe();
+  const searches = useJobSearches();
+  const routes = useWorkRoutes(me.data?.destination);
+  const update = useUpdateSearch();
+  const remove = useDeleteSearch();
+  const { announce } = useAnnouncer();
+  const routeNames = Object.fromEntries(
+    (routes.data ?? []).map((route) => [route.code, route.name]),
+  );
+  const list = searches.data ?? [];
+  const alerting = list.filter((search) => search.alerts).length;
+
+  function summary(search: JobSearch): string {
+    const chips = filterChips(filtersFromSearch(search), routeNames);
+    return chips.length
+      ? chips.map((chip) => chip.label).join(" · ")
+      : "Every verified job in your destination";
+  }
+
+  return (
+    <section aria-labelledby="saved-searches" className="mt-8 max-w-xl">
+      <h2 id="saved-searches" className="text-h3 text-ink">
+        Saved searches
+      </h2>
+      <p className="mt-1 mb-3 text-body-s text-muted">
+        {!enabled
+          ? "Alerts are off, so saved searches send nothing until you turn them on."
+          : alerting
+            ? `The digest follows ${alerting === 1 ? "this search" : `these ${alerting} searches`}: jobs that match none of them aren't sent.`
+            : "No search is alerting, so the digest covers every new job that fits you well."}
+      </p>
+      {searches.isPending ? (
+        <Skeleton className="h-24 w-full" />
+      ) : searches.isError ? (
+        <InlineAlert tone="danger" title="We couldn't load your saved searches." />
+      ) : !list.length ? (
+        <EmptyState icon={<Search />} title="No saved searches">
+          On the jobs page, set your filters and choose Save this search.
+        </EmptyState>
+      ) : (
+        <ul className="divide-y divide-line rounded-r-md border border-line">
+          {list.map((search) => (
+            <li key={search.id} className="space-y-2 px-4 py-3">
+              <div>
+                <p className="font-semibold text-ink">{search.name}</p>
+                <p className="text-body-s text-muted">{summary(search)}</p>
+              </div>
+              <Switch
+                label={
+                  <>
+                    <span className="sr-only">{search.name}: </span>Alerts
+                  </>
+                }
+                checked={Boolean(search.alerts)}
+                onChange={(alerts) => update.mutate({ id: search.id, alerts })}
+              />
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href={`/ai/jobs?search=${search.id}`}
+                  className="text-body-s font-semibold text-accent underline underline-offset-3"
+                >
+                  Show jobs<span className="sr-only"> for {search.name}</span>
+                </Link>
+                <Button
+                  size="sm"
+                  variant="tertiary"
+                  loading={remove.isPending && remove.variables === search.id}
+                  onClick={() =>
+                    remove.mutate(search.id, {
+                      onSuccess: () => announce(`Deleted the search ${search.name}`),
+                    })
+                  }
+                >
+                  Delete<span className="sr-only"> {search.name}</span>
+                </Button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {(update.isError || remove.isError) && (
+        <InlineAlert tone="danger" title="That didn't save. Try again." className="mt-3" />
+      )}
+    </section>
+  );
+}
+
 /** /ai/jobs/alerts: new matches, at most one digest a day, never the same job twice (US-204). */
 export function JobAlertsView() {
   const settings = useAlertSettings();
@@ -151,6 +250,8 @@ export function JobAlertsView() {
           {update.isError && <InlineAlert tone="danger" title="That didn't save. Try again." />}
         </section>
       )}
+
+      <SavedSearches enabled={Boolean(data?.enabled)} />
 
       <section aria-labelledby="alert-history" className="mt-8 max-w-xl">
         <h2 id="alert-history" className="mb-3 text-h3 text-ink">

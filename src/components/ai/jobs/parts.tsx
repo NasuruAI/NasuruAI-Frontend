@@ -10,6 +10,7 @@ import { Button, type ButtonProps } from "../Button";
 import { Checkbox } from "../choice";
 import { Dialog } from "../Dialog";
 import { formatDate, formatForeign, formatNaira } from "../evidence/format";
+import { FitScore, WhyRankPanel } from "../evidence/Trust";
 import { InlineAlert } from "../feedback";
 import { TextArea } from "../fields";
 
@@ -220,5 +221,23 @@ export function ReportDialog({
         </div>
       )}
     </Dialog>
+  );
+}
+
+/**
+ * How the fit score was reached: the factors with their weights, and the
+ * must-haves checked first. Falls back to the reasons for older responses.
+ */
+export function FitBreakdown({ fit }: { fit: Job["fit"] }) {
+  const factors = fit.factors ?? [];
+  const filters = fit.hard_filters ?? [];
+  if (!factors.length && !filters.length) {
+    return <FitScore score={fit.score} reasons={fit.reasons} />;
+  }
+  return (
+    <div className="space-y-4">
+      {factors.length > 0 && <FitScore score={fit.score} reasons={[]} />}
+      <WhyRankPanel factors={factors} filters={filters} />
+    </div>
   );
 }

@@ -1,18 +1,21 @@
 "use client";
 
-import { FileSearch, RotateCcw, ShieldAlert } from "lucide-react";
-import { useState } from "react";
+import { FileCheck2, FileSearch, RotateCcw, ShieldAlert } from "lucide-react";
+import { Fragment, useId, useState } from "react";
 import { ApiError } from "@/lib/api";
 import {
   type NextStep,
   type OfferCheck,
   type OfferResult,
   reportRoutes,
+  useJobOfferGuide,
   useOfferCheck,
   useOfferChecks,
   useReportOffer,
+  useSaveOffer,
   useStartOfferCheck,
 } from "@/lib/ai/jobs";
+import { DESTINATIONS, useMe } from "@/lib/ai/shell";
 import { Button, ButtonLink } from "../Button";
 import { formatDate } from "../evidence/format";
 import { TaskProgress } from "../evidence/Progress";
@@ -31,7 +34,167 @@ const SUMMARY: Record<Verdict, string> = {
   scam: "This offer has the signs of a scam.",
 };
 
-type Extracted = { company_name?: string; job_title?: string; red_flags?: string[] };
+type Extracted = {
+  company_name?: string;
+  company_country?: string;
+  job_title?: string;
+  red_flags?: string[];
+};
+
+/** The guide's country: the offer's, when it's a destination we cover, else yours. */
+export function guideCountry(offer: string | undefined, destination: string | null | undefined) {
+  const covered = (code: string | null | undefined) =>
+    code && (DESTINATIONS as readonly string[]).includes(code) ? code : null;
+  return covered(offer) ?? covered(destination) ?? "GB";
+}
+
+/**
+ * "What a real sponsorship process looks like" (web.md §7.3): the official
+ * steps with their sources and when we checked them, or, for a country whose
+ * steps aren't written yet, the rules that hold everywhere.
+ */
+export function SponsorshipGuide({
+  country,
+  startOpen = false,
+}: {
+  country: string;
+  startOpen?: boolean;
+}) {
+  const guide = useJobOfferGuide(country);
+  const [open, setOpen] = useState(startOpen);
+  const id = useId();
+  if (!guide.data) return null;
+  const data = guide.data;
+  return (
+    <section
+      aria-labelledby={`${id}-heading`}
+      className="mt-8 max-w-2xl rounded-r-md border border-line bg-surface p-5"
+    >
+      <h2 id={`${id}-heading`} className="text-h3 text-ink">
+        What a real sponsorship process looks like
+      </h2>
+      <p className="mt-1 text-body-s text-muted">
+        {data.steps_written
+          ? `${data.route}, ${data.country_name}. From the official guidance, checked ${
+              data.checked_on ? formatDate(data.checked_on) : "recently"
+            }.`
+          : `We haven't written the steps for ${data.country_name} yet. These rules hold everywhere.`}
+      </p>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={open ? `${id}-body` : undefined}
+        onClick={() => setOpen(!open)}
+        className="mt-2 text-body-s font-semibold text-accent underline underline-offset-3"
+      >
+        {open ? "Hide" : data.steps_written ? "Show the steps" : "Show the rules"}
+      </button>
+      {open && (
+        <div id={`${id}-body`} className="mt-4 space-y-5">
+          {data.steps.length > 0 && (
+            <ol className="space-y-4">
+              {data.steps.map((step, index) => (
+                <li key={step.title} className="flex gap-3">
+                  <span
+                    aria-hidden
+                    className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-caption font-semibold text-accent"
+                  >
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-ink">{step.title}</h3>
+                    <p className="text-body-s text-ink">{step.detail}</p>
+                    <p className="mt-1 text-caption text-muted">
+                      Source:{" "}
+                      {step.sources.map((source, position) => (
+                        <Fragment key={source.url}>
+                          {position > 0 && " · "}
+                          <a
+                            href={source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-accent underline underline-offset-3"
+                          >
+                            {source.name}
+                            <span className="sr-only"> (opens in a new tab)</span>
+                          </a>
+                        </Fragment>
+                      ))}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+          {data.red_flags.length > 0 && (
+            <div>
+              <h3 className="text-h4 text-ink">Warning signs</h3>
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-body-s text-ink">
+                {data.red_flags.map((flag) => (
+                  <li key={flag}>{flag}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div>
+            <h3 className="text-h4 text-ink">Wherever the job is</h3>
+            <ul className="mt-1 list-disc space-y-1 pl-5 text-body-s text-ink">
+              {data.rules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** Keep the offer in your documents; once kept, the way to it. */
+function SaveOffer({ check, verdict }: { check: OfferCheck; verdict: Verdict }) {
+  const save = useSaveOffer();
+  const [error, setError] = useState<string | null>(null);
+  if (check.saved_document) {
+    return (
+      <ButtonLink
+        href="/ai/documents"
+        size="sm"
+        icon={<FileCheck2 aria-hidden className="size-4" />}
+      >
+        In your documents
+      </ButtonLink>
+    );
+  }
+  // A scam's letter isn't something to keep with real offers; report it instead.
+  if (verdict === "scam") return null;
+  const genuine = verdict === "genuine";
+  return (
+    <>
+      <Button
+        size="sm"
+        variant={genuine ? "primary" : "tertiary"}
+        loading={save.isPending}
+        onClick={() => {
+          setError(null);
+          save.mutate(
+            { id: check.id, keepAnyway: !genuine },
+            {
+              onError: (err) =>
+                setError(err instanceof ApiError ? err.message : "That didn't save. Try again."),
+            },
+          );
+        }}
+      >
+        {genuine ? "Save to your documents" : "Keep a copy as a record"}
+      </Button>
+      {error && (
+        <p role="alert" className="w-full text-body-s text-danger">
+          {error}
+        </p>
+      )}
+    </>
+  );
+}
 
 /** The offer checker's results as CheckList rows. */
 export function offerChecks(check: OfferCheck): Check[] {
@@ -44,8 +207,9 @@ export function offerChecks(check: OfferCheck): Check[] {
   }));
 }
 
-function Result({ check, onAgain }: { check: OfferCheck; onAgain: () => void }) {
+export function CheckResult({ check, onAgain }: { check: OfferCheck; onAgain: () => void }) {
   const report = useReportOffer();
+  const me = useMe();
   const [reporting, setReporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const extracted = (check.extracted ?? {}) as Extracted;
@@ -105,11 +269,7 @@ function Result({ check, onAgain }: { check: OfferCheck; onAgain: () => void }) 
                 Report as scam
               </Button>
             )}
-            {verdict === "genuine" && (
-              <ButtonLink href="/ai/documents" size="sm">
-                Add it to your documents
-              </ButtonLink>
-            )}
+            <SaveOffer check={check} verdict={verdict} />
             <Button
               size="sm"
               variant="tertiary"
@@ -134,12 +294,16 @@ function Result({ check, onAgain }: { check: OfferCheck; onAgain: () => void }) 
         </section>
       )}
       {steps
-        .filter((step) => !step.action.startsWith("report_"))
+        .filter((step) => !step.action.startsWith("report_") && step.action !== "save_to_documents")
         .map((step) => (
           <p key={step.action} className="text-body-s text-ink">
             {step.label}
           </p>
         ))}
+      <SponsorshipGuide
+        country={guideCountry(extracted.company_country, me.data?.destination)}
+        startOpen={verdict !== "genuine"}
+      />
       {reporting && (
         <ReportDialog
           open
@@ -165,6 +329,7 @@ function Result({ check, onAgain }: { check: OfferCheck; onAgain: () => void }) 
 
 /** /ai/check-offer (web.md §7.3). */
 export function CheckOfferView() {
+  const me = useMe();
   const start = useStartOfferCheck();
   const history = useOfferChecks();
   const [text, setText] = useState("");
@@ -219,7 +384,7 @@ export function CheckOfferView() {
       </p>
 
       {checkId && check.data ? (
-        <Result check={check.data} onAgain={again} />
+        <CheckResult check={check.data} onAgain={again} />
       ) : (
         <form noValidate onSubmit={submit} className="max-w-2xl space-y-4">
           {error && <InlineAlert tone="danger" title={error} />}
@@ -245,6 +410,8 @@ export function CheckOfferView() {
           </Button>
         </form>
       )}
+
+      {!checkId && <SponsorshipGuide country={guideCountry(undefined, me.data?.destination)} />}
 
       {!!history.data?.length && (
         <section aria-labelledby="past-heading" className="mt-10 max-w-2xl">
