@@ -42,6 +42,13 @@ export const PALETTE_INDEX: PaletteResult[] = [
     group: "Actions",
   },
   {
+    id: "go-packs",
+    title: "Answer packs",
+    detail: "Go to",
+    href: "/ai/packs",
+    group: "Pages",
+  },
+  {
     id: "action-compare",
     title: "Compare all 7 countries",
     detail: "Free, doesn't switch",

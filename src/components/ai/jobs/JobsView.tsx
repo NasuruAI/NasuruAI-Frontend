@@ -6,6 +6,7 @@ import {
   Bookmark,
   BriefcaseBusiness,
   ExternalLink,
+  FileText,
   Search,
   SlidersHorizontal,
 } from "lucide-react";
@@ -369,6 +370,9 @@ export function JobsView({
             icon={<Bell aria-hidden className="size-4" />}
           >
             Alerts
+          </ButtonLink>
+          <ButtonLink href="/ai/packs" size="sm" icon={<FileText aria-hidden className="size-4" />}>
+            Answer packs
           </ButtonLink>
         </div>
       </header>

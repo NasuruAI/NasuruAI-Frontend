@@ -1973,6 +1973,43 @@ export interface paths {
         patch: operations["ai_v1_me_answer_packs_answers_partial_update"];
         trace?: never;
     };
+    "/api/ai/v1/me/answer-packs/{pack_id}/answers/{answer_id}/regenerate/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Write a written answer again; the text it replaces is kept to compare. */
+        post: operations["ai_v1_me_answer_packs_answers_regenerate_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/answer-packs/from-url/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description A pack from a pasted job link (web.md §8.2): the job's pack when it's a
+         *     job we list; otherwise why not, and what to do instead.
+         */
+        post: operations["ai_v1_me_answer_packs_from_url_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/me/applications/": {
         parameters: {
             query?: never;
@@ -6171,13 +6208,22 @@ export interface components {
             value?: string;
             /** @description e.g. "Profile: work 2021–2026" */
             source?: string;
+            fact_ids?: unknown;
+            readonly claims: components["schemas"]["Claim"][];
             guidance?: string;
-            /** @description A written answer we couldn't fully verify. */
+            /** @description Our draft couldn't be fully verified (it stays with the draft, not your edit). */
             flagged?: boolean;
             /** @description The candidate changed it. */
             edited?: boolean;
+            /** @description Our latest written text, kept when the candidate edits. */
+            draft?: string;
+            /** @description The text before the last Regenerate, to compare. */
+            previous?: string;
             readonly copyable: boolean;
             readonly characters: number;
+            readonly regenerating: boolean;
+            /** @description 0 for answers that aren't written ones. */
+            readonly regenerations_left: number;
         };
         /**
          * @description * `filled` - From your profile
@@ -6216,6 +6262,8 @@ export interface components {
             readonly sections: {
                 [key: string]: unknown;
             }[];
+            readonly facts: components["schemas"]["CitedFact"][];
+            readonly progress: components["schemas"]["PackProgress"] | null;
         };
         /**
          * @description * `queued` - Queued
@@ -7021,6 +7069,20 @@ export interface components {
         ChoosePlanRequest: {
             codes: string[];
         };
+        /** @description A fact an answer rests on, for the source panel. */
+        CitedFact: {
+            /** Format: uuid */
+            readonly id: string;
+            kind: components["schemas"]["ProfileFactKindEnum"];
+            /** @description Validated against apps.candidates.schemas for the kind. */
+            data: unknown;
+            status?: components["schemas"]["ProfileFactStatusEnum"];
+        };
+        Claim: {
+            sentence: string;
+            /** @description Fact ids, or "job". */
+            sources: string[];
+        };
         CoachingAnswerRequest: {
             index: number;
             transcript: string;
@@ -7115,6 +7177,14 @@ export interface components {
             job?: string | null;
             route?: string;
         };
+        /**
+         * @description * `needs_extension` - needs_extension
+         *     * `not_listed` - not_listed
+         *     * `unknown_site` - unknown_site
+         *     * `failed_checks` - failed_checks
+         * @enum {string}
+         */
+        CodeEnum: "needs_extension" | "not_listed" | "unknown_site" | "failed_checks";
         CommentModerationRequest: {
             status: components["schemas"]["CommentStatusEnum"];
             comment_ids: string[];
@@ -8337,6 +8407,12 @@ export interface components {
          * @enum {string}
          */
         LanguageEnum: "any" | "english";
+        LinkNotUsable: {
+            detail: string;
+            code: components["schemas"]["CodeEnum"];
+            /** @description The application system, when we know it (Workday, Lever…). */
+            system: string;
+        };
         /**
          * @description * `featured` - One lead article, then a grid
          *     * `grid` - Equal cards in a grid
@@ -8516,6 +8592,15 @@ export interface components {
          * @enum {string}
          */
         OutcomeEnum: "pass" | "fail" | "unknown";
+        PackFromUrlRequest: {
+            /** @description A job's page or its application form. */
+            url: string;
+        };
+        PackProgress: {
+            stage?: string;
+            done?: number;
+            total?: number;
+        };
         PageFieldRequest: {
             key: string;
             label: string;
@@ -16066,6 +16151,79 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Answer"];
+                };
+            };
+        };
+    };
+    ai_v1_me_answer_packs_answers_regenerate_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                answer_id: string;
+                pack_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Answer"];
+                };
+            };
+        };
+    };
+    ai_v1_me_answer_packs_from_url_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PackFromUrlRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PackFromUrlRequest"];
+                "multipart/form-data": components["schemas"]["PackFromUrlRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnswerPack"];
+                };
+            };
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnswerPack"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LinkNotUsable"];
+                };
+            };
+            402: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
         };
