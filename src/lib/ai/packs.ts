@@ -32,6 +32,7 @@ export const packKeys = {
   list: ["ai", "packs"] as const,
   detail: (id: string) => ["ai", "pack", id] as const,
   documents: ["ai", "generated-documents"] as const,
+  document: (id: string) => ["ai", "generated-document", id] as const,
   board: ["ai", "board"] as const,
 };
 
@@ -157,13 +158,66 @@ export function useJobDocuments(jobId: string | undefined) {
   });
 }
 
+/** Every CV and cover letter: the master CV studio's list (web.md §9). */
+export function useDocuments() {
+  return useQuery({
+    queryKey: packKeys.documents,
+    queryFn: () => unwrap(ai.GET("/api/ai/v1/me/generated-documents/")),
+    refetchInterval: (query) =>
+      query.state.data?.some((document) => document.status === "queued") ? 2000 : false,
+  });
+}
+
+/** One document, polled while it's queued or a bullet is being tightened. */
+export function useDocument(id: string) {
+  return useQuery({
+    queryKey: packKeys.document(id),
+    queryFn: () =>
+      unwrap(
+        ai.GET("/api/ai/v1/me/generated-documents/{document_id}/", {
+          params: { path: { document_id: id } },
+        }),
+      ),
+    retry: false,
+    refetchInterval: (query) => {
+      const document = query.state.data;
+      if (!document) return false;
+      if (document.status === "queued") return 2000;
+      const content = document.content as Schemas["CvContent"] | null;
+      const tightening = content?.experience?.some((role) =>
+        role.bullets.some((bullet) => bullet.tightening),
+      );
+      return tightening ? 1500 : false;
+    },
+  });
+}
+
+/**
+ * A CV or cover letter: tailored to `job`, or (CVs only) a master copy for
+ * `country` when there's no job. Asking again returns the same document.
+ */
 export function useMakeDocument() {
   const client = useQueryClient();
   return useMutation({
-    mutationFn: ({ kind, job }: { kind: "cv" | "cover_letter"; job: string }) =>
+    mutationFn: ({
+      kind,
+      job,
+      country = "",
+      includePersonalDetails = false,
+    }: {
+      kind: "cv" | "cover_letter";
+      job?: string;
+      country?: string;
+      includePersonalDetails?: boolean;
+    }) =>
       unwrap(
         ai.POST("/api/ai/v1/me/generated-documents/", {
-          body: { kind, job, country: "", include_personal_details: false },
+          body: {
+            kind,
+            job: job ?? null,
+            country,
+            include_personal_details: includePersonalDetails,
+          },
           headers: { "Idempotency-Key": crypto.randomUUID() },
         }),
       ),
@@ -177,11 +231,15 @@ export function fileName(disposition: string | null, fallback: string): string {
   return match ? decodeURIComponent(match[1]) : fallback;
 }
 
-/** Downloads need the session token, so they're fetched and saved, not linked. */
+/**
+ * Downloads need the session token, so they're fetched and saved, not linked.
+ * The query key is `as`, not `format`: openapi-fetch (and the browser) would
+ * otherwise read `?format=pdf` as a request for a renderer named "pdf".
+ */
 export async function downloadDocument(document: GeneratedDoc, format: "pdf" | "docx") {
   const { data, response } = await ai.GET(
     "/api/ai/v1/me/generated-documents/{document_id}/download/",
-    { params: { path: { document_id: document.id }, query: { format } }, parseAs: "blob" },
+    { params: { path: { document_id: document.id }, query: { as: format } }, parseAs: "blob" },
   );
   if (!response.ok || !data)
     throw new ApiError("That download didn't work. Try again.", response.status);

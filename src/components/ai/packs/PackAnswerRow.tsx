@@ -116,6 +116,12 @@ function FileActions({
             >
               Word
             </Button>
+            <Link
+              href={`/ai/cv/${document.id}`}
+              className="inline-flex h-9 items-center px-3 text-body-s font-semibold text-accent hover:underline"
+            >
+              Edit in the CV studio
+            </Link>
           </div>
         </>
       ) : document ? (

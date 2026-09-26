@@ -49,6 +49,13 @@ export const PALETTE_INDEX: PaletteResult[] = [
     group: "Pages",
   },
   {
+    id: "go-cv",
+    title: "Your CV and cover letters",
+    detail: "Go to",
+    href: "/ai/cv",
+    group: "Pages",
+  },
+  {
     id: "action-compare",
     title: "Compare all 7 countries",
     detail: "Free, doesn't switch",

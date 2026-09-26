@@ -2639,6 +2639,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/me/generated-documents/{document_id}/bullets/{bullet_id}/restore/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Back to what a tightened bullet said before. */
+        post: operations["ai_v1_me_generated_documents_bullets_restore_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/{document_id}/bullets/{bullet_id}/tighten/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description AI "tighten this bullet" (web.md §9): a diff-able rewrite, capped per bullet. */
+        post: operations["ai_v1_me_generated_documents_bullets_tighten_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/{document_id}/bullets/{bullet_id}/toggle/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Include or exclude one bullet from the export. */
+        post: operations["ai_v1_me_generated_documents_bullets_toggle_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/me/generated-documents/{document_id}/download/": {
         parameters: {
             query?: never;
@@ -2646,8 +2697,85 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description The PDF or DOCX, decrypted for its owner (files are encrypted in storage). */
+        /**
+         * @description The PDF or DOCX, decrypted for its owner (files are encrypted in storage).
+         *
+         *     The query parameter is ``as``, not ``format``: DRF reserves ``?format=``
+         *     to pick the *response's* renderer, and since neither "pdf" nor "docx" has
+         *     one, ``?format=pdf`` would 404 before this view ever ran.
+         */
         get: operations["ai_v1_me_generated_documents_download_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/{document_id}/roles/{role_index}/bullets/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** @description Drag-reorder one role's bullets. */
+        patch: operations["ai_v1_me_generated_documents_roles_bullets_partial_update"];
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/{document_id}/sections/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** @description Drag-reorder the CV's sections (profile, experience, education…). */
+        patch: operations["ai_v1_me_generated_documents_sections_partial_update"];
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/{document_id}/text/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** @description The CV's profile summary, or a cover letter's body — edited in place. */
+        patch: operations["ai_v1_me_generated_documents_text_partial_update"];
+        trace?: never;
+    };
+    "/api/ai/v1/me/generated-documents/formats/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Every destination's CV or résumé format, for the country chips and the
+         *     rules panel ("Germany: photo optional (off)…").
+         */
+        get: operations["ai_v1_me_generated_documents_formats_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -7256,6 +7384,22 @@ export interface components {
          * @enum {string}
          */
         CountryEnum: "CA" | "DE" | "IE" | "NL" | "CH" | "GB" | "US";
+        CoverLetterContent: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "cover_letter";
+            format: string;
+            name: string;
+            contact: string[];
+            date: string;
+            recipient: string;
+            subject: string;
+            salutation: string;
+            paragraphs: string[];
+            closing: string;
+        };
         CreateCardRequest: {
             /** Format: uuid */
             job?: string | null;
@@ -7273,6 +7417,75 @@ export interface components {
          * @enum {string}
          */
         CredentialRequestStatusEnum: "planned" | "requested" | "paid" | "dispatched" | "received";
+        /**
+         * @description One duty. ``included`` toggles it in the export; a fit-to-page pass or
+         *     the candidate can turn it off, but it always stays here to turn back on.
+         */
+        CvBullet: {
+            id: string;
+            text: string;
+            included: boolean;
+            /**
+             * @description A tightened draft we couldn't fully verify.
+             * @default false
+             */
+            flagged: boolean;
+            /**
+             * @description Being written again right now.
+             * @default false
+             */
+            tightening: boolean;
+            /** @default 0 */
+            tightenings_left: number;
+            /**
+             * @description Can be restored to what it said before.
+             * @default false
+             */
+            has_original: boolean;
+        };
+        /** @description The CV studio's editable content (web.md §9). */
+        CvContent: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "cv";
+            format: string;
+            title: string;
+            /** @description Section headings, in this format's language. */
+            headings: {
+                [key: string]: string;
+            };
+            /** @description The German Lebenslauf's date-column layout. */
+            tabular: boolean;
+            name: string;
+            contact: string[];
+            town: string;
+            personal: string[][];
+            summary: string;
+            experience: components["schemas"]["CvRole"][];
+            education: components["schemas"]["CvEducation"][];
+            skills: string[];
+            certifications: string[];
+            languages: string[];
+            place_and_date: string;
+            /** @description The sections in the order the candidate chose, drag-reordered in the editor. */
+            section_order: components["schemas"]["SectionOrderEnum"][];
+        };
+        CvEducation: {
+            qualification: string;
+            institution: string;
+            dates: string;
+            /** @default  */
+            detail: string;
+        };
+        CvRole: {
+            title: string;
+            employer: string;
+            place: string;
+            dates: string;
+            bullets: components["schemas"]["CvBullet"][];
+        };
         DestinationChoice: {
             /** Format: uuid */
             readonly id: string;
@@ -7331,6 +7544,19 @@ export interface components {
          * @enum {string}
          */
         DocumentAccessActionEnum: "upload" | "view" | "download" | "extract" | "check" | "delete";
+        /**
+         * @description One destination's CV or résumé format, for the country chips and the
+         *     rules panel ("Germany: photo optional (off)…").
+         */
+        DocumentFormat: {
+            country: string;
+            country_name: string;
+            code: string;
+            title: string;
+            pages: number;
+            paper: string;
+            rules: string[];
+        };
         /**
          * @description * `cv` - CV
          *     * `degree_certificate` - Degree certificate
@@ -7858,8 +8084,7 @@ export interface components {
             /** @description Written text we couldn't fully verify. */
             flagged?: boolean;
             guidance?: string;
-            /** @description What was rendered, section by section. */
-            content?: unknown;
+            readonly content: Omit<components["schemas"]["GeneratedDocumentContent"], "kind"> | null;
             readonly pdf_url: string | null;
             readonly docx_url: string | null;
             /** Format: uuid */
@@ -7869,6 +8094,7 @@ export interface components {
             /** Format: date-time */
             readonly created_at: string;
         };
+        GeneratedDocumentContent: components["schemas"]["CvContent"] | components["schemas"]["CoverLetterContent"];
         /**
          * @description * `cv` - CV
          *     * `cover_letter` - Cover letter
@@ -9572,6 +9798,9 @@ export interface components {
             /** @description Tag pages are usually a subset of a category page; indexing both splits the ranking. */
             noindex_tag_pages?: boolean;
         };
+        PatchedBulletOrderRequest: {
+            order?: string[];
+        };
         PatchedCatalogueInstitutionRequest: {
             name?: string;
             country?: string;
@@ -9702,6 +9931,13 @@ export interface components {
             issued_on?: string | null;
             /** Format: date */
             expires_on?: string | null;
+        };
+        /**
+         * @description The CV's profile summary, or a cover letter's body (paragraphs
+         *     separated by a blank line).
+         */
+        PatchedDocumentTextEditRequest: {
+            value?: string;
         };
         PatchedEmployerRequest: {
             /** @description The employer's own website domain. */
@@ -10073,6 +10309,9 @@ export interface components {
             is_template?: boolean;
             notes?: string;
             change_note?: string;
+        };
+        PatchedSectionOrderRequest: {
+            order?: string[];
         };
         PatchedSourceRequest: {
             name?: string;
@@ -11423,6 +11662,16 @@ export interface components {
             notes?: string;
             change_note?: string;
         };
+        /**
+         * @description * `summary` - summary
+         *     * `experience` - experience
+         *     * `education` - education
+         *     * `skills` - skills
+         *     * `certifications` - certifications
+         *     * `languages` - languages
+         * @enum {string}
+         */
+        SectionOrderEnum: "summary" | "experience" | "education" | "skills" | "certifications" | "languages";
         SharedPlan: {
             shared_by: string;
             plan: {
@@ -17469,10 +17718,76 @@ export interface operations {
             };
         };
     };
+    ai_v1_me_generated_documents_bullets_restore_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bullet_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_bullets_tighten_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bullet_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_bullets_toggle_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bullet_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
     ai_v1_me_generated_documents_download_retrieve: {
         parameters: {
             query?: {
-                format?: "docx" | "pdf";
+                as?: "docx" | "pdf";
             };
             header?: never;
             path: {
@@ -17488,6 +17803,107 @@ export interface operations {
                 };
                 content: {
                     "application/octet-stream": string;
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_roles_bullets_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                document_id: string;
+                role_index: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedBulletOrderRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedBulletOrderRequest"];
+                "multipart/form-data": components["schemas"]["PatchedBulletOrderRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_sections_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedSectionOrderRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedSectionOrderRequest"];
+                "multipart/form-data": components["schemas"]["PatchedSectionOrderRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_text_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedDocumentTextEditRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedDocumentTextEditRequest"];
+                "multipart/form-data": components["schemas"]["PatchedDocumentTextEditRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeneratedDocument"];
+                };
+            };
+        };
+    };
+    ai_v1_me_generated_documents_formats_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentFormat"][];
                 };
             };
         };
