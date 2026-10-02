@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -28,16 +29,22 @@ function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
         </p>
         <p className="mt-1 text-muted">Once. Not a deposit, not a subscription, no commission.</p>
 
-        <ol className="mt-8 space-y-5">
+        <ol className="mt-8 divide-y divide-line">
           {SERVICES.map((service, index) => (
-            <li key={service.title} className="flex gap-3">
-              <span className="font-mono text-sm font-bold text-muted">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <p className="font-display font-bold text-ink">{service.title}</p>
-                <p className="mt-0.5 text-sm leading-relaxed text-muted">{service.detail}</p>
-              </div>
+            <li key={service.title}>
+              <details className="group py-3" open={index === 0}>
+                <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
+                  <span className="font-mono text-sm font-bold text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex-1 font-display font-bold text-ink">{service.title}</span>
+                  <ChevronDown
+                    aria-hidden
+                    className="size-4 shrink-0 text-muted transition-transform group-open:rotate-180"
+                  />
+                </summary>
+                <p className="mt-2 pl-8 text-sm leading-relaxed text-muted">{service.detail}</p>
+              </details>
             </li>
           ))}
         </ol>
