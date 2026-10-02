@@ -533,29 +533,22 @@ export default async function Home() {
         </section>
 
         {/* Close */}
-        <section
-          className="border-t border-line bg-ink py-16 text-center"
-          style={{ color: "var(--canvas)" }}
-        >
+        <section className="border-t border-line bg-canvas py-16 text-center">
           <div className="mx-auto max-w-3xl px-6">
-            <h2
-              className="font-display text-3xl font-extrabold tracking-tight"
-              style={{ color: "var(--canvas)" }}
-            >
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink">
               Tell us what you studied and what you can fund
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-lg opacity-80">
+            <p className="mx-auto mt-3 max-w-xl text-lg text-muted">
               Ten minutes, and you will know which tuition-free universities are realistic for you —
               or that they are not, which is worth knowing too.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-base font-bold transition hover:opacity-85"
-              style={{ backgroundColor: "var(--canvas)", color: "var(--ink)" }}
+              className="mt-8 inline-block rounded-lg bg-accent px-8 py-3.5 text-base font-bold text-on-accent transition hover:bg-accent-hover"
             >
               Create your account
             </Link>
-            <p className="mt-6 text-sm opacity-70">
+            <p className="mt-6 text-sm text-subtle">
               Questions first? {CONTACT.phone} (call or WhatsApp) · {CONTACT.email} ·{" "}
               {CONTACT.hours}
             </p>

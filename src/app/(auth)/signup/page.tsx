@@ -18,37 +18,36 @@ import type { FieldErrors } from "@/types";
 function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
   const accreditationPending = isPending(ACCREDITATION.body);
   return (
-    <div
-      className="hidden flex-col justify-between rounded-2xl p-10 lg:flex"
-      style={{ backgroundColor: "var(--ink)", color: "var(--canvas)" }}
-    >
+    <div className="hidden flex-col justify-between rounded-2xl border-2 border-ink bg-surface p-10 lg:flex">
       <div>
-        <p className="text-xs font-bold tracking-[0.14em] uppercase opacity-70">
+        <p className="text-xs font-bold tracking-[0.14em] text-muted uppercase">
           What you get for this
         </p>
-        <p className="font-display mt-3 text-5xl font-extrabold tracking-tight">
+        <p className="font-display mt-3 text-5xl font-extrabold tracking-tight text-ink">
           {priceKnown ? fee : "—"}
         </p>
-        <p className="mt-1 opacity-80">Once. Not a deposit, not a subscription.</p>
+        <p className="mt-1 text-muted">Once. Not a deposit, not a subscription.</p>
 
         <ul className="mt-10 space-y-6">
           <li>
-            <p className="font-display font-bold">Your matched schools</p>
-            <p className="mt-1 leading-relaxed opacity-80">
+            <p className="font-display font-bold text-ink">Your matched schools</p>
+            <p className="mt-1 leading-relaxed text-muted">
               Tuition-free universities that take your qualifications, and exactly what each one
               requires.
             </p>
           </li>
           <li>
-            <p className="font-display font-bold">Refundable for {REFUND.coolingOffDays} days</p>
-            <p className="mt-1 leading-relaxed opacity-80">
+            <p className="font-display font-bold text-ink">
+              Refundable for {REFUND.coolingOffDays} days
+            </p>
+            <p className="mt-1 leading-relaxed text-muted">
               No reason needed. The only condition is that we have not already reviewed one of your
               documents.
             </p>
           </li>
           <li>
-            <p className="font-display font-bold">{ACCREDITATION.credential}</p>
-            <p className="mt-1 leading-relaxed opacity-80">
+            <p className="font-display font-bold text-ink">{ACCREDITATION.credential}</p>
+            <p className="mt-1 leading-relaxed text-muted">
               {accreditationPending
                 ? "Our certificate and its reference number will be published here — ask us for it in the meantime."
                 : `Certified by ${ACCREDITATION.body} since ${ACCREDITATION.since}.`}
@@ -57,7 +56,7 @@ function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
         </ul>
       </div>
 
-      <p className="mt-10 text-sm opacity-60">
+      <p className="mt-10 text-sm text-subtle">
         No commission from any university. The shortlist you get is the one that suits you.
       </p>
     </div>
