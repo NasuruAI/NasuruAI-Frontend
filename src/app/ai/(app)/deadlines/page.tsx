@@ -1,7 +1,7 @@
-import { PagePlaceholder } from "@/components/ai/shell/PagePlaceholder";
+import { DeadlinesView } from "@/components/ai/study/DeadlinesView";
 
 export const metadata = { title: "Deadlines · Nasuru AI" };
 
 export default function DeadlinesPage() {
-  return <PagePlaceholder title="Deadlines" what="Every deadline, with reminders." module="F11" />;
+  return <DeadlinesView />;
 }

@@ -2268,6 +2268,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/me/deadlines/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Every deadline on the candidate's own board (web.md §10.4), soonest
+         *     first. `?type=` narrows it (only "application" exists today).
+         */
+        get: operations["ai_deadlines_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/me/deadlines/ics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description The same deadlines as a calendar feed ("Add to calendar", web.md §10.4). */
+        get: operations["ai_v1_me_deadlines_ics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/me/destination/": {
         parameters: {
             query?: never;
@@ -4726,6 +4763,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/study/scholarships/{scholarship_id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description One scholarship, with this candidate's eligibility for it explained
+         *     (the list view only filters; this is what "why don't I qualify" answers).
+         */
+        get: operations["ai_v1_study_scholarships_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/tasks/{task_id}/": {
         parameters: {
             query?: never;
@@ -6295,6 +6352,19 @@ export interface components {
          * @enum {string}
          */
         AdminPostStatusEnum: "draft" | "in_review" | "scheduled" | "published" | "archived";
+        AdmissibilityCheck: {
+            kind: components["schemas"]["RequirementKindEnum"];
+            requirement: string;
+            outcome: components["schemas"]["CheckOutcomeEnum"];
+            detail: string;
+        };
+        /**
+         * @description * `admissible` - admissible
+         *     * `maybe` - maybe
+         *     * `not_admissible` - not_admissible
+         * @enum {string}
+         */
+        AdmissibilityEnum: "admissible" | "maybe" | "not_admissible";
         AgencyReplyRequest: {
             body: string;
         };
@@ -6892,7 +6962,7 @@ export interface components {
             /** Format: uuid */
             institution: string;
             name: string;
-            level: components["schemas"]["CatalogueProgrammeLevelEnum"];
+            level: components["schemas"]["StudyProgrammeLevelEnum"];
             /** @description Field of study, e.g. Computer Science */
             subject?: string;
             /** @description Language of instruction (ISO 639-1). */
@@ -6922,20 +6992,11 @@ export interface components {
             /** Format: date-time */
             readonly recheck_after: string;
         };
-        /**
-         * @description * `foundation` - Foundation
-         *     * `diploma` - Diploma or certificate
-         *     * `bachelor` - Bachelor's
-         *     * `master` - Master's
-         *     * `doctorate` - Doctorate
-         * @enum {string}
-         */
-        CatalogueProgrammeLevelEnum: "foundation" | "diploma" | "bachelor" | "master" | "doctorate";
         CatalogueProgrammeRequest: {
             /** Format: uuid */
             institution: string;
             name: string;
-            level: components["schemas"]["CatalogueProgrammeLevelEnum"];
+            level: components["schemas"]["StudyProgrammeLevelEnum"];
             /** @description Field of study, e.g. Computer Science */
             subject?: string;
             /** @description Language of instruction (ISO 639-1). */
@@ -6996,28 +7057,16 @@ export interface components {
             readonly id: string;
             /** Format: uuid */
             programme: string;
-            kind: components["schemas"]["CatalogueRequirementKindEnum"];
+            kind: components["schemas"]["RequirementKindEnum"];
             /** @description e.g. "2:1", 2.5, {"IELTS": 6.5, "TOEFL": 90}, "B2", ["computer science"], 24 */
             value: unknown;
             /** @description As the university states it. */
             text: string;
         };
-        /**
-         * @description * `prior_level` - Previous qualification
-         *     * `uk_class` - Minimum degree class (UK scale)
-         *     * `german_grade` - Minimum grade (German scale, lower is better)
-         *     * `english_test` - English test score
-         *     * `german_level` - German level (CEFR)
-         *     * `subject` - Subject background
-         *     * `work_experience` - Work experience (months)
-         *     * `other` - Other (checked by the university)
-         * @enum {string}
-         */
-        CatalogueRequirementKindEnum: "prior_level" | "uk_class" | "german_grade" | "english_test" | "german_level" | "subject" | "work_experience" | "other";
         CatalogueRequirementRequest: {
             /** Format: uuid */
             programme: string;
-            kind: components["schemas"]["CatalogueRequirementKindEnum"];
+            kind: components["schemas"]["RequirementKindEnum"];
             /** @description e.g. "2:1", 2.5, {"IELTS": 6.5, "TOEFL": 90}, "B2", ["computer science"], 24 */
             value: unknown;
             /** @description As the university states it. */
@@ -7118,6 +7167,13 @@ export interface components {
             description?: string;
             display_order?: number;
         };
+        /**
+         * @description * `pass` - pass
+         *     * `fail` - fail
+         *     * `unknown` - unknown
+         * @enum {string}
+         */
+        CheckOutcomeEnum: "pass" | "fail" | "unknown";
         /**
          * @description * `checking` - Checking
          *     * `done` - Done
@@ -7366,6 +7422,20 @@ export interface components {
             source_url: string;
             is_stale: boolean;
         };
+        CostLine: {
+            label: string;
+            amount: string;
+            currency: string;
+            per: string;
+            total: string;
+            /** @description Null when there's no exchange rate for it. */
+            ngn: string | null;
+            rate: components["schemas"]["FxConversion"] | null;
+            source_name: string | null;
+            source_url: string | null;
+            verified_at: string | null;
+            stale: boolean;
+        };
         Country: {
             /** Format: uuid */
             readonly id: string;
@@ -7485,6 +7555,28 @@ export interface components {
             place: string;
             dates: string;
             bullets: components["schemas"]["CvBullet"][];
+        };
+        /**
+         * @description One of the candidate's own tracked deadlines (web.md §10.4), from a
+         *     board card's intake. Types beyond "application" (scholarship, deposit,
+         *     visa) aren't modelled yet — see the web build checklist.
+         */
+        Deadline: {
+            /**
+             * Format: uuid
+             * @description The board card this deadline belongs to.
+             */
+            id: string;
+            /** @default application */
+            type: string;
+            kind: components["schemas"]["ApplicationKindEnum"];
+            title: string;
+            organisation: string;
+            country: string;
+            state: components["schemas"]["ApplicationStateEnum"];
+            /** Format: date */
+            date: string;
+            note: string;
         };
         DestinationChoice: {
             /** Format: uuid */
@@ -7999,6 +8091,20 @@ export interface components {
             /** @description e.g. gb-student */
             route?: string;
         };
+        /** @description A cost line's conversion to naira (``apps.sources.fx.Converted.as_dict``). */
+        FxConversion: {
+            amount: string;
+            currency: string;
+            converted: string;
+            quote: string;
+            rate: string;
+            kind: string | null;
+            /** Format: date */
+            as_of: string;
+            source_name: string | null;
+            source_url: string | null;
+            is_stale: boolean;
+        };
         FxRate: {
             /** Format: uuid */
             readonly id: string;
@@ -8474,6 +8580,13 @@ export interface components {
             application?: string | null;
             callback_url?: string;
         };
+        InstitutionRef: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            city: string;
+            country: string;
+        };
         /**
          * @description * `job` - Job interview
          *     * `visa` - Visa interview
@@ -8502,7 +8615,7 @@ export interface components {
         JobCheck: {
             readonly check: string;
             readonly label: string;
-            outcome: components["schemas"]["OutcomeEnum"];
+            outcome: components["schemas"]["JobCheckOutcomeEnum"];
             points: number;
             max_points: number;
             evidence: string;
@@ -8510,6 +8623,13 @@ export interface components {
             /** Format: date-time */
             checked_at: string;
         };
+        /**
+         * @description * `pass` - Passed
+         *     * `fail` - Failed
+         *     * `unknown` - Not known yet
+         * @enum {string}
+         */
+        JobCheckOutcomeEnum: "pass" | "fail" | "unknown";
         /**
          * @description The search filters (apps.jobs.filters.Filters): the list's query
          *     string, and what a saved search keeps.
@@ -8710,6 +8830,9 @@ export interface components {
             /** @default  */
             visa_outcome: components["schemas"]["VisaOutcomeEnum"] | components["schemas"]["BlankEnum"];
         };
+        MyDeadlines: {
+            results: components["schemas"]["Deadline"][];
+        };
         MyReport: {
             /** Format: uuid */
             readonly id: string;
@@ -8730,6 +8853,13 @@ export interface components {
         NewFactRequest: {
             kind: components["schemas"]["ProfileFactKindEnum"];
             data: unknown;
+        };
+        NextIntake: {
+            /** Format: date */
+            starts_on: string;
+            /** Format: date */
+            deadline: string | null;
+            note: string;
         };
         /**
          * @description * `account` - Account
@@ -8811,13 +8941,6 @@ export interface components {
          * @enum {string}
          */
         OriginEnum: "extracted" | "entered";
-        /**
-         * @description * `pass` - Passed
-         *     * `fail` - Failed
-         *     * `unknown` - Not known yet
-         * @enum {string}
-         */
-        OutcomeEnum: "pass" | "fail" | "unknown";
         PackFromUrlRequest: {
             /** @description A job's page or its application form. */
             url: string;
@@ -9836,7 +9959,7 @@ export interface components {
             /** Format: uuid */
             institution?: string;
             name?: string;
-            level?: components["schemas"]["CatalogueProgrammeLevelEnum"];
+            level?: components["schemas"]["StudyProgrammeLevelEnum"];
             /** @description Field of study, e.g. Computer Science */
             subject?: string;
             /** @description Language of instruction (ISO 639-1). */
@@ -9863,7 +9986,7 @@ export interface components {
         PatchedCatalogueRequirementRequest: {
             /** Format: uuid */
             programme?: string;
-            kind?: components["schemas"]["CatalogueRequirementKindEnum"];
+            kind?: components["schemas"]["RequirementKindEnum"];
             /** @description e.g. "2:1", 2.5, {"IELTS": 6.5, "TOEFL": 90}, "B2", ["computer science"], 24 */
             value?: unknown;
             /** @description As the university states it. */
@@ -10869,6 +10992,51 @@ export interface components {
             attributes?: unknown;
             is_active?: boolean;
         };
+        /** @description web.md §10.2's CostBreakdown: proof of funds kept apart from the total. */
+        ProgrammeCost: {
+            lines: components["schemas"]["CostLine"][];
+            proof_of_funds: components["schemas"]["CostLine"][];
+            spend_ngn: string;
+            /** @description After the best automatic award only. */
+            after_scholarships_ngn: string;
+            automatic_scholarship_ngn: string;
+            /** @description {id, name, could_save_ngn} for each one you could win. */
+            competitive_scholarships: {
+                [key: string]: unknown;
+            }[];
+            proof_of_funds_ngn: string;
+            complete: boolean;
+            missing: string[];
+        };
+        ProgrammeDetail: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            level: components["schemas"]["StudyProgrammeLevelEnum"];
+            subject: string;
+            language: string;
+            duration_months: number;
+            url: string;
+            institution: components["schemas"]["InstitutionRef"];
+            admissibility: components["schemas"]["AdmissibilityEnum"];
+            cost: components["schemas"]["ProgrammeCost"];
+            flags: components["schemas"]["ProgrammeFlags"];
+            next_intake: components["schemas"]["NextIntake"] | null;
+            scholarships: components["schemas"]["ProgrammeScholarshipRef"][];
+            source: components["schemas"]["ProgrammeSource"];
+            admissibility_checks: components["schemas"]["AdmissibilityCheck"][];
+            intakes: components["schemas"]["CatalogueIntake"][];
+        };
+        ProgrammeFlags: {
+            post_study_work: boolean | null;
+            /** @description Canada only; null elsewhere. */
+            pgwp_eligible: boolean | null;
+            /** @description UK only; null elsewhere. */
+            licensed_student_sponsor: boolean | null;
+            /** @description Canada only; null elsewhere. */
+            designated_learning_institution: boolean | null;
+            shortage_subject: boolean;
+        };
         /**
          * @description * `foundation` - Foundation / pathway
          *     * `undergraduate` - Undergraduate
@@ -10878,6 +11046,9 @@ export interface components {
          * @enum {string}
          */
         ProgrammeLevelEnum: "foundation" | "undergraduate" | "postgraduate" | "doctorate" | "language";
+        ProgrammeNotShown: {
+            not_admissible: number;
+        };
         ProgrammeRequest: {
             /** Format: uuid */
             school: string;
@@ -10896,6 +11067,45 @@ export interface components {
             application_deadline?: string | null;
             attributes?: unknown;
             is_active?: boolean;
+        };
+        ProgrammeResult: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            level: components["schemas"]["StudyProgrammeLevelEnum"];
+            subject: string;
+            language: string;
+            duration_months: number;
+            url: string;
+            institution: components["schemas"]["InstitutionRef"];
+            admissibility: components["schemas"]["AdmissibilityEnum"];
+            cost: components["schemas"]["ProgrammeCost"];
+            flags: components["schemas"]["ProgrammeFlags"];
+            next_intake: components["schemas"]["NextIntake"] | null;
+            scholarships: components["schemas"]["ProgrammeScholarshipRef"][];
+            source: components["schemas"]["ProgrammeSource"];
+        };
+        ProgrammeScholarshipRef: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            automatic: boolean;
+        };
+        ProgrammeSearchResponse: {
+            country: string;
+            count: number;
+            page: number;
+            page_size: number;
+            results: components["schemas"]["ProgrammeResult"][];
+            not_shown: components["schemas"]["ProgrammeNotShown"];
+            your_grade: components["schemas"]["YourGrade"] | null;
+        };
+        ProgrammeSource: {
+            name: string;
+            url: string;
+            /** Format: date-time */
+            verified_at: string;
+            stale: boolean;
         };
         /**
          * @description * `greenhouse` - Greenhouse board
@@ -11346,6 +11556,18 @@ export interface components {
             is_active?: boolean;
         };
         /**
+         * @description * `prior_level` - Previous qualification
+         *     * `uk_class` - Minimum degree class (UK scale)
+         *     * `german_grade` - Minimum grade (German scale, lower is better)
+         *     * `english_test` - English test score
+         *     * `german_level` - German level (CEFR)
+         *     * `subject` - Subject background
+         *     * `work_experience` - Work experience (months)
+         *     * `other` - Other (checked by the university)
+         * @enum {string}
+         */
+        RequirementKindEnum: "prior_level" | "uk_class" | "german_grade" | "english_test" | "german_level" | "subject" | "work_experience" | "other";
+        /**
          * @description * `high` - High
          *     * `medium` - Medium
          *     * `low` - Low
@@ -11586,6 +11808,64 @@ export interface components {
          * @enum {string}
          */
         ScamReportStatusEnum: "open" | "confirmed" | "dismissed";
+        /**
+         * @description A scholarship's own fields plus this candidate's eligibility for it —
+         *     schema-only, see :func:`scholarship_eligibility` / ``ScholarshipDetailView``.
+         */
+        ScholarshipDetail: {
+            /** Format: uuid */
+            readonly id: string;
+            name: string;
+            provider: string;
+            /** @description Destination ISO codes where it can be used. */
+            countries?: unknown;
+            /** @description Programme levels it funds. */
+            levels?: unknown;
+            /** @description As the provider states it. */
+            value_text?: string;
+            /**
+             * Format: decimal
+             * @description A fixed amount off the cost, when there is one.
+             */
+            value_amount?: string | null;
+            value_currency?: string;
+            covers_full_tuition?: boolean;
+            /** @description Given to every admitted student who qualifies (not competitive). */
+            automatic?: boolean;
+            awards_count?: number | null;
+            /** Format: date */
+            deadline?: string | null;
+            return_home_required?: boolean | null;
+            return_home_note?: string;
+            url?: string;
+            readonly source_name: string;
+            readonly source_url: string;
+            /** Format: date-time */
+            readonly verified_at: string;
+            readonly stale: boolean;
+            status: components["schemas"]["ScholarshipDetailStatusEnum"];
+            checks: components["schemas"]["ScholarshipEligibilityCheck"][];
+        };
+        /**
+         * @description * `eligible` - eligible
+         *     * `maybe` - maybe
+         *     * `not_eligible` - not_eligible
+         * @enum {string}
+         */
+        ScholarshipDetailStatusEnum: "eligible" | "maybe" | "not_eligible";
+        ScholarshipEligibilityCheck: {
+            kind: components["schemas"]["ScholarshipEligibilityCheckKindEnum"];
+            outcome: components["schemas"]["CheckOutcomeEnum"];
+            detail: string;
+        };
+        /**
+         * @description * `nationality` - nationality
+         *     * `country` - country
+         *     * `level` - level
+         *     * `deadline` - deadline
+         * @enum {string}
+         */
+        ScholarshipEligibilityCheckKindEnum: "nationality" | "country" | "level" | "deadline";
         School: {
             /** Format: uuid */
             readonly id: string;
@@ -12149,6 +12429,15 @@ export interface components {
          */
         StudentStageEnum: "registered" | "paid" | "profile_complete" | "applying" | "offer_received" | "visa_stage" | "enrolled" | "dormant" | "withdrawn";
         /**
+         * @description * `foundation` - Foundation
+         *     * `diploma` - Diploma or certificate
+         *     * `bachelor` - Bachelor's
+         *     * `master` - Master's
+         *     * `doctorate` - Doctorate
+         * @enum {string}
+         */
+        StudyProgrammeLevelEnum: "foundation" | "diploma" | "bachelor" | "master" | "doctorate";
+        /**
          * @description * `draft` - Draft
          *     * `submitted` - Submitted
          *     * `superseded` - Superseded by a newer submission
@@ -12380,6 +12669,16 @@ export interface components {
             };
             total: number;
             gain: number;
+        };
+        YourGrade: {
+            as_written: string;
+            uk_class: string | null;
+            uk_class_label: string | null;
+            german_grade: string | null;
+            cgpa: string | null;
+            scale: string | null;
+            working: string;
+            indicative: boolean;
         };
     };
     responses: never;
@@ -17005,6 +17304,47 @@ export interface operations {
                 };
                 content: {
                     "application/zip": string;
+                };
+            };
+        };
+    };
+    ai_deadlines_list: {
+        parameters: {
+            query?: {
+                /** @description Only "application" exists today. */
+                type?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyDeadlines"];
+                };
+            };
+        };
+    };
+    ai_v1_me_deadlines_ics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/calendar": string;
                 };
             };
         };
@@ -23055,16 +23395,27 @@ export interface operations {
     ai_study_programmes_list: {
         parameters: {
             query?: {
+                /** @description Words in the institution's city. */
+                city?: string;
                 /** @description Defaults to the active destination. */
                 country?: string;
+                /** @description Only programmes you'd qualify for one on. */
+                has_scholarships?: boolean;
                 include_not_admissible?: boolean;
+                /** @description Next intake's deadline within this many days. */
+                intake_within?: number;
                 /** @description Language of instruction, e.g. en, de. */
                 language?: string;
                 level?: "bachelor" | "diploma" | "doctorate" | "foundation" | "master";
                 page?: number;
+                post_study_work?: boolean;
                 /** @description Words in the programme name or subject. */
                 q?: string;
                 sort?: "cost" | "cost_after_scholarships" | "deadline" | "name";
+                /** @description Words in the programme's subject only. */
+                subject?: string;
+                /** @description Total cost ceiling, in naira. */
+                tuition_max?: number;
             };
             header?: never;
             path?: never;
@@ -23077,9 +23428,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["ProgrammeSearchResponse"];
                 };
             };
         };
@@ -23100,9 +23449,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
+                    "application/json": components["schemas"]["ProgrammeDetail"];
                 };
             };
         };
@@ -23125,6 +23472,31 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CataloguePublicScholarship"][];
+                };
+            };
+        };
+    };
+    ai_v1_study_scholarships_retrieve: {
+        parameters: {
+            query?: {
+                /** @description Defaults to the active destination. */
+                country?: string;
+                level?: "bachelor" | "diploma" | "doctorate" | "foundation" | "master";
+            };
+            header?: never;
+            path: {
+                scholarship_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScholarshipDetail"];
                 };
             };
         };
