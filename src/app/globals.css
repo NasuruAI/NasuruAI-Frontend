@@ -77,21 +77,20 @@
 
   --canvas: #ffffff;
   --surface: #ffffff;
-  --sunken: #f5f9f7;
+  --sunken: #f5f5f5;
 
-  --ink: #10231c;
-  --muted: #3d534b;
-  --subtle: #5d736a;
+  --ink: #121212;
+  --muted: #404040;
+  --subtle: #5c5c5c;
   --on-accent: #ffffff;
 
-  --line: #e4ebe8;
-  --field-line: #79938a;
-  --line-strong: #4b635a;
+  --line: #e5e5e5;
+  --field-line: #7a7a7a;
+  --line-strong: #4d4d4d;
 
-  --accent: #0f6d52;
-  --accent-hover: #0a4d3a;
-  /* A hue of its own, so focus never reads as "this element is selected" -
-  which matters more now the accent is itself a green. */
+  --accent: #111111;
+  --accent-hover: #000000;
+  /* A hue of its own, so focus never reads as "this element is selected". */
   --focus: #1d4ed8;
 
   --danger: #9f1239;
@@ -114,9 +113,9 @@
   /* Nasuru AI (design-system §3.3). */
   --highlight: #fff6d6;
   --highlight-line: #f2d98c;
-  --accent-soft: #e6f4ec;
+  --accent-soft: #ececec;
   --ink-inverse: #ffffff;
-  --scrim: rgba(16, 35, 28, 0.48);
+  --scrim: rgba(0, 0, 0, 0.48);
 }
 
 /* ---------- Dark: redefines tokens only, never introduces new ones. -------- */
@@ -125,21 +124,21 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
 
-    --canvas: #08130f;
-    --surface: #10231c;
-    --sunken: #183029;
+    --canvas: #0a0a0a;
+    --surface: #141414;
+    --sunken: #1f1f1f;
 
-    --ink: #edf5f2;
-    --muted: #bdd0c9;
-    --subtle: #93aca3;
-    --on-accent: #05211a;
+    --ink: #ededed;
+    --muted: #b5b5b5;
+    --subtle: #8c8c8c;
+    --on-accent: #0a0a0a;
 
-    --line: #1f3a32;
-    --field-line: #6d8a80;
-    --line-strong: #93aca3;
+    --line: #2b2b2b;
+    --field-line: #6e6e6e;
+    --line-strong: #949494;
 
-    --accent: #37b489;
-    --accent-hover: #5ccfa4;
+    --accent: #f2f2f2;
+    --accent-hover: #ffffff;
     --focus: #93c5fd;
 
     --danger: #fda4af;
@@ -162,8 +161,8 @@
     /* Nasuru AI (design-system §3.3). */
     --highlight: #3a3212;
     --highlight-line: #7a6524;
-    --accent-soft: #06291f;
-    --ink-inverse: #08130f;
+    --accent-soft: #2b2b2b;
+    --ink-inverse: #0a0a0a;
     --scrim: rgba(0, 0, 0, 0.6);
   }
 }
@@ -171,21 +170,21 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --canvas: #08130f;
-  --surface: #10231c;
-  --sunken: #183029;
+  --canvas: #0a0a0a;
+  --surface: #141414;
+  --sunken: #1f1f1f;
 
-  --ink: #edf5f2;
-  --muted: #bdd0c9;
-  --subtle: #93aca3;
-  --on-accent: #05211a;
+  --ink: #ededed;
+  --muted: #b5b5b5;
+  --subtle: #8c8c8c;
+  --on-accent: #0a0a0a;
 
-  --line: #1f3a32;
-  --field-line: #6d8a80;
-  --line-strong: #93aca3;
+  --line: #2b2b2b;
+  --field-line: #6e6e6e;
+  --line-strong: #949494;
 
-  --accent: #37b489;
-  --accent-hover: #5ccfa4;
+  --accent: #f2f2f2;
+  --accent-hover: #ffffff;
   --focus: #93c5fd;
 
   --danger: #fda4af;
@@ -208,8 +207,8 @@
   /* Nasuru AI (design-system §3.3). */
   --highlight: #3a3212;
   --highlight-line: #7a6524;
-  --accent-soft: #06291f;
-  --ink-inverse: #08130f;
+  --accent-soft: #2b2b2b;
+  --ink-inverse: #0a0a0a;
   --scrim: rgba(0, 0, 0, 0.6);
 }
 

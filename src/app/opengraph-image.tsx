@@ -54,7 +54,7 @@ export default async function OpengraphImage() {
             width: 56,
             height: 56,
             borderRadius: 14,
-            background: "#0f6d52",
+            background: "#111111",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -112,7 +112,7 @@ export default async function OpengraphImage() {
         }}
       >
         {priceKnown ? (
-          <span style={{ color: "#0f6d52", fontWeight: 700 }}>{pricing.access_fee.ascii}</span>
+          <span style={{ color: "#111111", fontWeight: 700 }}>{pricing.access_fee.ascii}</span>
         ) : null}
         <span>
           {priceKnown

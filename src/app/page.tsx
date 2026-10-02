@@ -210,13 +210,13 @@ export default async function Home() {
             <p className="mt-4 text-lg leading-relaxed text-muted">
               So the risk sits with us instead:
             </p>
-            <div className="mt-6 rounded-xl bg-success-bg p-6 text-left text-success">
+            <div className="mt-6 rounded-xl border-2 border-ink bg-surface p-6 text-left text-ink">
               <p className="font-display text-lg font-bold">
                 {priceKnown ? `Pay ${fee.formatted}.` : "Pay the access fee."} See your matched
                 schools and what each one requires. If it is not worth it, ask for your money back
                 within {REFUND.coolingOffDays} days.
               </p>
-              <p className="mt-3 leading-relaxed">
+              <p className="mt-3 leading-relaxed text-muted">
                 No reason needed, and we will not try to talk you out of it. The only condition is
                 that we have not already reviewed one of your documents — and your checklist shows
                 you exactly when that happens.
@@ -550,7 +550,8 @@ export default async function Home() {
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-lg bg-accent px-8 py-3.5 text-base font-bold text-on-accent transition hover:bg-accent-hover"
+              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-base font-bold transition hover:opacity-85"
+              style={{ backgroundColor: "var(--canvas)", color: "var(--ink)" }}
             >
               Create your account
             </Link>
