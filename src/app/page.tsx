@@ -34,7 +34,7 @@ const ORDER = [
   {
     step: "First",
     title: "Admission",
-    body: "Everything starts here. A university has to accept you before any visa conversation is real — and no agent, anywhere, can shortcut that.",
+    body: "Everything starts here. A university has to accept you before any visa conversation is real, and no agent, anywhere, can shortcut that.",
   },
   {
     step: "Then",
@@ -95,7 +95,7 @@ export default async function Home() {
               href="/signup"
               className="rounded-lg bg-accent px-7 py-3.5 text-base font-bold text-on-accent transition hover:bg-accent-hover"
             >
-              See my matched schools{priceKnown ? ` — ${fee.formatted} once` : ""}
+              See my matched schools{priceKnown ? ` for ${fee.formatted} once` : ""}
             </Link>
             <span className="text-sm text-subtle">
               Refundable for {REFUND.coolingOffDays} days. No subscription, no commission.
@@ -123,18 +123,18 @@ export default async function Home() {
               {accreditationPending ? (
                 <p className="mt-1 text-sm leading-relaxed text-muted">
                   Our certificate and its reference number will be published here, with a link so
-                  you can verify it directly with the awarding body. Until then, ask us for it — we
-                  will send it to you.
+                  you can verify it directly with the awarding body. Until then, ask us for it and
+                  we will send it to you.
                 </p>
               ) : (
                 <p className="mt-1 text-sm leading-relaxed text-muted">
                   Certified by {ACCREDITATION.body} since {ACCREDITATION.since}. Reference{" "}
-                  <span className="font-mono text-ink">{ACCREDITATION.reference}</span> —{" "}
+                  <span className="font-mono text-ink">{ACCREDITATION.reference}</span>.{" "}
                   <a
                     href={ACCREDITATION.verifyUrl}
                     className="text-ink underline underline-offset-2"
                   >
-                    verify it independently
+                    Verify it independently
                   </a>
                   .
                 </p>
@@ -150,7 +150,7 @@ export default async function Home() {
               Four things, and we do them with you
             </h2>
             <p className="mt-3 max-w-3xl text-lg text-muted">
-              Not &ldquo;we handle everything&rdquo;. You will write your own motivation letter —
+              Not &ldquo;we handle everything&rdquo;. You will write your own motivation letter,
               with us, until it is right. An agent who wants you out of the process is usually
               hiding how little of it there is.
             </p>
@@ -177,7 +177,7 @@ export default async function Home() {
               </h2>
               <p className="mt-3 leading-relaxed text-muted">
                 Most people arrive asking us about visas. That conversation cannot start until a
-                university has accepted you, so almost everything we do together happens before it —
+                university has accepted you, so almost everything we do together happens before it,
                 and the quality of your application is the part you can still change.
               </p>
             </div>
@@ -202,7 +202,7 @@ export default async function Home() {
               &ldquo;So what am I actually paying for, before I see anything?&rdquo;
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted">
-              A fair question, and one you should ask every agent. The shortlist is the work —
+              A fair question, and one you should ask every agent. The shortlist is the work:
               knowing which universities charge no tuition, which of those are any good in your
               subject, and which will accept a Nigerian qualification. Publishing it here would be
               publishing the thing you are paying for.
@@ -218,7 +218,7 @@ export default async function Home() {
               </p>
               <p className="mt-3 leading-relaxed text-muted">
                 No reason needed, and we will not try to talk you out of it. The only condition is
-                that we have not already reviewed one of your documents — and your checklist shows
+                that we have not already reviewed one of your documents, and your checklist shows
                 you exactly when that happens.
               </p>
             </div>
@@ -242,7 +242,7 @@ export default async function Home() {
                   Tuition-free is not the same as free
                 </h2>
                 <p className="mt-3 leading-relaxed text-muted">
-                  No tuition is a genuine saving — usually the largest single one available to a
+                  No tuition is a genuine saving, usually the largest single one available to a
                   Nigerian student. It is not the whole bill. You should hear these figures from us
                   now rather than discover them weeks before an intake.
                 </p>
@@ -309,7 +309,7 @@ export default async function Home() {
                 You watch the whole thing happen
               </h2>
               <p className="mx-auto mt-3 max-w-2xl text-lg text-muted">
-                Every document, its status, and — when something is rejected — exactly why, in
+                Every document, its status, and (when something is rejected) exactly why, in
                 writing. Not a monthly phone call where you are told it is progressing.
               </p>
             </div>
@@ -373,7 +373,7 @@ export default async function Home() {
                       <path d="m8.5 12.5 2.5 2.5 5-5" />
                     </svg>
                     <div className="min-w-0 flex-1">
-                      <p className="font-medium text-ink">Motivation letter — final draft</p>
+                      <p className="font-medium text-ink">Motivation letter: final draft</p>
                       <p className="mt-0.5 text-sm text-muted">
                         Written with your counsellor, specific to this programme.
                       </p>
@@ -428,8 +428,8 @@ export default async function Home() {
                     </svg>
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-ink">
-                        Certified translation — transcript{" "}
-                        <span className="font-normal text-subtle">— arranged by us</span>
+                        Certified translation: transcript{" "}
+                        <span className="font-normal text-subtle">(arranged by us)</span>
                       </p>
                       <p className="mt-0.5 text-sm text-muted">
                         Sworn translator, accepted by the university.
@@ -476,7 +476,7 @@ export default async function Home() {
                   What we charge
                 </p>
                 <p className="font-display mt-3 text-5xl font-extrabold tracking-tight text-ink">
-                  {priceKnown ? fee.formatted : "—"}
+                  {priceKnown ? fee.formatted : "Ask us"}
                 </p>
                 <p className="mt-1 text-muted">
                   Once. Not a deposit, not a percentage, not a monthly fee.
@@ -487,15 +487,15 @@ export default async function Home() {
                     We take no commission from any university, so the shortlist you get is the one
                     that suits you rather than the one that pays us.{" "}
                     <strong className="font-semibold text-ink">
-                      We have not found a Nigerian agent who charges less
+                      We have not found a Nigerian agent who charges less.
                     </strong>{" "}
-                    — if you find one, we would genuinely like to know.
+                    If you find one, we would genuinely like to know.
                   </p>
                 </div>
 
                 <p className="mt-5 leading-relaxed text-muted">
                   Our fee is the only money that comes to us. Application fees, tests, deposits and
-                  visa charges are paid by you, directly to those bodies — we never take a cut of
+                  visa charges are paid by you, directly to those bodies, and we never take a cut of
                   any of them.
                 </p>
                 <p className="mt-4 text-sm text-subtle">
@@ -539,7 +539,7 @@ export default async function Home() {
               Tell us what you studied and what you can fund
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-lg text-muted">
-              Ten minutes, and you will know which tuition-free universities are realistic for you —
+              Ten minutes, and you will know which tuition-free universities are realistic for you,
               or that they are not, which is worth knowing too.
             </p>
             <Link

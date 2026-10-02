@@ -24,7 +24,7 @@ function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
           What {priceKnown ? fee : "the fee"} actually covers
         </p>
         <p className="font-display mt-3 text-5xl font-extrabold tracking-tight text-ink">
-          {priceKnown ? fee : "—"}
+          {priceKnown ? fee : "Ask us"}
         </p>
         <p className="mt-1 text-muted">Once. Not a deposit, not a subscription, no commission.</p>
 
@@ -49,16 +49,16 @@ function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
             Refundable for {REFUND.coolingOffDays} days, no reason needed.
           </strong>{" "}
           We acknowledge a request within {REFUND.acknowledgeWorkingDays} working days and decide
-          within {REFUND.decideWorkingDays} — the only condition is that we have not already
-          reviewed one of your documents.
+          within {REFUND.decideWorkingDays}. The only condition is that we have not already reviewed
+          one of your documents.
         </p>
         <p className="leading-relaxed text-muted">
-          You watch every document and every decision in your own tracker — not a monthly call where
+          You watch every document and every decision in your own tracker, not a monthly call where
           you are told it is progressing.
         </p>
         <p className="text-sm text-subtle">
           {accreditationPending
-            ? `${ACCREDITATION.credential}. Our certificate and its reference number will be published here — ask us for it in the meantime.`
+            ? `${ACCREDITATION.credential}. Our certificate and its reference number will be published here. Ask us for it in the meantime.`
             : `${ACCREDITATION.credential}, certified by ${ACCREDITATION.body} since ${ACCREDITATION.since}.`}{" "}
           We have not found a Nigerian agent who charges less.
         </p>

@@ -89,7 +89,7 @@ export const SERVICES = [
   {
     title: "Find tuition-free universities with courses worth doing",
     detail:
-      "Public universities where international students pay no tuition, narrowed to the ones that teach your subject well and will accept your qualifications. Not a shortlist of whoever pays commission — we take none.",
+      "Public universities where international students pay no tuition, narrowed to the ones that teach your subject well and will accept your qualifications. Not a shortlist of whoever pays commission: we take none.",
   },
   {
     title: "Tell you exactly what each one requires",
@@ -99,10 +99,10 @@ export const SERVICES = [
   {
     title: "Write your CV and motivation letter with you",
     detail:
-      "Not a template with your name dropped into it. We draft with you until it argues for you specifically, for that programme, formatted so admissions screeners and applicant tracking software can both read it cleanly — and we arrange certified translations of anything not already in the language the university reads.",
+      "Not a template with your name dropped into it. We draft with you until it argues for you specifically, for that programme, formatted so admissions screeners and applicant tracking software can both read it cleanly. We also arrange certified translations of anything not already in the language the university reads.",
   },
   {
-    title: "Consult on the visa application — once you have an offer",
+    title: "Consult on the visa application, once you have an offer",
     detail:
       "Proof of funds, health checks, insurance, accommodation, the appointment. We prepare the file with you and stay with it to the decision.",
   },
