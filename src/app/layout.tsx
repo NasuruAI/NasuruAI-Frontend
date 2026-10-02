@@ -71,6 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
+      data-theme="light"
       className={`${sourceSans.variable} ${schibsted.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-canvas font-sans text-ink antialiased">

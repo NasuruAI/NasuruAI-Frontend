@@ -6,7 +6,7 @@ import { Suspense, useEffect, useState } from "react";
 import { ApiError } from "@/lib/api";
 import { checkReferralCode, signup } from "@/lib/auth/client";
 import { useSession } from "@/lib/auth/SessionProvider";
-import { ACCREDITATION, REFUND, isPending } from "@/lib/company";
+import { ACCREDITATION, REFUND, SERVICES, isPending } from "@/lib/company";
 import { isPriceKnown } from "@/lib/pricing";
 import { usePricing } from "@/lib/usePricing";
 import { Alert, Button, Field, inputClass } from "@/components/ui";
@@ -21,44 +21,48 @@ function Pitch({ fee, priceKnown }: { fee: string; priceKnown: boolean }) {
     <div className="hidden flex-col justify-between rounded-2xl border-2 border-ink bg-surface p-10 lg:flex">
       <div>
         <p className="text-xs font-bold tracking-[0.14em] text-muted uppercase">
-          What you get for this
+          What {priceKnown ? fee : "the fee"} actually covers
         </p>
         <p className="font-display mt-3 text-5xl font-extrabold tracking-tight text-ink">
           {priceKnown ? fee : "—"}
         </p>
-        <p className="mt-1 text-muted">Once. Not a deposit, not a subscription.</p>
+        <p className="mt-1 text-muted">Once. Not a deposit, not a subscription, no commission.</p>
 
-        <ul className="mt-10 space-y-6">
-          <li>
-            <p className="font-display font-bold text-ink">Your matched schools</p>
-            <p className="mt-1 leading-relaxed text-muted">
-              Tuition-free universities that take your qualifications, and exactly what each one
-              requires.
-            </p>
-          </li>
-          <li>
-            <p className="font-display font-bold text-ink">
-              Refundable for {REFUND.coolingOffDays} days
-            </p>
-            <p className="mt-1 leading-relaxed text-muted">
-              No reason needed. The only condition is that we have not already reviewed one of your
-              documents.
-            </p>
-          </li>
-          <li>
-            <p className="font-display font-bold text-ink">{ACCREDITATION.credential}</p>
-            <p className="mt-1 leading-relaxed text-muted">
-              {accreditationPending
-                ? "Our certificate and its reference number will be published here — ask us for it in the meantime."
-                : `Certified by ${ACCREDITATION.body} since ${ACCREDITATION.since}.`}
-            </p>
-          </li>
-        </ul>
+        <ol className="mt-8 space-y-5">
+          {SERVICES.map((service, index) => (
+            <li key={service.title} className="flex gap-3">
+              <span className="font-mono text-sm font-bold text-muted">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <p className="font-display font-bold text-ink">{service.title}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-muted">{service.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
 
-      <p className="mt-10 text-sm text-subtle">
-        No commission from any university. The shortlist you get is the one that suits you.
-      </p>
+      <div className="mt-8 space-y-3 border-t border-line pt-6">
+        <p className="leading-relaxed text-muted">
+          <strong className="font-semibold text-ink">
+            Refundable for {REFUND.coolingOffDays} days, no reason needed.
+          </strong>{" "}
+          We acknowledge a request within {REFUND.acknowledgeWorkingDays} working days and decide
+          within {REFUND.decideWorkingDays} — the only condition is that we have not already
+          reviewed one of your documents.
+        </p>
+        <p className="leading-relaxed text-muted">
+          You watch every document and every decision in your own tracker — not a monthly call where
+          you are told it is progressing.
+        </p>
+        <p className="text-sm text-subtle">
+          {accreditationPending
+            ? `${ACCREDITATION.credential}. Our certificate and its reference number will be published here — ask us for it in the meantime.`
+            : `${ACCREDITATION.credential}, certified by ${ACCREDITATION.body} since ${ACCREDITATION.since}.`}{" "}
+          We have not found a Nigerian agent who charges less.
+        </p>
+      </div>
     </div>
   );
 }
