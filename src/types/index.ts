@@ -101,8 +101,12 @@ export interface Checklist {
 
 export interface Application {
   id: string;
-  school: { id: string; name: string; country: string | null; logo: string | null };
-  programme: { id: string; name: string } | null;
+  /** The school's id. `ApplicationSerializer` sends the FK, not a nested object. */
+  school: string;
+  school_name: string;
+  /** The programme's id, when one was chosen. */
+  programme: string | null;
+  programme_name: string | null;
   intake: string;
   status: string;
   status_display: string;

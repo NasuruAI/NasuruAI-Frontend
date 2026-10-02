@@ -146,9 +146,9 @@ export default function DashboardPage() {
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <h3 className="font-medium text-ink">{application.school.name}</h3>
+                      <h3 className="font-medium text-ink">{application.school_name}</h3>
                       <p className="text-sm text-muted">
-                        {application.programme?.name}
+                        {application.programme_name}
                         {application.intake && ` · ${application.intake}`}
                       </p>
                     </div>

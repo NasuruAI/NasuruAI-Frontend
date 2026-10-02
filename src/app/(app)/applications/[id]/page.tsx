@@ -72,9 +72,9 @@ export default function ApplicationPage() {
 
       {application && (
         <header className="mt-4">
-          <h1 className="text-2xl font-semibold text-ink">{application.school.name}</h1>
+          <h1 className="text-2xl font-semibold text-ink">{application.school_name}</h1>
           <p className="mt-1 text-sm text-muted">
-            {application.programme?.name}
+            {application.programme_name}
             {application.intake && ` · ${application.intake}`} · {application.status_display}
           </p>
         </header>

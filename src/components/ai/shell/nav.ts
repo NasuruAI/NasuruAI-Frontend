@@ -1,7 +1,9 @@
 import {
   Briefcase,
   CalendarClock,
+  ClipboardCheck,
   FolderLock,
+  Gift,
   GraduationCap,
   KanbanSquare,
   type LucideIcon,
@@ -21,10 +23,17 @@ export const PRIMARY_NAV: NavItem[] = [
   { href: "/ai/track", label: "Track", icon: KanbanSquare },
 ];
 
+/**
+ * "My application" is the agency's own staff-reviewed submission and document
+ * checklist (the paid service) — distinct from Track's self-serve board, which
+ * a candidate keeps without staff involved.
+ */
 export const UTILITY_NAV: NavItem[] = [
+  { href: "/ai/my-application", label: "My application", icon: ClipboardCheck },
   { href: "/ai/documents", label: "Documents", icon: FolderLock },
   { href: "/ai/check-offer", label: "Check offer", icon: ShieldCheck },
   { href: "/ai/deadlines", label: "Deadlines", icon: CalendarClock },
+  { href: "/ai/referrals", label: "Referrals", icon: Gift },
 ];
 
 /** A nav item is active on its own page and every page under it. */
