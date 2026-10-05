@@ -6842,6 +6842,13 @@ export interface components {
             /** Format: date */
             readonly deadline: string;
             notes?: string;
+            /**
+             * @description The board shows at most one dashed "suggested move" ghost per card
+             *     (web.md §11.1); `pending_suggestions` is prefetched by BoardView.
+             */
+            readonly pending_suggestion: {
+                [key: string]: unknown;
+            } | null;
             /** Format: date-time */
             readonly updated_at: string;
         };
@@ -6871,6 +6878,13 @@ export interface components {
             /** Format: date */
             readonly deadline: string;
             notes?: string;
+            /**
+             * @description The board shows at most one dashed "suggested move" ghost per card
+             *     (web.md §11.1); `pending_suggestions` is prefetched by BoardView.
+             */
+            readonly pending_suggestion: {
+                [key: string]: unknown;
+            } | null;
             /** Format: date-time */
             readonly updated_at: string;
             readonly events: components["schemas"]["Event"][];
