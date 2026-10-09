@@ -64,17 +64,18 @@ export function TrustMeter({ score, compact = false }: { score: number; compact?
 
 export type Check = {
   name: string;
-  outcome: "pass" | "fail" | "unknown";
+  outcome: "pass" | "fail" | "warn" | "unknown";
   evidence: string;
   source?: Source;
 };
 
 const OUTCOME = {
   fail: { Icon: CircleX, className: "text-danger", word: "Failed" },
+  warn: { Icon: TriangleAlert, className: "text-warning", word: "Worth a look" },
   unknown: { Icon: CircleMinus, className: "text-muted", word: "Not known yet" },
   pass: { Icon: CircleCheck, className: "text-success", word: "Passed" },
 } as const;
-const ORDER = { fail: 0, unknown: 1, pass: 2 } as const;
+const ORDER = { fail: 0, warn: 1, unknown: 2, pass: 3 } as const;
 
 /** Failed checks first: they are what someone needs to see. */
 export function CheckList({ checks }: { checks: Check[] }) {

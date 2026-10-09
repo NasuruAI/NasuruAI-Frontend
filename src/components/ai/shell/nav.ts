@@ -2,14 +2,19 @@ import {
   Briefcase,
   CalendarClock,
   ClipboardCheck,
+  CreditCard,
+  FileBadge,
   FolderLock,
   Gift,
   GraduationCap,
   KanbanSquare,
+  Landmark,
   type LucideIcon,
   Map,
+  Plane,
   Route,
   ShieldCheck,
+  Stamp,
 } from "lucide-react";
 
 export type NavItem = { href: string; label: string; icon: LucideIcon };
@@ -31,6 +36,11 @@ export const PRIMARY_NAV: NavItem[] = [
 export const UTILITY_NAV: NavItem[] = [
   { href: "/ai/my-application", label: "My application", icon: ClipboardCheck },
   { href: "/ai/documents", label: "Documents", icon: FolderLock },
+  { href: "/ai/funds", label: "Funds checker", icon: Landmark },
+  { href: "/ai/visa", label: "Visa guide", icon: Stamp },
+  { href: "/ai/fees", label: "Fees", icon: CreditCard },
+  { href: "/ai/credentials", label: "Credentials", icon: FileBadge },
+  { href: "/ai/arrival", label: "Arrival", icon: Plane },
   { href: "/ai/check-offer", label: "Check offer", icon: ShieldCheck },
   { href: "/ai/deadlines", label: "Deadlines", icon: CalendarClock },
   { href: "/ai/referrals", label: "Referrals", icon: Gift },

@@ -8093,6 +8093,8 @@ export interface components {
             readonly documents: string[];
             readonly route: string;
             status?: components["schemas"]["CheckStatusEnum"];
+            /** @description Per statement: holder, currency, dated balances. */
+            extracted?: unknown;
             results?: unknown;
             /** Format: uuid */
             task_id?: string | null;
