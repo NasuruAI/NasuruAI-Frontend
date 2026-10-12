@@ -8888,6 +8888,16 @@ export interface components {
          * @enum {string}
          */
         NotificationCategoryEnum: "account" | "payment" | "document" | "application" | "referral" | "message" | "system";
+        /**
+         * @description Prefixed: apps.notifications already has its own QuietHoursSerializer,
+         *     and an identical component name under both breaks the OpenAPI schema.
+         */
+        NotifyQuietHoursRequest: {
+            /** Format: time */
+            start: string | null;
+            /** Format: time */
+            end: string | null;
+        };
         OccupationCode: {
             system: components["schemas"]["SystemEnum"];
             code: string;
@@ -10917,7 +10927,8 @@ export interface components {
             enabled: boolean;
         };
         PreferenceChangesRequest: {
-            changes: components["schemas"]["PreferenceChangeRequest"][];
+            changes?: components["schemas"]["PreferenceChangeRequest"][];
+            quiet_hours?: components["schemas"]["NotifyQuietHoursRequest"];
         };
         /**
          * @description * `email` - email
@@ -18632,7 +18643,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/json": components["schemas"]["PreferenceChangesRequest"];
                 "application/x-www-form-urlencoded": components["schemas"]["PreferenceChangesRequest"];

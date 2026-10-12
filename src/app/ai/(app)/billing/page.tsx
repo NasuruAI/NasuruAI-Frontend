@@ -1,13 +1,7 @@
-import { PagePlaceholder } from "@/components/ai/shell/PagePlaceholder";
+import { BillingView } from "@/components/ai/account/BillingView";
 
 export const metadata = { title: "Subscription · Nasuru AI" };
 
 export default function BillingPage() {
-  return (
-    <PagePlaceholder
-      title="Subscription"
-      what="Your plan, invoices and cancellation."
-      module="F14"
-    />
-  );
+  return <BillingView />;
 }
