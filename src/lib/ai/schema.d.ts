@@ -4815,6 +4815,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/tools/eligibility/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description The free public eligibility check (web.md §3.3): typed answers, no
+         *     account, nothing stored. Evaluates the destination's routes with the same
+         *     engine the signed-in list uses.
+         */
+        post: operations["ai_v1_tools_eligibility_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/tools/grade/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description The free public grade converter (web.md §3.3): a typed-in result, no
+         *     account. Reuses the same conversion as the signed-in view.
+         */
+        post: operations["ai_v1_tools_grade_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/tools/points/{scheme}/": {
         parameters: {
             query?: never;
@@ -7703,6 +7744,16 @@ export interface components {
          */
         DocumentUploadStatusEnum: "pending" | "verified" | "rejected" | "superseded";
         /**
+         * @description * `secondary` - secondary
+         *     * `vocational` - vocational
+         *     * `diploma` - diploma
+         *     * `bachelor` - bachelor
+         *     * `master` - master
+         *     * `doctorate` - doctorate
+         * @enum {string}
+         */
+        EducationEnum: "secondary" | "vocational" | "diploma" | "bachelor" | "master" | "doctorate";
+        /**
          * @description * `blocked` - Blocked
          *     * `restricted` - Restricted
          * @enum {string}
@@ -7754,6 +7805,33 @@ export interface components {
          * @enum {string}
          */
         EligibilityStatusEnum: "eligible" | "eligible_if" | "not_eligible" | "blocked";
+        /**
+         * @description Typed answers for the free public eligibility tool (web.md §3.3). Every
+         *     answer but the destination is optional: a blank reads as 'we don't know yet',
+         *     never 'no' (apps.rules.context.build).
+         */
+        EligibilityToolRequest: {
+            country: string;
+            /** @default NG */
+            nationality: string;
+            age?: number | null;
+            education?: components["schemas"]["EducationEnum"] | components["schemas"]["BlankEnum"];
+            /** @default 0 */
+            work_years: number;
+            english?: components["schemas"]["EnglishEnum"] | components["schemas"]["BlankEnum"];
+            savings_band?: components["schemas"]["EligibilityToolSavingsBandEnum"] | components["schemas"]["BlankEnum"];
+            /** @default 0 */
+            dependants: number;
+        };
+        /**
+         * @description * `under_1m` - under_1m
+         *     * `1m_5m` - 1m_5m
+         *     * `5m_15m` - 5m_15m
+         *     * `15m_40m` - 15m_40m
+         *     * `over_40m` - over_40m
+         * @enum {string}
+         */
+        EligibilityToolSavingsBandEnum: "under_1m" | "1m_5m" | "5m_15m" | "15m_40m" | "over_40m";
         Employer: {
             /** Format: uuid */
             readonly id: string;
@@ -7779,6 +7857,17 @@ export interface components {
             is_blocked?: boolean;
             moderation_note?: string;
         };
+        /**
+         * @description * `A1` - A1
+         *     * `A2` - A2
+         *     * `B1` - B1
+         *     * `B2` - B2
+         *     * `C1` - C1
+         *     * `C2` - C2
+         *     * `native` - native
+         * @enum {string}
+         */
+        EnglishEnum: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "native";
         /** @description What GET /me/subscription/ returns (apps.billing.services.entitlements). */
         Entitlements: {
             plan: components["schemas"]["EntitlementsPlan"];
@@ -8242,6 +8331,10 @@ export interface components {
          * @enum {string}
          */
         GeneratedDocumentStatusEnum: "queued" | "ready" | "failed";
+        /** @description Input for the free public grade converter (web.md §3.3). */
+        GradeToolRequest: {
+            grade: string;
+        };
         GuideAnswer: {
             /** Format: uuid */
             readonly id: string;
@@ -10306,7 +10399,7 @@ export interface components {
             marital_status?: components["schemas"]["MaritalStatusEnum"] | components["schemas"]["BlankEnum"];
             dependants?: number | null;
             partner_accompanying?: boolean | null;
-            savings_band?: components["schemas"]["SavingsBandEnum"] | components["schemas"]["BlankEnum"];
+            savings_band?: components["schemas"]["QuestionnaireSavingsBandEnum"] | components["schemas"]["BlankEnum"];
             previous_refusals?: boolean | null;
             refusals?: components["schemas"]["RefusalRequest"][];
             history_gaps?: string;
@@ -11222,7 +11315,7 @@ export interface components {
             marital_status?: components["schemas"]["MaritalStatusEnum"] | components["schemas"]["BlankEnum"];
             dependants?: number | null;
             partner_accompanying?: boolean | null;
-            savings_band?: components["schemas"]["SavingsBandEnum"] | components["schemas"]["BlankEnum"];
+            savings_band?: components["schemas"]["QuestionnaireSavingsBandEnum"] | components["schemas"]["BlankEnum"];
             previous_refusals?: boolean | null;
             refusals?: components["schemas"]["Refusal"][];
             history_gaps?: string;
@@ -11231,6 +11324,15 @@ export interface components {
             /** Format: date-time */
             readonly completed_at: string | null;
         };
+        /**
+         * @description * `under_1m` - Under ₦1m
+         *     * `1m_5m` - ₦1m–₦5m
+         *     * `5m_15m` - ₦5m–₦15m
+         *     * `15m_40m` - ₦15m–₦40m
+         *     * `over_40m` - Over ₦40m
+         * @enum {string}
+         */
+        QuestionnaireSavingsBandEnum: "under_1m" | "1m_5m" | "5m_15m" | "15m_40m" | "over_40m";
         QuietHoursRequest: {
             /** Format: time */
             start?: string | null;
@@ -11819,15 +11921,6 @@ export interface components {
          * @enum {string}
          */
         RuleVersionStatusEnum: "draft" | "in_review" | "published" | "rejected";
-        /**
-         * @description * `under_1m` - Under ₦1m
-         *     * `1m_5m` - ₦1m–₦5m
-         *     * `5m_15m` - ₦5m–₦15m
-         *     * `15m_40m` - ₦15m–₦40m
-         *     * `over_40m` - Over ₦40m
-         * @enum {string}
-         */
-        SavingsBandEnum: "under_1m" | "1m_5m" | "5m_15m" | "15m_40m" | "over_40m";
         /**
          * @description * `open` - Awaiting review
          *     * `confirmed` - Confirmed scam
@@ -23581,6 +23674,56 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    ai_v1_tools_eligibility_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EligibilityToolRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["EligibilityToolRequest"];
+                "multipart/form-data": components["schemas"]["EligibilityToolRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EligibilityList"];
+                };
+            };
+        };
+    };
+    ai_v1_tools_grade_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GradeToolRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["GradeToolRequest"];
+                "multipart/form-data": components["schemas"]["GradeToolRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YourGrade"];
+                };
             };
         };
     };
