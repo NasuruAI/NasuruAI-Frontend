@@ -238,6 +238,7 @@ export function useRequestErasure() {
 
 export type Plan = Schemas["Plan"];
 export type Payment = Schemas["Payment"];
+export type BillingPeriod = "week" | "month" | "year";
 
 export const billingKeys = {
   plans: ["ai", "account", "plans"] as const,
@@ -260,10 +261,16 @@ export function usePayments() {
 
 export function useCheckout() {
   return useMutation({
-    mutationFn: (plan: string) =>
+    mutationFn: ({
+      plan,
+      billing_period = "month",
+    }: {
+      plan: string;
+      billing_period?: BillingPeriod;
+    }) =>
       unwrap(
         ai.POST("/api/ai/v1/me/subscription/checkout/", {
-          body: { plan },
+          body: { plan, billing_period } as never,
           headers: { "Idempotency-Key": crypto.randomUUID() },
         }),
       ) as unknown as Promise<{ order_id: string; reference: string; checkout_url: string }>,

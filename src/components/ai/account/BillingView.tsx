@@ -47,13 +47,16 @@ export function BillingView() {
 
   function upgrade(code: string) {
     setError(null);
-    checkout.mutate(code, {
-      onSuccess: (result) => {
-        window.location.href = result.checkout_url;
+    checkout.mutate(
+      { plan: code },
+      {
+        onSuccess: (result) => {
+          window.location.href = result.checkout_url;
+        },
+        onError: (err) =>
+          setError(err instanceof ApiError ? err.message : "Checkout didn't start. Try again."),
       },
-      onError: (err) =>
-        setError(err instanceof ApiError ? err.message : "Checkout didn't start. Try again."),
-    });
+    );
   }
 
   function confirmCancel() {
@@ -72,10 +75,9 @@ export function BillingView() {
       <section className="rounded-r-md border border-line bg-surface p-5">
         <p className="text-overline text-muted uppercase">Current plan</p>
         <p className="mt-1 font-display text-h3 text-ink">{data.plan.name}</p>
-        {currentPlan?.price_amount && (
+        {currentPlan?.monthly_price && (
           <p className="mt-1 text-body text-muted">
-            {formatNaira(Number(currentPlan.price_amount))}
-            {(currentPlan.period as string) !== "lifetime" && ` / ${currentPlan.period}`}
+            {formatNaira(Number(currentPlan.monthly_price))} / month
             {!currentPlan.auto_renew && " · doesn't renew"}
           </p>
         )}
@@ -123,15 +125,15 @@ export function BillingView() {
                   <li key={plan.code} className="rounded-r-md border border-line p-4">
                     <p className="font-semibold text-ink">{plan.name}</p>
                     {plan.tagline && <p className="text-body-s text-muted">{plan.tagline}</p>}
-                    {plan.price_amount && (
+                    {plan.monthly_price && (
                       <p className="mt-1 text-body text-ink">
-                        {formatNaira(Number(plan.price_amount))}
+                        from {formatNaira(Number(plan.monthly_price))} / month
                       </p>
                     )}
                     <Button
                       size="sm"
                       className="mt-3"
-                      loading={checkout.isPending && checkout.variables === plan.code}
+                      loading={checkout.isPending && checkout.variables?.plan === plan.code}
                       onClick={() => upgrade(plan.code)}
                     >
                       Choose this plan

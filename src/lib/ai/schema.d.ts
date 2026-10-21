@@ -6719,6 +6719,13 @@ export interface components {
             is_public?: boolean;
             show_in_directory?: boolean;
         };
+        /**
+         * @description * `week` - Weekly
+         *     * `month` - Monthly
+         *     * `year` - Yearly
+         * @enum {string}
+         */
+        BillingPeriodEnum: "week" | "month" | "year";
         /** @enum {unknown} */
         BlankEnum: "";
         /**
@@ -7296,6 +7303,8 @@ export interface components {
         };
         CheckoutRequest: {
             plan: string;
+            /** @default month */
+            billing_period: components["schemas"]["BillingPeriodEnum"];
             gateway?: string;
         };
         ChooseDestinationRequest: {
@@ -10595,20 +10604,33 @@ export interface components {
             assigned_to?: string | null;
             staff_note?: string;
         };
+        /**
+         * @description Everything an admin sets: the weekly price and the two discounts drive
+         *     the whole ladder, so the derived prices are returned read-only alongside.
+         */
         PatchedStaffPlanRequest: {
             code?: string;
             name?: string;
             tagline?: string;
-            /**
-             * Format: decimal
-             * @description What the gateway charges and every page shows. Blank: not for sale.
-             */
-            price_amount?: string | null;
             currency?: string;
             period?: components["schemas"]["PeriodEnum"];
-            duration_days?: number;
-            /** @description Passes never renew: the button says so (principles J1). */
-            auto_renew?: boolean;
+            /**
+             * Format: decimal
+             * @description Base weekly price. Monthly and yearly are derived from this. Blank: not for sale.
+             */
+            weekly_price?: string | null;
+            /** @description Weekly prices in an undiscounted month (usually 4). */
+            weeks_per_month?: number;
+            /**
+             * Format: decimal
+             * @description Percent off (weekly × weeks_per_month) for a monthly plan.
+             */
+            monthly_discount_percent?: string;
+            /**
+             * Format: decimal
+             * @description Percent off (monthly × 12) for a yearly plan.
+             */
+            yearly_discount_percent?: string;
             /** @description Per meter per month, e.g. {"answer_pack": 3}; null = unlimited. */
             limits?: unknown;
             /** @description e.g. ["extension"]. */
@@ -10818,18 +10840,39 @@ export interface components {
             /** @default  */
             last_name: string;
         };
+        /**
+         * @description The pricing page's view of a tier: the weekly base and the derived
+         *     monthly/yearly prices, each with the full (pre-discount) figure so the page
+         *     can show what you save.
+         */
         Plan: {
             code: string;
             name: string;
             tagline?: string;
-            /**
-             * Format: decimal
-             * @description What the gateway charges and every page shows. Blank: not for sale.
-             */
-            price_amount?: string | null;
             currency?: string;
             period: components["schemas"]["PeriodEnum"];
-            duration_days?: number;
+            /** Format: decimal */
+            readonly weekly_price: string;
+            /** @description Weekly prices in an undiscounted month (usually 4). */
+            weeks_per_month?: number;
+            /** Format: decimal */
+            readonly monthly_price: string;
+            /** Format: decimal */
+            readonly monthly_full_price: string;
+            /**
+             * Format: decimal
+             * @description Percent off (weekly × weeks_per_month) for a monthly plan.
+             */
+            monthly_discount_percent?: string;
+            /** Format: decimal */
+            readonly yearly_price: string;
+            /** Format: decimal */
+            readonly yearly_full_price: string;
+            /**
+             * Format: decimal
+             * @description Percent off (monthly × 12) for a yearly plan.
+             */
+            yearly_discount_percent?: string;
             /** @description Passes never renew: the button says so (principles J1). */
             auto_renew?: boolean;
             /** @description Per meter per month, e.g. {"answer_pack": 3}; null = unlimited. */
@@ -12309,22 +12352,39 @@ export interface components {
             readonly reconciled_at: string | null;
             readonly reconciliation_note: string;
         };
+        /**
+         * @description Everything an admin sets: the weekly price and the two discounts drive
+         *     the whole ladder, so the derived prices are returned read-only alongside.
+         */
         StaffPlan: {
             /** Format: uuid */
             readonly id: string;
             code: string;
             name: string;
             tagline?: string;
-            /**
-             * Format: decimal
-             * @description What the gateway charges and every page shows. Blank: not for sale.
-             */
-            price_amount?: string | null;
             currency?: string;
             period: components["schemas"]["PeriodEnum"];
-            duration_days?: number;
-            /** @description Passes never renew: the button says so (principles J1). */
-            auto_renew?: boolean;
+            /**
+             * Format: decimal
+             * @description Base weekly price. Monthly and yearly are derived from this. Blank: not for sale.
+             */
+            weekly_price?: string | null;
+            /** @description Weekly prices in an undiscounted month (usually 4). */
+            weeks_per_month?: number;
+            /**
+             * Format: decimal
+             * @description Percent off (weekly × weeks_per_month) for a monthly plan.
+             */
+            monthly_discount_percent?: string;
+            /**
+             * Format: decimal
+             * @description Percent off (monthly × 12) for a yearly plan.
+             */
+            yearly_discount_percent?: string;
+            /** Format: decimal */
+            readonly monthly_price: string;
+            /** Format: decimal */
+            readonly yearly_price: string;
             /** @description Per meter per month, e.g. {"answer_pack": 3}; null = unlimited. */
             limits?: unknown;
             /** @description e.g. ["extension"]. */
@@ -12332,20 +12392,33 @@ export interface components {
             is_active?: boolean;
             display_order?: number;
         };
+        /**
+         * @description Everything an admin sets: the weekly price and the two discounts drive
+         *     the whole ladder, so the derived prices are returned read-only alongside.
+         */
         StaffPlanRequest: {
             code: string;
             name: string;
             tagline?: string;
-            /**
-             * Format: decimal
-             * @description What the gateway charges and every page shows. Blank: not for sale.
-             */
-            price_amount?: string | null;
             currency?: string;
             period: components["schemas"]["PeriodEnum"];
-            duration_days?: number;
-            /** @description Passes never renew: the button says so (principles J1). */
-            auto_renew?: boolean;
+            /**
+             * Format: decimal
+             * @description Base weekly price. Monthly and yearly are derived from this. Blank: not for sale.
+             */
+            weekly_price?: string | null;
+            /** @description Weekly prices in an undiscounted month (usually 4). */
+            weeks_per_month?: number;
+            /**
+             * Format: decimal
+             * @description Percent off (weekly × weeks_per_month) for a monthly plan.
+             */
+            monthly_discount_percent?: string;
+            /**
+             * Format: decimal
+             * @description Percent off (monthly × 12) for a yearly plan.
+             */
+            yearly_discount_percent?: string;
             /** @description Per meter per month, e.g. {"answer_pack": 3}; null = unlimited. */
             limits?: unknown;
             /** @description e.g. ["extension"]. */

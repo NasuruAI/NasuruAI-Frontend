@@ -185,6 +185,13 @@ export default function AiLandingPage() {
           <p className="mt-3 text-body-s text-subtle">
             We never charge for a job, an introduction, or an offer.
           </p>
+          <Link
+            href="/ai/pricing"
+            className="mt-4 inline-flex items-center gap-1 text-body-s font-semibold text-accent hover:underline"
+          >
+            See full pricing
+            <ArrowRight aria-hidden className="size-4" />
+          </Link>
         </section>
 
         {/* Final CTA */}
