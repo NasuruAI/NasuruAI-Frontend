@@ -1470,6 +1470,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/changes/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description The public changelog (web.md §2 /changes): recently published rule
+         *     changes, newest first, each with its source. Not personalised.
+         */
+        get: operations["ai_v1_changes_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/checks/offers/": {
         parameters: {
             query?: never;
@@ -11278,6 +11298,25 @@ export interface components {
          * @enum {string}
          */
         ProviderEnum: "greenhouse" | "lever" | "ashby" | "adzuna";
+        /** @description One published rule change for the public changelog (web.md §2 /changes). */
+        PublicChange: {
+            readonly route: components["schemas"]["RouteSummary"];
+            /** @description Stable across versions, e.g. salary_min. */
+            key: string;
+            /** @description Plain English, shown in the trace. */
+            description: string;
+            value?: unknown;
+            /** @description Currency or unit, e.g. GBP, months. */
+            unit?: string;
+            /** Format: date */
+            effective_from: string;
+            /** Format: date-time */
+            verified_at?: string;
+            readonly source_name: string;
+            /** Format: uri */
+            readonly source_url: string;
+            readonly is_stale: boolean;
+        };
         PublicFact: {
             /** @description Dotted key, e.g. de.blocked_account.monthly. */
             key: string;
@@ -16102,6 +16141,25 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["WebhookEvent"];
+                };
+            };
+        };
+    };
+    ai_v1_changes_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicChange"][];
                 };
             };
         };
