@@ -2,6 +2,7 @@
 
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { SkipLink } from "../SkipLink";
 import { useState } from "react";
 import { type BillingPeriod, type Plan, usePlans } from "@/lib/ai/account";
 import { ButtonLink } from "../Button";
@@ -66,6 +67,7 @@ export function PricingView() {
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <Link href="/ai" className="font-display text-h4">

@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { SkipLink } from "@/components/ai/SkipLink";
 import { POINTS_TOOLS } from "@/lib/ai/tools";
 
 export const metadata = {
@@ -37,6 +38,7 @@ const TOOLS = [
 export default function ToolsIndexPage() {
   return (
     <div className="min-h-screen bg-canvas">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <Link href="/ai/tools" className="font-display text-h4 text-ink">

@@ -1,6 +1,7 @@
 import { Ban, ArrowRight, Check, FileCheck, Search, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ai/Button";
+import { SkipLink } from "@/components/ai/SkipLink";
 
 export const metadata = {
   title: "Nasuru AI — know your real route abroad",
@@ -46,6 +47,7 @@ const PLANS = [
 export default function AiLandingPage() {
   return (
     <div className="bg-canvas text-ink">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <span className="font-display text-h4">

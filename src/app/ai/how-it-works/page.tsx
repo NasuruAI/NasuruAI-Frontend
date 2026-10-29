@@ -1,6 +1,7 @@
 import { ArrowRight, Ban, ClipboardCheck, FileCheck, Search, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ai/Button";
+import { SkipLink } from "@/components/ai/SkipLink";
 
 export const metadata = {
   title: "How it works · Nasuru AI",
@@ -41,6 +42,7 @@ const PROMISES = [
 export default function HowItWorksPage() {
   return (
     <div className="bg-canvas text-ink">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
           <Link href="/ai" className="font-display text-h4">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ButtonLink } from "../Button";
+import { SkipLink } from "../SkipLink";
 
 /**
  * The one layout every free tool shares (web.md §3.3): a question panel on the
@@ -19,6 +20,7 @@ export function ToolShell({
 }) {
   return (
     <div className="min-h-screen bg-canvas">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <Link href="/ai/tools" className="font-display text-h4 text-ink">

@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { SkipLink } from "../SkipLink";
 import { ai, unwrap } from "@/lib/ai/client";
 import { ApiError } from "@/lib/api";
 import type { components } from "@/lib/ai/schema";
@@ -44,6 +45,7 @@ function useGuide(code: string) {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-canvas text-ink">
+      <SkipLink />
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
           <Link href="/ai" className="font-display text-h4">
