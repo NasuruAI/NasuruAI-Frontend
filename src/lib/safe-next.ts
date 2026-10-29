@@ -15,3 +15,26 @@ export function safeNext(raw: string | null | undefined, fallback = "/dashboard"
     return fallback;
   }
 }
+
+/**
+ * Every app route must live behind `/ai`; anything else is redirected to the
+ * equivalent path under the AI app shell. Internal framework and API routes are
+ * kept out of that redirect so Next and the backend can keep functioning.
+ */
+export function redirectToAi(pathname: string | null | undefined): string | null {
+  if (!pathname) return "/ai";
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/.well-known") ||
+    pathname.startsWith("/api") ||
+    pathname === "/favicon.ico" ||
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml"
+  ) {
+    return null;
+  }
+
+  if (pathname.startsWith("/ai")) return null;
+  return pathname === "/" ? "/ai" : `/ai${pathname}`;
+}
