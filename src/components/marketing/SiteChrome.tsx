@@ -11,6 +11,8 @@
 
 import Link from "next/link";
 import { COMPANY, formattedAddress } from "@/lib/company";
+import { BrandLockup } from "@/components/ui/Brand";
+import { buttonClasses } from "@/components/ui/buttonStyles";
 
 const SECTIONS = [
   { href: "/#what-we-do", label: "What we do" },
@@ -21,32 +23,10 @@ const SECTIONS = [
 
 export function SiteHeader({ current }: { current?: string }) {
   return (
-    <header className="border-b border-line">
+    <header className="border-b border-line bg-surface">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span
-            aria-hidden="true"
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ color: "var(--on-accent)" }}
-            >
-              <path d="M20 6 9 17l-5-5" />
-            </svg>
-          </span>
-          <span>
-            <span className="font-display block text-xl leading-none font-extrabold tracking-tight text-ink">
-              Nasuru
-            </span>
-            <span className="text-xs text-subtle">International education agent</span>
-          </span>
+        <Link href="/" aria-label="Nasuru home">
+          <BrandLockup descriptor="International education agent" />
         </Link>
         <nav aria-label="Main" className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
           {SECTIONS.map((section) => (
@@ -56,7 +36,7 @@ export function SiteHeader({ current }: { current?: string }) {
               aria-current={current === section.href ? "page" : undefined}
               className={
                 current === section.href
-                  ? "font-medium text-ink"
+                  ? "font-semibold text-accent underline decoration-brand-gold underline-offset-8"
                   : "text-muted transition hover:text-ink"
               }
             >
@@ -66,10 +46,7 @@ export function SiteHeader({ current }: { current?: string }) {
           <Link href="/login" className="font-medium text-ink hover:underline">
             Sign in
           </Link>
-          <Link
-            href="/signup"
-            className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
-          >
+          <Link href="/signup" className={buttonClasses("primary", "sm", "rounded-lg px-4")}>
             Create an account
           </Link>
         </nav>

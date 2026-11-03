@@ -10,6 +10,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
 import { useEffect } from "react";
 import { useSession } from "@/lib/auth/SessionProvider";
+import { BrandLockup } from "@/components/ui/Brand";
 import { isStep, minutesLeft, STEPS, stepIndex } from "@/lib/ai/onboarding";
 import { cx } from "../cx";
 import { Skeleton } from "../feedback";
@@ -33,17 +34,11 @@ export function OnboardingFrame({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 border-b border-line bg-surface">
-        <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
-          <span className="flex items-center gap-2">
-            <span
-              aria-hidden
-              className="flex size-7 items-center justify-center rounded-r-sm bg-accent font-display text-body-s font-bold text-on-accent"
-            >
-              N
-            </span>
-            <span className="hidden font-display text-h4 font-semibold sm:inline">Nasuru AI</span>
-          </span>
+      <header className="sticky top-0 z-30 border-b border-line bg-surface/95 shadow-e1 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
+          <Link href="/ai/plan" aria-label="Nasuru AI, your plan" className="shrink-0">
+            <BrandLockup name="Nasuru AI" size="sm" />
+          </Link>
           {step && (
             <p className="min-w-0 flex-1 truncate text-center text-body-s text-muted">
               <span className="font-semibold text-ink">
@@ -73,7 +68,7 @@ export function OnboardingFrame({ children }: { children: React.ReactNode }) {
             className="h-1 bg-sunken"
           >
             <div
-              className="h-full bg-accent transition-[width] duration-m-base ease-m"
+              className="h-full bg-brand-gold transition-[width] duration-m-base ease-m"
               style={{ width: `${((stepIndex(step) + 1) / STEPS.length) * 100}%` }}
             />
           </div>

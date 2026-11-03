@@ -12,34 +12,10 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { forwardRef } from "react";
 import { cx } from "./cx";
+import { buttonClasses } from "@/components/ui/buttonStyles";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
-
-const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-accent text-on-accent hover:bg-accent-hover",
-  secondary:
-    "border border-field-line bg-surface text-ink hover:border-line-strong hover:bg-sunken",
-  tertiary: "text-accent hover:bg-accent-soft",
-  danger: "bg-danger text-on-danger hover:opacity-90",
-};
-
-const SIZES: Record<ButtonSize, string> = {
-  sm: "h-9 gap-1.5 px-3 text-body-s",
-  md: "h-11 gap-2 px-4 text-body",
-  lg: "h-13 gap-2 px-5 text-body-l",
-};
-
-function classes(variant: ButtonVariant, size: ButtonSize, extra?: string) {
-  return cx(
-    "inline-flex shrink-0 items-center justify-center rounded-r-md font-semibold whitespace-nowrap",
-    "transition-colors duration-m-fast ease-m",
-    "disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
-    VARIANTS[variant],
-    SIZES[size],
-    extra,
-  );
-}
 
 type Common = {
   variant?: ButtonVariant;
@@ -69,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     <button
       ref={ref}
       type={type ?? "button"}
-      className={classes(variant, size, className)}
+      className={buttonClasses(variant, size, className)}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       {...rest}
@@ -92,7 +68,7 @@ export function ButtonLink({
 }: Omit<Common, "loading"> &
   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & { href: string }) {
   return (
-    <Link href={href} className={classes(variant, size, className)} {...rest}>
+    <Link href={href} className={buttonClasses(variant, size, className)} {...rest}>
       {icon}
       {children}
     </Link>

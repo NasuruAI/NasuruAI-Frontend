@@ -112,7 +112,7 @@ function CvSection({ section, content }: { section: SectionKey; content: CvConte
 function Page({ paper, children }: { paper: string; children: React.ReactNode }) {
   return (
     <div
-      className="mx-auto w-full max-w-[46rem] space-y-3 rounded-sm border border-line bg-white p-[6%] text-[0.8rem] leading-snug text-[#111827] shadow-e2"
+      className="mx-auto w-full max-w-[46rem] space-y-3 rounded-sm border border-line bg-surface p-[6%] text-[0.8rem] leading-snug text-ink shadow-e2"
       style={{ minHeight: `${(ASPECT[paper] ?? ASPECT.A4) * 100}%` }}
     >
       {children}

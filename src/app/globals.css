@@ -28,6 +28,14 @@
   --color-surface: var(--surface);
   --color-sunken: var(--sunken);
 
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-deep: var(--brand-blue-deep);
+  --color-brand-blue-soft: var(--brand-blue-soft);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-deep: var(--brand-gold-deep);
+  --color-brand-gold-soft: var(--brand-gold-soft);
+  --color-brand-gold-line: var(--brand-gold-line);
+
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
@@ -77,19 +85,27 @@
 
   --canvas: #ffffff;
   --surface: #ffffff;
-  --sunken: #f5f5f5;
+  --sunken: #f5f8fc;
 
-  --ink: #121212;
-  --muted: #404040;
-  --subtle: #5c5c5c;
+  --brand-blue: #174b7a;
+  --brand-blue-deep: #102f4f;
+  --brand-blue-soft: #eaf2f9;
+  --brand-gold: #b18424;
+  --brand-gold-deep: #70500a;
+  --brand-gold-soft: #fff5d6;
+  --brand-gold-line: #e8cf89;
+
+  --ink: #102b48;
+  --muted: #40546c;
+  --subtle: #5c6d80;
   --on-accent: #ffffff;
 
-  --line: #e5e5e5;
-  --field-line: #7a7a7a;
-  --line-strong: #4d4d4d;
+  --line: #dee6ef;
+  --field-line: #72859a;
+  --line-strong: #4a627d;
 
-  --accent: #111111;
-  --accent-hover: #000000;
+  --accent: #174b7a;
+  --accent-hover: #10385f;
   /* A hue of its own, so focus never reads as "this element is selected". */
   --focus: #1d4ed8;
 
@@ -98,9 +114,9 @@
   --danger-bg: #fff1f2;
   --danger-line: #fecdd3;
 
-  --warning: #8a3f10;
-  --warning-bg: #fff4ea;
-  --warning-line: #fadcc4;
+  --warning: #76540d;
+  --warning-bg: #fff5d6;
+  --warning-line: #ead28d;
 
   --success: #0f6d52;
   --success-bg: #e6f4ec;
@@ -111,9 +127,9 @@
   --info-line: #c2e0ee;
 
   /* Nasuru AI (design-system §3.3). */
-  --highlight: #fff6d6;
-  --highlight-line: #f2d98c;
-  --accent-soft: #ececec;
+  --highlight: #fff2c9;
+  --highlight-line: #e5c76b;
+  --accent-soft: #eaf2f9;
   --ink-inverse: #ffffff;
   --scrim: rgba(0, 0, 0, 0.48);
 }
@@ -128,17 +144,25 @@
     --surface: #141414;
     --sunken: #1f1f1f;
 
-    --ink: #ededed;
-    --muted: #b5b5b5;
-    --subtle: #8c8c8c;
-    --on-accent: #0a0a0a;
+    --brand-blue: #8bb9e2;
+    --brand-blue-deep: #c4dcf3;
+    --brand-blue-soft: #1b3855;
+    --brand-gold: #e9bd57;
+    --brand-gold-deep: #ffdc83;
+    --brand-gold-soft: #3a321b;
+    --brand-gold-line: #78602c;
+
+    --ink: #edf3fa;
+    --muted: #b8c6d5;
+    --subtle: #9aacc0;
+    --on-accent: #0a1725;
 
     --line: #2b2b2b;
     --field-line: #6e6e6e;
     --line-strong: #949494;
 
-    --accent: #f2f2f2;
-    --accent-hover: #ffffff;
+    --accent: #8bb9e2;
+    --accent-hover: #c4dcf3;
     --focus: #93c5fd;
 
     --danger: #fda4af;
@@ -146,9 +170,9 @@
     --danger-bg: #43121b;
     --danger-line: #9f1239;
 
-    --warning: #f4c06a;
-    --warning-bg: #3a2410;
-    --warning-line: #8a5a1f;
+    --warning: #f4d184;
+    --warning-bg: #382e19;
+    --warning-line: #80652b;
 
     --success: #6ee7b7;
     --success-bg: #06291f;
@@ -159,10 +183,10 @@
     --info-line: #075985;
 
     /* Nasuru AI (design-system §3.3). */
-    --highlight: #3a3212;
-    --highlight-line: #7a6524;
-    --accent-soft: #2b2b2b;
-    --ink-inverse: #0a0a0a;
+    --highlight: #3a321b;
+    --highlight-line: #806a32;
+    --accent-soft: #1b3855;
+    --ink-inverse: #0a1725;
     --scrim: rgba(0, 0, 0, 0.6);
   }
 }
@@ -174,17 +198,25 @@
   --surface: #141414;
   --sunken: #1f1f1f;
 
-  --ink: #ededed;
-  --muted: #b5b5b5;
-  --subtle: #8c8c8c;
-  --on-accent: #0a0a0a;
+  --brand-blue: #8bb9e2;
+  --brand-blue-deep: #c4dcf3;
+  --brand-blue-soft: #1b3855;
+  --brand-gold: #e9bd57;
+  --brand-gold-deep: #ffdc83;
+  --brand-gold-soft: #3a321b;
+  --brand-gold-line: #78602c;
+
+  --ink: #edf3fa;
+  --muted: #b8c6d5;
+  --subtle: #9aacc0;
+  --on-accent: #0a1725;
 
   --line: #2b2b2b;
   --field-line: #6e6e6e;
   --line-strong: #949494;
 
-  --accent: #f2f2f2;
-  --accent-hover: #ffffff;
+  --accent: #8bb9e2;
+  --accent-hover: #c4dcf3;
   --focus: #93c5fd;
 
   --danger: #fda4af;
@@ -192,9 +224,9 @@
   --danger-bg: #43121b;
   --danger-line: #9f1239;
 
-  --warning: #f4c06a;
-  --warning-bg: #3a2410;
-  --warning-line: #8a5a1f;
+  --warning: #f4d184;
+  --warning-bg: #382e19;
+  --warning-line: #80652b;
 
   --success: #6ee7b7;
   --success-bg: #06291f;
@@ -205,10 +237,10 @@
   --info-line: #075985;
 
   /* Nasuru AI (design-system §3.3). */
-  --highlight: #3a3212;
-  --highlight-line: #7a6524;
-  --accent-soft: #2b2b2b;
-  --ink-inverse: #0a0a0a;
+  --highlight: #3a321b;
+  --highlight-line: #806a32;
+  --accent-soft: #1b3855;
+  --ink-inverse: #0a1725;
   --scrim: rgba(0, 0, 0, 0.6);
 }
 
@@ -222,12 +254,12 @@
  *   rounded-r-sm / r-md / r-lg   shadow-e1 / e2 / e3   duration-m-* ease-m
  */
 @theme {
-  --text-display-xl: 3.5rem;
-  --text-display-xl--line-height: 3.75rem;
+  --text-display-xl: clamp(2.125rem, 5vw, 3.5rem);
+  --text-display-xl--line-height: 1.08;
   --text-display-xl--letter-spacing: -0.025em;
   --text-display-xl--font-weight: 700;
-  --text-display-l: 2.5rem;
-  --text-display-l--line-height: 2.875rem;
+  --text-display-l: clamp(2rem, 4.2vw, 2.5rem);
+  --text-display-l--line-height: 1.12;
   --text-display-l--letter-spacing: -0.02em;
   --text-display-l--font-weight: 700;
   --text-h1: 2rem;
@@ -270,13 +302,13 @@
   --text-metric-s--line-height: 1.25rem;
   --text-metric-s--font-weight: 600;
 
-  --radius-r-sm: 6px;
-  --radius-r-md: 10px;
-  --radius-r-lg: 16px;
+  --radius-r-sm: 8px;
+  --radius-r-md: 12px;
+  --radius-r-lg: 18px;
 
-  --shadow-e1: 0 1px 2px rgba(16, 35, 28, 0.05), 0 1px 1px rgba(16, 35, 28, 0.03);
-  --shadow-e2: 0 8px 24px -4px rgba(16, 35, 28, 0.1), 0 2px 6px rgba(16, 35, 28, 0.05);
-  --shadow-e3: 0 24px 48px -12px rgba(16, 35, 28, 0.18);
+  --shadow-e1: 0 2px 5px rgba(16, 43, 72, 0.055), 0 1px 2px rgba(16, 43, 72, 0.04);
+  --shadow-e2: 0 12px 30px -6px rgba(16, 43, 72, 0.14), 0 3px 8px rgba(16, 43, 72, 0.06);
+  --shadow-e3: 0 28px 56px -14px rgba(16, 43, 72, 0.2);
 
   --ease-m: cubic-bezier(0.2, 0, 0, 1);
   --ease-m-sheet: cubic-bezier(0.3, 0, 0, 1);

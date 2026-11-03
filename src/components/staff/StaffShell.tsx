@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useSession } from "@/lib/auth/SessionProvider";
 import { CommandPalette, useCommandPalette } from "@/components/staff/CommandPalette";
+import { BrandLockup } from "@/components/ui/Brand";
 
 const NAV = [
   { href: "/staff/review", label: "Review queue" },
@@ -60,11 +61,11 @@ export function StaffShell({ children }: { children: React.ReactNode }) {
         Skip to main content
       </a>
 
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-3">
+      <header className="sticky top-0 z-30 border-b border-line bg-surface/95 shadow-e1 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/staff/review" className="text-sm font-semibold text-ink">
-              Nasuru <span className="font-normal text-subtle">staff</span>
+            <Link href="/staff/review" aria-label="Nasuru staff workspace">
+              <BrandLockup size="sm" descriptor="Staff workspace" />
             </Link>
 
             <nav aria-label="Staff sections">
@@ -73,7 +74,7 @@ export function StaffShell({ children }: { children: React.ReactNode }) {
                   fourth section made the row wrap on a phone, and without this
                   the wrapped links sat close enough to overlap each other's
                   touch targets — axe caught it as target-offset. */}
-              <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+              <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
                 {NAV.map((item) => {
                   const active = pathname.startsWith(item.href);
                   return (
@@ -83,8 +84,8 @@ export function StaffShell({ children }: { children: React.ReactNode }) {
                         aria-current={active ? "page" : undefined}
                         className={
                           active
-                            ? "block py-1.5 font-medium text-ink underline underline-offset-8"
-                            : "block py-1.5 text-muted hover:text-ink"
+                            ? "block rounded-full bg-brand-blue-soft px-3 py-2 font-semibold text-brand-blue-deep shadow-e1"
+                            : "block rounded-full px-3 py-2 text-muted transition hover:bg-sunken hover:text-ink"
                         }
                       >
                         {item.label}
@@ -96,17 +97,21 @@ export function StaffShell({ children }: { children: React.ReactNode }) {
             </nav>
           </div>
 
-          <nav aria-label="Account" className="flex items-center gap-4 text-sm">
+          <nav aria-label="Account" className="flex items-center gap-3 text-sm sm:gap-4">
             <button
               type="button"
               onClick={palette.open}
-              className="rounded-lg border border-field-line px-2.5 py-1 text-xs text-muted hover:border-line-strong hover:text-ink"
+              className="rounded-full border border-line bg-sunken px-3 py-2 text-xs font-semibold text-muted transition hover:border-line-strong hover:text-ink"
             >
               Search
               <kbd className="ml-2 font-mono text-[0.65rem] text-subtle">Ctrl K</kbd>
             </button>
             <span className="hidden text-muted sm:inline">{session.user.first_name}</span>
-            <button type="button" onClick={signOut} className="text-muted hover:text-ink">
+            <button
+              type="button"
+              onClick={signOut}
+              className="rounded-full px-3 py-2 font-semibold text-muted transition hover:bg-sunken hover:text-ink"
+            >
               Sign out
             </button>
           </nav>

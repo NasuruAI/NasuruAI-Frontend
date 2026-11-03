@@ -22,13 +22,18 @@ function RailLink({ item, pathname }: { item: NavItem; pathname: string }) {
       aria-current={active ? "page" : undefined}
       title={item.label}
       className={cx(
-        "relative flex h-11 items-center gap-3 rounded-r-md px-3 text-body font-semibold transition-colors duration-m-fast ease-m",
+        "relative flex h-11 items-center gap-3 rounded-r-md px-3 text-body font-semibold transition-[background-color,color,transform] duration-m-fast ease-m hover:translate-x-0.5",
         "md:justify-center lg:justify-start",
-        active ? "bg-accent-soft text-ink" : "text-muted hover:bg-sunken hover:text-ink",
+        active
+          ? "bg-brand-blue-soft text-brand-blue-deep"
+          : "text-muted hover:bg-sunken hover:text-ink",
       )}
     >
       {active && (
-        <span aria-hidden className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-accent" />
+        <span
+          aria-hidden
+          className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-brand-gold"
+        />
       )}
       <Icon aria-hidden className={cx("size-5 shrink-0", active && "text-accent")} />
       <span className="md:sr-only lg:not-sr-only">{item.label}</span>
@@ -121,12 +126,18 @@ export function BottomTabs() {
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cx(
-                  "flex h-16 flex-col items-center justify-center gap-1 text-caption font-semibold",
-                  active ? "text-accent" : "text-muted",
+                  "relative flex h-16 flex-col items-center justify-center gap-1 text-caption font-semibold transition-colors duration-m-fast ease-m",
+                  active ? "bg-brand-blue-soft text-brand-blue-deep" : "text-muted",
                 )}
               >
                 <Icon aria-hidden className="size-5" />
                 {label}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-0 right-1/4 left-1/4 h-0.5 rounded-full bg-brand-gold"
+                  />
+                )}
               </Link>
             </li>
           );

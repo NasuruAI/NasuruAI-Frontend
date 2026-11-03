@@ -35,12 +35,12 @@ export default function GlobalError({
           padding: "2rem 1.25rem",
           fontFamily: "ui-sans-serif, system-ui, sans-serif",
           background: "#ffffff",
-          color: "#0f172a",
+          color: "#102b48",
         }}
       >
         <main style={{ maxWidth: "28rem" }}>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 600, margin: 0 }}>Nasuru is unavailable</h1>
-          <p style={{ marginTop: "0.75rem", lineHeight: 1.6, color: "#475569" }}>
+          <p style={{ marginTop: "0.75rem", lineHeight: 1.6, color: "#40546c" }}>
             The application failed to start. This is a fault on our side, not with your account.
             Your documents and answers are safe.
           </p>
@@ -50,7 +50,7 @@ export default function GlobalError({
               marginTop: "1.75rem",
               borderRadius: "0.5rem",
               border: "none",
-              background: "#0f172a",
+              background: "#174b7a",
               color: "#ffffff",
               padding: "0.7rem 1.25rem",
               fontSize: "0.875rem",
@@ -61,7 +61,7 @@ export default function GlobalError({
             Reload
           </button>
           {error.digest && (
-            <p style={{ marginTop: "1.75rem", fontSize: "0.875rem", color: "#64748b" }}>
+            <p style={{ marginTop: "1.75rem", fontSize: "0.875rem", color: "#5c6d80" }}>
               Reference: <code>{error.digest}</code>
             </p>
           )}

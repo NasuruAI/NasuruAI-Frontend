@@ -13,7 +13,7 @@ import { getPricing, isPriceKnown } from "@/lib/pricing";
  * article's title has to be escaped correctly; one well-made card carries the
  * brand and costs nothing to serve.
  *
- * Colours are the light palette's literal values rather than CSS variables —
+ * Colours mirror the light palette's literal tokens rather than CSS variables —
  * this renders outside the browser, where custom properties do not resolve.
  *
  * Every glyph here is basic Latin, deliberately. The renderer has no font of
@@ -54,7 +54,7 @@ export default async function OpengraphImage() {
             width: 56,
             height: 56,
             borderRadius: 14,
-            background: "#111111",
+            background: "#174b7a",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -71,6 +71,7 @@ export default async function OpengraphImage() {
             strokeLinejoin="round"
           >
             <path d="M20 6 9 17l-5-5" />
+            <circle cx="19" cy="5" r="2.2" fill="#b18424" />
           </svg>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -78,13 +79,13 @@ export default async function OpengraphImage() {
             style={{
               fontSize: 40,
               fontWeight: 800,
-              color: "#10231c",
+              color: "#102b48",
               letterSpacing: "-0.02em",
             }}
           >
             Nasuru
           </div>
-          <div style={{ fontSize: 20, color: "#4d6b60" }}>International education agent</div>
+          <div style={{ fontSize: 20, color: "#40546c" }}>International education agent</div>
         </div>
       </div>
 
@@ -93,7 +94,7 @@ export default async function OpengraphImage() {
           fontSize: 60,
           fontWeight: 800,
           lineHeight: 1.12,
-          color: "#10231c",
+          color: "#102b48",
           letterSpacing: "-0.03em",
           maxWidth: 940,
           display: "flex",
@@ -108,11 +109,11 @@ export default async function OpengraphImage() {
           alignItems: "center",
           gap: 16,
           fontSize: 24,
-          color: "#4d6b60",
+          color: "#40546c",
         }}
       >
         {priceKnown ? (
-          <span style={{ color: "#111111", fontWeight: 700 }}>{pricing.access_fee.ascii}</span>
+          <span style={{ color: "#174b7a", fontWeight: 700 }}>{pricing.access_fee.ascii}</span>
         ) : null}
         <span>
           {priceKnown

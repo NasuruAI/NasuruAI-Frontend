@@ -1,6 +1,12 @@
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Globe,
+  GraduationCap,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
-import { SkipLink } from "@/components/ai/SkipLink";
 import { POINTS_TOOLS } from "@/lib/ai/tools";
 
 export const metadata = {
@@ -13,23 +19,37 @@ const TOOLS = [
   {
     href: "/ai/tools/eligibility",
     title: "Am I eligible to move abroad?",
+    eyebrow: "Start here",
+    icon: ShieldCheck,
     blurb:
       "Check which legal routes you qualify for in under two minutes. The honest answer first.",
   },
-  { href: "/ai/tools/crs", title: POINTS_TOOLS.crs.title, blurb: POINTS_TOOLS.crs.blurb },
+  {
+    href: "/ai/tools/crs",
+    title: POINTS_TOOLS.crs.title,
+    eyebrow: "Canada",
+    icon: Globe,
+    blurb: POINTS_TOOLS.crs.blurb,
+  },
   {
     href: "/ai/tools/opportunity-card",
     title: POINTS_TOOLS["opportunity-card"].title,
+    eyebrow: "Germany",
+    icon: Sparkles,
     blurb: POINTS_TOOLS["opportunity-card"].blurb,
   },
   {
     href: "/ai/tools/uk-points",
     title: POINTS_TOOLS["uk-points"].title,
+    eyebrow: "United Kingdom",
+    icon: BriefcaseBusiness,
     blurb: POINTS_TOOLS["uk-points"].blurb,
   },
   {
     href: "/ai/tools/grade-converter",
     title: "Grade converter",
+    eyebrow: "Education",
+    icon: GraduationCap,
     blurb:
       "Convert your Nigerian degree result to the UK and German scales, with the method shown.",
   },
@@ -38,42 +58,45 @@ const TOOLS = [
 export default function ToolsIndexPage() {
   return (
     <div className="min-h-screen bg-canvas">
-      <SkipLink />
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <Link href="/ai/tools" className="font-display text-h4 text-ink">
-            Nasuru<span className="text-muted"> AI</span>
-          </Link>
-          <Link href="/ai/login" className="text-body-s font-semibold text-accent hover:underline">
-            Sign in
-          </Link>
+      <main id="main" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
+        <div className="rounded-r-lg border border-line bg-gradient-to-br from-brand-blue-soft via-surface to-brand-gold-soft p-6 sm:p-10 lg:p-12">
+          <p className="text-overline font-bold tracking-[0.12em] text-brand-gold-deep uppercase">
+            Free tools · no sign-up
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-display-xl text-balance leading-[1.05] text-ink">
+            Make your next move with better information.
+          </h1>
+          <p className="mt-4 max-w-2xl text-body-l leading-relaxed text-muted">
+            Check your options, explore eligibility and understand the numbers. Every figure shows
+            its source, and you can start without an account.
+          </p>
         </div>
-      </header>
 
-      <main id="main" className="mx-auto max-w-5xl px-4 py-10 lg:py-14">
-        <p className="text-overline uppercase text-muted">Free tools</p>
-        <h1 className="mt-1 font-display text-h1 text-balance text-ink">
-          Check where you stand — free, no sign-up
-        </h1>
-        <p className="mt-3 max-w-2xl text-body-l text-muted">
-          Every figure shows its source. Save your answers and get your full plan any time.
-        </p>
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TOOLS.map((tool) => (
             <li key={tool.href}>
               <Link
                 href={tool.href}
-                className="group block h-full rounded-r-md border border-line bg-surface p-5 transition-colors hover:border-line-strong"
+                className="group flex h-full min-h-48 items-start gap-4 rounded-r-lg border border-line bg-surface p-5 shadow-e1 transition-[border-color,box-shadow,transform] duration-m-fast hover:-translate-y-0.5 hover:border-brand-blue-soft hover:shadow-e2 sm:p-6"
               >
-                <h2 className="flex items-center gap-1.5 font-display text-h4 text-ink">
-                  {tool.title}
-                  <ArrowRight
-                    aria-hidden
-                    className="size-4 text-muted transition-transform group-hover:translate-x-0.5"
-                  />
-                </h2>
-                <p className="mt-2 text-body-s text-muted">{tool.blurb}</p>
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-blue-soft text-accent">
+                  <tool.icon aria-hidden className="size-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-overline font-bold tracking-[0.1em] text-brand-gold-deep uppercase">
+                    {tool.eyebrow}
+                  </span>
+                  <h2 className="mt-1 flex items-start justify-between gap-2 font-display text-h4 text-ink">
+                    <span>{tool.title}</span>
+                    <ArrowRight
+                      aria-hidden
+                      className="mt-1 size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent"
+                    />
+                  </h2>
+                  <span className="mt-2 block text-body-s leading-relaxed text-muted">
+                    {tool.blurb}
+                  </span>
+                </span>
               </Link>
             </li>
           ))}

@@ -11,6 +11,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "@/lib/auth/SessionProvider";
+import { BrandLockup } from "@/components/ui/Brand";
 import {
   CommandPalette,
   type PaletteResult,
@@ -148,19 +149,14 @@ export function AiShell({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-line bg-surface px-3 md:px-4">
+      <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-line bg-surface/95 px-3 shadow-e1 backdrop-blur md:px-4">
         <Link
           href="/ai/plan"
-          className="flex items-center gap-2 rounded-r-md px-1 py-1"
+          className="flex items-center rounded-r-md px-1 py-1"
           aria-label="Nasuru AI, your plan"
         >
-          <span
-            aria-hidden
-            className="flex size-8 items-center justify-center rounded-r-sm bg-accent font-display text-body font-bold text-on-accent"
-          >
-            N
-          </span>
-          <span className="hidden font-display text-h4 font-semibold sm:inline">Nasuru AI</span>
+          <BrandLockup name="Nasuru AI" size="sm" className="hidden sm:inline-flex" />
+          <BrandLockup name="Nasuru" size="sm" className="sm:hidden" />
         </Link>
         <div className="ml-1 md:ml-4">
           <DestinationSwitcher />
@@ -169,7 +165,7 @@ export function AiShell({ children }: { children: React.ReactNode }) {
           <button
             type="button"
             onClick={palette.open}
-            className="hidden h-10 w-full max-w-sm items-center gap-2 rounded-r-md border border-field-line bg-surface px-3 text-body text-subtle hover:border-line-strong md:flex"
+            className="hidden h-10 w-full max-w-sm items-center gap-2 rounded-full border border-line bg-sunken px-4 text-body text-subtle transition hover:border-line-strong hover:bg-surface md:flex"
           >
             <Search aria-hidden className="size-4" />
             <span className="flex-1 text-left">Search…</span>
@@ -194,7 +190,7 @@ export function AiShell({ children }: { children: React.ReactNode }) {
       </div>
       <ContextPanelSlot>
         {(setSlot) => (
-          <div className="flex">
+          <div className="flex min-h-[calc(100dvh-4rem)] bg-canvas">
             <NavRail offset={bannerHeight} />
             <main
               id="main"

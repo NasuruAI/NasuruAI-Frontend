@@ -136,10 +136,10 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center px-4 py-12 text-center">
+    <div className="flex flex-col items-center rounded-r-lg border border-line bg-surface px-5 py-12 text-center shadow-e1 sm:px-8">
       <span
         aria-hidden
-        className="flex size-16 items-center justify-center rounded-full bg-sunken text-muted [&>svg]:size-8"
+        className="flex size-16 items-center justify-center rounded-2xl bg-brand-blue-soft text-accent [&>svg]:size-8"
       >
         {icon}
       </span>

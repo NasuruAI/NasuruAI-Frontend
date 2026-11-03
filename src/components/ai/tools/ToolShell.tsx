@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { ButtonLink } from "../Button";
-import { SkipLink } from "../SkipLink";
 
 /**
  * The one layout every free tool shares (web.md §3.3): a question panel on the
@@ -20,33 +18,33 @@ export function ToolShell({
 }) {
   return (
     <div className="min-h-screen bg-canvas">
-      <SkipLink />
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <Link href="/ai/tools" className="font-display text-h4 text-ink">
-            Nasuru<span className="text-muted"> AI</span>
-          </Link>
-          <Link href="/ai/login" className="text-body-s font-semibold text-accent hover:underline">
-            Sign in
-          </Link>
-        </div>
-      </header>
-
-      <main id="main" className="mx-auto max-w-5xl px-4 py-8 lg:py-12">
-        <div className="max-w-2xl">
-          <p className="text-overline uppercase text-muted">Free tool</p>
-          <h1 className="mt-1 font-display text-h1 text-balance text-ink">{title}</h1>
-          <p className="mt-3 text-body-l text-muted">{blurb}</p>
+      <main id="main" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:py-14">
+        <div className="rounded-r-lg border border-line bg-gradient-to-br from-brand-blue-soft via-surface to-brand-gold-soft p-6 sm:p-9">
+          <p className="text-overline font-bold tracking-[0.12em] text-brand-gold-deep uppercase">
+            Free tool · no sign-up
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-display-l text-balance leading-tight text-ink">
+            {title}
+          </h1>
+          <p className="mt-3 max-w-2xl text-body-l leading-relaxed text-muted">{blurb}</p>
         </div>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
-          <section aria-label="Your details">{form}</section>
-          <section aria-label="Your result" className="lg:sticky lg:top-6">
+        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-start">
+          <section
+            aria-label="Your details"
+            className="rounded-r-lg border border-line bg-surface p-5 shadow-e1 sm:p-7"
+          >
+            {form}
+          </section>
+          <section
+            aria-label="Your result"
+            className="rounded-r-lg border border-line bg-surface p-5 shadow-e1 lg:sticky lg:top-24 sm:p-7"
+          >
             {result}
           </section>
         </div>
 
-        <aside className="mt-10 rounded-r-md border border-accent-soft bg-accent-soft/40 p-6">
+        <aside className="mt-10 rounded-r-lg border border-brand-gold-line bg-brand-gold-soft/60 p-6 sm:p-8">
           <h2 className="font-display text-h3 text-ink">Save this and get your full plan — free</h2>
           <p className="mt-2 max-w-xl text-body text-muted">
             Sign up and we&apos;ll keep your answers, check every route you qualify for, and show

@@ -1,4 +1,5 @@
 import { QueryProvider } from "@/lib/ai/QueryProvider";
+import { PublicAiChrome } from "@/components/ai/shell/PublicAiChrome";
 
 /**
  * Every Nasuru AI page, under `/ai` until the product has its own domain
@@ -9,7 +10,9 @@ import { QueryProvider } from "@/lib/ai/QueryProvider";
 export default function AiLayout({ children }: { children: React.ReactNode }) {
   return (
     <div data-theme="light" className="min-h-screen bg-canvas font-sans text-ink">
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <PublicAiChrome>{children}</PublicAiChrome>
+      </QueryProvider>
     </div>
   );
 }

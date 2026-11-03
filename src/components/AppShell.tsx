@@ -12,6 +12,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/lib/auth/SessionProvider";
+import { BrandLockup } from "@/components/ui/Brand";
 
 const NAV = [
   { href: "/dashboard", label: "Applications" },
@@ -53,15 +54,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-canvas">
       <SkipLink />
 
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
-          <Link href="/dashboard" className="text-sm font-semibold text-ink">
-            Nasuru
+      <header className="sticky top-0 z-30 border-b border-line bg-surface/95 shadow-e1 backdrop-blur">
+        <div className="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
+          <Link href="/dashboard" aria-label="Nasuru applications">
+            <BrandLockup size="sm" />
           </Link>
 
           {showNav && (
             <nav aria-label="Main" className="order-3 w-full sm:order-none sm:w-auto">
-              <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+              <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
                 {NAV.map((item) => {
                   const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                   return (
@@ -73,8 +74,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                         aria-current={active ? "page" : undefined}
                         className={
                           active
-                            ? "font-medium text-ink underline underline-offset-8"
-                            : "text-muted hover:text-ink"
+                            ? "rounded-full bg-brand-blue-soft px-3 py-2 font-semibold text-brand-blue-deep shadow-e1"
+                            : "rounded-full px-3 py-2 text-muted transition hover:bg-sunken hover:text-ink"
                         }
                       >
                         {item.label}
@@ -86,11 +87,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </nav>
           )}
 
-          <nav aria-label="Account" className="flex items-center gap-4 text-sm">
+          <nav aria-label="Account" className="flex items-center gap-3 text-sm sm:gap-4">
             {session?.user.first_name && (
               <span className="hidden text-muted sm:inline">{session.user.first_name}</span>
             )}
-            <button type="button" onClick={signOut} className="text-muted hover:text-ink">
+            <button
+              type="button"
+              onClick={signOut}
+              className="rounded-full px-3 py-2 font-semibold text-muted transition hover:bg-sunken hover:text-ink"
+            >
               Sign out
             </button>
           </nav>

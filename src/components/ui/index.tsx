@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { buttonClasses, type ButtonVariant as SharedButtonVariant } from "./buttonStyles";
+
+export { BrandLockup, BrandMark } from "./Brand";
+export { buttonClasses, type ButtonSize, type ButtonVariant } from "./buttonStyles";
 
 /**
  * Shared primitives.
@@ -20,19 +24,10 @@ export function Button({
   className = "",
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "danger";
+  variant?: Extract<SharedButtonVariant, "primary" | "secondary" | "danger">;
 }) {
-  const styles = {
-    primary: "bg-accent text-on-accent hover:bg-accent-hover",
-    secondary: "border border-field-line text-ink hover:border-line-strong hover:bg-sunken",
-    danger: "bg-danger text-on-danger hover:opacity-90",
-  }[variant];
-
   return (
-    <button
-      {...props}
-      className={`rounded-lg px-4 py-2.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${styles} ${className}`}
-    >
+    <button {...props} className={buttonClasses(variant, "md", className)}>
       {children}
     </button>
   );

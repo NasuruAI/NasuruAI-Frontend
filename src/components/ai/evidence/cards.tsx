@@ -32,7 +32,7 @@ function Card({ children, className }: { children: React.ReactNode; className?: 
   return (
     <article
       className={cx(
-        "rounded-r-md border border-line bg-surface p-5 transition-shadow duration-m-fast hover:shadow-e1",
+        "rounded-r-lg border border-line bg-surface p-5 shadow-e1 transition-[border-color,box-shadow,transform] duration-m-fast hover:-translate-y-0.5 hover:border-brand-blue-soft hover:shadow-e2",
         className,
       )}
     >

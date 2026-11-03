@@ -1,8 +1,6 @@
 "use client";
 
 import { Check } from "lucide-react";
-import Link from "next/link";
-import { SkipLink } from "../SkipLink";
 import { useState } from "react";
 import { type BillingPeriod, type Plan, usePlans } from "@/lib/ai/account";
 import { ButtonLink } from "../Button";
@@ -67,34 +65,27 @@ export function PricingView() {
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
-      <SkipLink />
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <Link href="/ai" className="font-display text-h4">
-            Nasuru<span className="text-muted"> AI</span>
-          </Link>
-          <Link href="/ai/login" className="text-body-s font-semibold text-accent hover:underline">
-            Sign in
-          </Link>
-        </div>
-      </header>
-
-      <main id="main" className="mx-auto max-w-5xl px-4 py-10 lg:py-14">
-        <div className="text-center">
-          <h1 className="font-display text-display-xl text-balance leading-[1.05]">
+      <main id="main" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
+        <div className="rounded-r-lg border border-line bg-gradient-to-br from-brand-blue-soft via-surface to-brand-gold-soft px-5 py-10 text-center sm:px-10 sm:py-14">
+          <p className="text-overline font-bold tracking-[0.12em] text-brand-gold-deep uppercase">
+            Straightforward plans
+          </p>
+          <h1 className="mt-3 font-display text-display-xl text-balance leading-[1.05]">
             Simple pricing.
           </h1>
-          <p className="mx-auto mt-3 max-w-md text-body-l text-muted">
-            Start free. Pay only when it helps. Longer plans cost less.
+          <p className="mx-auto mt-4 max-w-xl text-body-l leading-relaxed text-muted">
+            Start free. Pay only when it helps. Longer plans cost less, and jobs are never
+            paywalled.
           </p>
         </div>
 
         {/* Period toggle */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <span className="text-sm font-semibold text-muted">Billing period</span>
           <div
             role="tablist"
             aria-label="Billing period"
-            className="inline-flex rounded-full border border-line bg-surface p-1"
+            className="inline-flex rounded-full border border-line bg-sunken p-1"
           >
             {PERIODS.map((p) => (
               <button
@@ -104,8 +95,8 @@ export function PricingView() {
                 onClick={() => setPeriod(p.value)}
                 className={
                   period === p.value
-                    ? "rounded-full bg-accent px-4 py-1.5 text-body-s font-semibold text-on-accent"
-                    : "rounded-full px-4 py-1.5 text-body-s font-semibold text-muted hover:text-ink"
+                    ? "rounded-full bg-accent px-4 py-2 text-body-s font-semibold text-on-accent shadow-e1"
+                    : "rounded-full px-4 py-2 text-body-s font-semibold text-muted transition hover:text-ink"
                 }
               >
                 {p.label}
@@ -131,7 +122,7 @@ export function PricingView() {
           </div>
         )}
 
-        <section className="mt-12 rounded-r-md border border-line bg-surface p-6 text-center">
+        <section className="mt-12 rounded-r-lg border border-line bg-sunken p-6 text-center sm:p-8">
           <h2 className="font-display text-h3">What we never charge for</h2>
           <p className="mt-2 text-body text-muted">
             Jobs. Introductions. Offers. Those are always free.
@@ -157,8 +148,13 @@ function Highlights({ items }: { items: string[] }) {
 
 function FreeCard({ plan }: { plan: Plan }) {
   return (
-    <div className="flex flex-col rounded-r-lg border border-line bg-surface p-6">
-      <p className="font-display text-h3">{plan.name}</p>
+    <div className="flex flex-col rounded-r-lg border border-line bg-surface p-6 shadow-e1 transition-shadow hover:shadow-e2 sm:p-7">
+      <div className="flex min-h-7 items-center justify-between">
+        <p className="font-display text-h3">{plan.name}</p>
+        <span className="rounded-full bg-brand-blue-soft px-2.5 py-1 text-caption font-semibold text-accent">
+          Start free
+        </span>
+      </div>
       <p className="mt-2 text-metric-xl tabular-nums">₦0</p>
       <p className="text-body-s text-muted">free forever</p>
       <Highlights items={planHighlights(plan)} />
@@ -176,12 +172,17 @@ function PaidCard({ plan, period }: { plan: Plan; period: BillingPeriod }) {
     <div
       className={
         pro
-          ? "flex flex-col rounded-r-lg border-2 border-accent bg-surface p-6"
-          : "flex flex-col rounded-r-lg border border-line bg-surface p-6"
+          ? "relative flex flex-col rounded-r-lg border border-brand-gold-line bg-surface p-6 shadow-e2 ring-1 ring-brand-gold-line sm:p-7"
+          : "flex flex-col rounded-r-lg border border-line bg-surface p-6 shadow-e1 transition-shadow hover:shadow-e2 sm:p-7"
       }
     >
       <div className="flex items-center justify-between">
         <p className="font-display text-h3">{plan.name}</p>
+        {pro && (
+          <span className="rounded-full bg-brand-gold-soft px-2.5 py-1 text-caption font-semibold text-brand-gold-deep">
+            Most features
+          </span>
+        )}
         {discount > 0 && (
           <span className="rounded-full bg-success-bg px-2.5 py-1 text-caption font-semibold text-success">
             save {Math.round(discount)}%
