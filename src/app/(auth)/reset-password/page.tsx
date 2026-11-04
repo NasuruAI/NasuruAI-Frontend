@@ -14,7 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { ApiError } from "@/lib/api";
 import { confirmPasswordReset } from "@/lib/auth/client";
-import { Alert, Button, Field, inputClass } from "@/components/ui";
+import { Alert, Button, Field, inputClass, PasswordInput } from "@/components/ui";
 
 const MIN_LENGTH = 10;
 
@@ -100,9 +100,8 @@ function ResetPasswordForm() {
           hint={`At least ${MIN_LENGTH} characters. Avoid your name or a common word.`}
           error={fieldError}
         >
-          <input
+          <PasswordInput
             id="password"
-            type="password"
             required
             minLength={MIN_LENGTH}
             autoComplete="new-password"
@@ -114,9 +113,8 @@ function ResetPasswordForm() {
         </Field>
 
         <Field label="Confirm new password" htmlFor="confirm">
-          <input
+          <PasswordInput
             id="confirm"
-            type="password"
             required
             autoComplete="new-password"
             value={confirm}

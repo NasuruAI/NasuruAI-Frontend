@@ -10,7 +10,8 @@
  */
 
 import { CircleAlert } from "lucide-react";
-import { forwardRef, useId } from "react";
+import { forwardRef, useId, useState } from "react";
+import { PasswordVisibilityToggle } from "@/components/ui/PasswordVisibilityToggle";
 import { cx } from "./cx";
 
 /**
@@ -100,6 +101,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
   { label, helper, error, hideLabel, optional, className, id, leading, ...input },
   ref,
 ) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const isPassword = input.type === "password";
+
   return (
     <FieldShell {...{ label, helper, error, hideLabel, optional, className, id }}>
       {({ inputId, describedBy }) => (
@@ -118,10 +122,18 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
               fieldBox,
               "h-11",
               leading && "pl-10",
+              isPassword && "pr-12",
               error ? "border-danger" : "border-field-line",
             )}
             {...input}
+            type={isPassword && passwordVisible ? "text" : input.type}
           />
+          {isPassword && (
+            <PasswordVisibilityToggle
+              visible={passwordVisible}
+              onToggle={() => setPasswordVisible((visible) => !visible)}
+            />
+          )}
         </div>
       )}
     </FieldShell>

@@ -5,6 +5,7 @@ import { buttonClasses, type ButtonVariant as SharedButtonVariant } from "./butt
 
 export { BrandLockup, BrandMark } from "./Brand";
 export { buttonClasses, type ButtonSize, type ButtonVariant } from "./buttonStyles";
+export { PasswordInput } from "./PasswordInput";
 
 /**
  * Shared primitives.

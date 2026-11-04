@@ -186,6 +186,15 @@ describe("PhoneFlow", () => {
 });
 
 describe("EmailSignIn", () => {
+  it("keeps the password visibility toggle available while the field is empty", () => {
+    render(<EmailSignIn onSignedIn={vi.fn()} />);
+    const password = screen.getByLabelText("Password");
+
+    expect(password).toHaveAttribute("type", "password");
+    fireEvent.click(screen.getByRole("button", { name: "Show password" }));
+    expect(password).toHaveAttribute("type", "text");
+  });
+
   it("asks for the authenticator code when the account has two-factor on", async () => {
     const onSignedIn = vi.fn();
     render(<EmailSignIn onSignedIn={onSignedIn} />);

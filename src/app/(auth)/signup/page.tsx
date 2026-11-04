@@ -10,7 +10,7 @@ import { useSession } from "@/lib/auth/SessionProvider";
 import { ACCREDITATION, REFUND, SERVICES, isPending } from "@/lib/company";
 import { isPriceKnown } from "@/lib/pricing";
 import { usePricing } from "@/lib/usePricing";
-import { Alert, Button, Field, inputClass } from "@/components/ui";
+import { Alert, Button, Field, inputClass, PasswordInput } from "@/components/ui";
 import { SiteHeader } from "@/components/marketing/SiteChrome";
 import type { FieldErrors } from "@/types";
 
@@ -217,9 +217,8 @@ function SignupForm() {
               error={firstError("password")}
               hint="At least 10 characters."
             >
-              <input
+              <PasswordInput
                 id="password"
-                type="password"
                 required
                 minLength={10}
                 autoComplete="new-password"
