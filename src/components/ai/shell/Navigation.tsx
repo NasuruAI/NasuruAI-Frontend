@@ -5,13 +5,14 @@
  * bottom tab bar below 768 px, which mirrors the mobile app (web.md §1.1-1.2).
  */
 
-import { Smartphone } from "lucide-react";
+import { ChevronDown, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { quotaLabel, useEntitlements } from "@/lib/ai/shell";
 import { Popover } from "../Popover";
 import { cx } from "../cx";
-import { isActive, type NavItem, PRIMARY_NAV, UTILITY_NAV } from "./nav";
+import { activeModule, isActive, type NavItem, NAV_MODULES } from "./nav";
 
 function RailLink({ item, pathname }: { item: NavItem; pathname: string }) {
   const active = isActive(pathname, item.href);
@@ -89,19 +90,66 @@ function GetTheApp() {
 
 export function NavRail({ offset = 0 }: { offset?: number }) {
   const pathname = usePathname();
+  const [expansion, setExpansion] = useState(() => ({
+    pathname,
+    id: activeModule(pathname)?.id ?? null,
+  }));
+  const expandedModule =
+    expansion.pathname === pathname ? expansion.id : (activeModule(pathname)?.id ?? null);
+
   return (
     <nav
       aria-label="Main"
       style={{ height: `calc(100dvh - 4rem - ${offset}px)` }}
-      className="sticky top-16 hidden w-[72px] shrink-0 flex-col gap-1 overflow-y-auto border-r border-line p-3 md:flex lg:w-60"
+      className="sticky top-16 hidden w-[72px] shrink-0 flex-col gap-2 overflow-y-auto border-r border-line p-3 md:flex lg:w-60"
     >
-      {PRIMARY_NAV.map((item) => (
-        <RailLink key={item.href} item={item} pathname={pathname} />
-      ))}
-      <hr className="my-2 border-line" />
-      {UTILITY_NAV.map((item) => (
-        <RailLink key={item.href} item={item} pathname={pathname} />
-      ))}
+      {NAV_MODULES.map((module) => {
+        const Icon = module.icon;
+        const active = module.items.some((item) => isActive(pathname, item.href));
+        const expanded = expandedModule === module.id;
+        const listId = `nav-module-${module.id}`;
+        return (
+          <section key={module.id}>
+            <button
+              type="button"
+              aria-expanded={expanded}
+              aria-controls={listId}
+              title={module.label}
+              onClick={() => setExpansion({ pathname, id: expanded ? null : module.id })}
+              className={cx(
+                "relative flex h-11 w-full items-center gap-3 rounded-r-md px-3 text-body font-semibold transition-colors duration-m-fast ease-m",
+                "md:justify-center lg:justify-start",
+                active
+                  ? "bg-brand-blue-soft text-brand-blue-deep"
+                  : "text-muted hover:bg-sunken hover:text-ink",
+              )}
+            >
+              {active && (
+                <span
+                  aria-hidden
+                  className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-brand-gold"
+                />
+              )}
+              <Icon aria-hidden className={cx("size-5 shrink-0", active && "text-accent")} />
+              <span className="md:sr-only lg:not-sr-only">{module.label}</span>
+              <ChevronDown
+                aria-hidden
+                className={cx(
+                  "ml-auto hidden size-4 shrink-0 transition-transform lg:block",
+                  expanded && "rotate-180",
+                )}
+              />
+            </button>
+            <ul id={listId} hidden={!expanded} className="mt-1 space-y-1 lg:pl-3">
+              {module.items.map((item) => (
+                <li key={item.href}>
+                  <RailLink item={item} pathname={pathname} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
       <div className="mt-auto space-y-1 pt-4">
         <PlanChip />
         <GetTheApp />
@@ -112,33 +160,114 @@ export function NavRail({ offset = 0 }: { offset?: number }) {
 
 export function BottomTabs() {
   const pathname = usePathname();
+  const [menuState, setMenuState] = useState<{ pathname: string; id: string | null }>({
+    pathname,
+    id: null,
+  });
+  const openModule = menuState.pathname === pathname ? menuState.id : null;
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const menuRef = useRef<HTMLDivElement>(null);
+  const active = activeModule(pathname);
+
+  useEffect(() => {
+    if (!openModule) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuState({ pathname, id: null });
+      triggerRefs.current[openModule]?.focus();
+    };
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (
+        !menuRef.current?.contains(target) &&
+        !triggerRefs.current[openModule]?.contains(target)
+      ) {
+        setMenuState({ pathname, id: null });
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+    };
+  }, [openModule, pathname]);
+
+  const selectedModule = NAV_MODULES.find((module) => module.id === openModule);
+
   return (
     <nav
       aria-label="Main"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="grid grid-cols-5">
-        {PRIMARY_NAV.map(({ href, label, icon: Icon }) => {
-          const active = isActive(pathname, href);
+      <div
+        ref={menuRef}
+        id="mobile-module-menu"
+        role="region"
+        aria-label={selectedModule?.label ?? "Navigation module"}
+        hidden={!selectedModule}
+        className="fixed inset-x-3 bottom-[calc(4rem+env(safe-area-inset-bottom)+0.75rem)] z-50 max-h-[60dvh] overflow-y-auto rounded-r-md border border-line bg-surface p-3 shadow-e2"
+      >
+        {selectedModule && (
+          <ul className="space-y-1">
+            {selectedModule.items.map((item) => {
+              const itemActive = isActive(pathname, item.href);
+              const Icon = item.icon;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={itemActive ? "page" : undefined}
+                    onClick={() => setMenuState({ pathname, id: null })}
+                    className={cx(
+                      "flex min-h-11 items-center gap-3 rounded-r-sm px-3 text-body-s font-semibold",
+                      itemActive
+                        ? "bg-brand-blue-soft text-brand-blue-deep"
+                        : "text-muted hover:bg-sunken hover:text-ink",
+                    )}
+                  >
+                    <Icon aria-hidden className="size-5 shrink-0" />
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+      <ul className="grid grid-cols-6">
+        {NAV_MODULES.map(({ id, label, mobileLabel, icon: Icon }) => {
+          const moduleActive = active?.id === id;
+          const expanded = openModule === id;
+          const listId = "mobile-module-menu";
           return (
-            <li key={href}>
-              <Link
-                href={href}
-                aria-current={active ? "page" : undefined}
+            <li key={id}>
+              <button
+                type="button"
+                ref={(element) => {
+                  triggerRefs.current[id] = element;
+                }}
+                aria-label={label}
+                aria-expanded={expanded}
+                aria-controls={listId}
+                onClick={() => setMenuState({ pathname, id: expanded ? null : id })}
                 className={cx(
-                  "relative flex h-16 flex-col items-center justify-center gap-1 text-caption font-semibold transition-colors duration-m-fast ease-m",
-                  active ? "bg-brand-blue-soft text-brand-blue-deep" : "text-muted",
+                  "relative flex h-16 w-full flex-col items-center justify-center gap-1 text-[0.625rem] font-semibold transition-colors duration-m-fast ease-m",
+                  moduleActive || expanded
+                    ? "bg-brand-blue-soft text-brand-blue-deep"
+                    : "text-muted hover:bg-sunken",
                 )}
               >
                 <Icon aria-hidden className="size-5" />
-                {label}
-                {active && (
+                <span className="max-w-full truncate px-0.5">{mobileLabel}</span>
+                {moduleActive && (
                   <span
                     aria-hidden="true"
                     className="absolute top-0 right-1/4 left-1/4 h-0.5 rounded-full bg-brand-gold"
                   />
                 )}
-              </Link>
+              </button>
             </li>
           );
         })}

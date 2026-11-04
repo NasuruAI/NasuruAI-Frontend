@@ -23,7 +23,7 @@ import { ContextPanelSlot } from "./ContextPanel";
 import { DestinationSwitcher } from "./DestinationSwitcher";
 import { GlobalBanners } from "./GlobalBanners";
 import { BottomTabs, NavRail } from "./Navigation";
-import { PRIMARY_NAV, UTILITY_NAV } from "./nav";
+import { NAV_MODULES } from "./nav";
 import { AvatarMenu, NotificationsBell } from "./TopBarMenus";
 
 /** What ⌘K can reach before the per-section searches exist. */
@@ -64,43 +64,15 @@ export const PALETTE_INDEX: PaletteResult[] = [
     group: "Actions",
   },
   // Pages an action already reaches (Check offer) are listed once, as the action.
-  ...[...PRIMARY_NAV, ...UTILITY_NAV]
+  ...NAV_MODULES.flatMap((module) => module.items)
     .filter((item) => item.href !== "/ai/check-offer")
     .map((item) => ({
       id: `go-${item.href}`,
       title: item.label,
-      detail: "Go to",
+      detail: item.detail ?? "Go to",
       href: item.href,
       group: "Pages",
     })),
-  {
-    id: "go-profile",
-    title: "Profile",
-    detail: "Your confirmed facts",
-    href: "/ai/profile",
-    group: "Settings",
-  },
-  {
-    id: "go-billing",
-    title: "Subscription",
-    detail: "Plan, invoices, cancel",
-    href: "/ai/billing",
-    group: "Settings",
-  },
-  {
-    id: "go-notifications",
-    title: "Notification settings",
-    detail: "Push, WhatsApp, email",
-    href: "/ai/settings/notifications",
-    group: "Settings",
-  },
-  {
-    id: "go-data",
-    title: "Your data",
-    detail: "Export or delete",
-    href: "/ai/settings/data",
-    group: "Settings",
-  },
 ];
 
 export async function searchPalette(term: string): Promise<PaletteResult[]> {

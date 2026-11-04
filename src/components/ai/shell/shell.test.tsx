@@ -7,7 +7,7 @@ import { inboxGroup, quotaLabel, type Entitlements, type RuleChange } from "@/li
 import { searchPalette } from "./AiShell";
 import { SwitchDialog } from "./DestinationSwitcher";
 import { unseenChange } from "./GlobalBanners";
-import { isActive } from "./nav";
+import { activeModule, isActive, NAV_MODULES } from "./nav";
 import { initials } from "./TopBarMenus";
 
 describe("navigation", () => {
@@ -16,6 +16,34 @@ describe("navigation", () => {
     expect(isActive("/ai/jobs/123", "/ai/jobs")).toBe(true);
     expect(isActive("/ai/jobsearch", "/ai/jobs")).toBe(false);
     expect(isActive("/ai/plan", "/ai/jobs")).toBe(false);
+  });
+
+  it("organizes every app destination into a module dropdown", () => {
+    const destinations = NAV_MODULES.flatMap((module) => module.items.map((item) => item.href));
+    expect(NAV_MODULES.map((module) => module.id)).toEqual([
+      "plan",
+      "work",
+      "study",
+      "applications",
+      "prepare",
+      "account",
+    ]);
+    expect(new Set(destinations).size).toBe(destinations.length);
+    expect(destinations).toEqual(
+      expect.arrayContaining([
+        "/ai/plan",
+        "/ai/routes",
+        "/ai/jobs",
+        "/ai/study",
+        "/ai/track",
+        "/ai/my-application",
+        "/ai/documents",
+        "/ai/profile",
+        "/ai/billing",
+      ]),
+    );
+    expect(activeModule("/ai/jobs/saved")?.id).toBe("work");
+    expect(activeModule("/ai/settings/data")?.id).toBe("account");
   });
 });
 
