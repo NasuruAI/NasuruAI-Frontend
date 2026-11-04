@@ -29,6 +29,8 @@ export function redirectToAi(pathname: string | null | undefined): string | null
     pathname.startsWith("/.well-known") ||
     pathname.startsWith("/api") ||
     pathname === "/favicon.ico" ||
+    pathname === "/icon.png" ||
+    pathname === "/apple-icon.png" ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml"
   ) {

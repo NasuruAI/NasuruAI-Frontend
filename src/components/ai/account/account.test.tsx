@@ -1,6 +1,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { AnnouncerProvider } from "@/components/ui/Announcer";
 import { ai } from "@/lib/ai/client";
 import { makeQueryClient } from "@/lib/ai/QueryProvider";
 import { DevicesPanel } from "./settings/DevicesPanel";
@@ -24,7 +25,11 @@ const ok = (data: unknown, status = 200) =>
 afterEach(() => vi.resetAllMocks());
 
 function wrap(children: React.ReactNode) {
-  return <QueryClientProvider client={makeQueryClient()}>{children}</QueryClientProvider>;
+  return (
+    <AnnouncerProvider>
+      <QueryClientProvider client={makeQueryClient()}>{children}</QueryClientProvider>
+    </AnnouncerProvider>
+  );
 }
 
 const PREFERENCES = {

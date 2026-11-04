@@ -1,6 +1,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { AnnouncerProvider } from "@/components/ui/Announcer";
 import { ai } from "@/lib/ai/client";
 import { cvContent, letterContent } from "@/lib/ai/cv";
 import { makeQueryClient } from "@/lib/ai/QueryProvider";
@@ -25,7 +26,11 @@ const ok = (data: unknown, status = 200) =>
 afterEach(() => vi.resetAllMocks());
 
 function wrap(children: React.ReactNode) {
-  return <QueryClientProvider client={makeQueryClient()}>{children}</QueryClientProvider>;
+  return (
+    <AnnouncerProvider>
+      <QueryClientProvider client={makeQueryClient()}>{children}</QueryClientProvider>
+    </AnnouncerProvider>
+  );
 }
 
 const bullet = (id: string, text: string, patch: Partial<Record<string, unknown>> = {}) => ({
@@ -183,6 +188,24 @@ describe("CvStudioView", () => {
     fireEvent.click(within(germanRow).getByRole("button", { name: "Make" }));
     await waitFor(() => expect(api.POST).toHaveBeenCalled());
     expect(api.POST.mock.calls[0][1].body).toMatchObject({ kind: "cv", job: null, country: "DE" });
+  });
+
+  it("shows CV generation errors as a toast instead of an inline alert", async () => {
+    studioApi([]);
+    api.POST.mockImplementation(() =>
+      Promise.resolve({
+        data: undefined,
+        error: { detail: "You've used 0 of 0 this month.", code: "quota_exceeded" },
+        response: new Response(null, { status: 429 }),
+      }),
+    );
+    render(wrap(<CvStudioView />));
+    await screen.findByText("Germany");
+    const germanRow = screen.getByText("Germany").closest("li")!;
+    fireEvent.click(within(germanRow).getByRole("button", { name: "Make" }));
+
+    expect(await screen.findByText("You've used 0 of 0 this month.")).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
   it("lists tailored documents, and shows an empty state without any", async () => {

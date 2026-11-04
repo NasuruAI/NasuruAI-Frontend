@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { publishToast } from "@/lib/api";
 import { buttonClasses, type ButtonVariant as SharedButtonVariant } from "./buttonStyles";
+import { toastText } from "./toastText";
 
 export { BrandLockup, BrandMark } from "./Brand";
 export { buttonClasses, type ButtonSize, type ButtonVariant } from "./buttonStyles";
@@ -78,18 +81,20 @@ export function Alert({
   children: React.ReactNode;
   tone?: "error" | "info" | "success" | "warning";
 }) {
+  useEffect(() => {
+    if (tone === "error") publishToast(toastText(children));
+  }, [children, tone]);
+
+  if (tone === "error") return null;
+
   const styles = {
-    error: "border-danger-line bg-danger-bg text-danger",
     info: "border-info-line bg-info-bg text-info",
     success: "border-success-line bg-success-bg text-success",
     warning: "border-warning-line bg-warning-bg text-warning",
   }[tone];
 
   return (
-    <div
-      role={tone === "error" ? "alert" : "status"}
-      className={`rounded-lg border px-4 py-3 text-sm ${styles}`}
-    >
+    <div role="status" className={`rounded-lg border px-4 py-3 text-sm ${styles}`}>
       {children}
     </div>
   );

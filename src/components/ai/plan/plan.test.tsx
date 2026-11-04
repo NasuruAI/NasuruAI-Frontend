@@ -195,6 +195,10 @@ describe("TodoList", () => {
     api.GET.mockImplementation(() => ok({ plan: null, todos: [todo("a")], share: null }));
     setup([todo("a")]);
     fireEvent.click(screen.getByRole("checkbox", { name: /Step a/ }));
-    expect(await screen.findByText(/changed on another device/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/changed on another device/, {
+        selector: '[aria-hidden="true"]',
+      }),
+    ).toBeInTheDocument();
   });
 });

@@ -1,9 +1,14 @@
+"use client";
+
 /**
  * Feedback and status surfaces (design-system §8.1): InlineAlert, Banner,
  * Skeleton, EmptyState, ProgressBar and Stepper.
  */
 
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from "lucide-react";
+import { useEffect } from "react";
+import { publishToast } from "@/lib/api";
+import { toastText } from "@/components/ui/toastText";
 import { cx } from "./cx";
 
 type AlertTone = "info" | "success" | "warning" | "danger";
@@ -34,6 +39,14 @@ export function InlineAlert({
   code?: string;
   className?: string;
 }) {
+  useEffect(() => {
+    if (tone !== "danger") return;
+    const body = toastText(children);
+    publishToast([title, body].filter(Boolean).join(" "));
+  }, [children, title, tone]);
+
+  if (tone === "danger" && !action) return null;
+
   const { box, Icon } = ALERT[tone];
   return (
     <div

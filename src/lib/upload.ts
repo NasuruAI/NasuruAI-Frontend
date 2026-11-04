@@ -14,7 +14,7 @@
  * cause of abandonment in the funnel.
  */
 
-import { API_BASE_URL, ApiError } from "@/lib/api";
+import { API_BASE_URL, ApiError, apiErrorFrom } from "@/lib/api";
 import { getAccessToken, getRefreshToken, setTokens, clearTokens } from "@/lib/auth/store";
 import { api } from "@/lib/api";
 
@@ -83,19 +83,14 @@ function once<T>(
         return;
       }
 
-      const data = (payload ?? {}) as Record<string, unknown>;
-      const detail =
-        typeof data.detail === "string" ? data.detail : `Upload failed (${request.status}).`;
-      const fieldErrors: Record<string, string[]> = {};
-      for (const [key, value] of Object.entries(data)) {
-        if (key === "detail" || key === "code") continue;
-        fieldErrors[key] = Array.isArray(value) ? value.map(String) : [String(value)];
-      }
-      reject(new ApiError(detail, request.status, fieldErrors, String(data.code ?? "")));
+      reject(apiErrorFrom(request.status, payload));
     };
 
-    request.onerror = () => reject(new ApiError("Network error during upload.", 0));
-    request.ontimeout = () => reject(new ApiError("The upload timed out.", 408));
+    request.onerror = () => {
+      const message = "Network error during upload.";
+      reject(apiErrorFrom(0, { detail: message, code: "network_error" }));
+    };
+    request.ontimeout = () => reject(apiErrorFrom(408, { detail: "The upload timed out." }));
     request.onabort = () => reject(new DOMException("Aborted", "AbortError"));
 
     signal.addEventListener("abort", () => request.abort());

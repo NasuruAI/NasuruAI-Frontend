@@ -12,6 +12,33 @@ import type { FieldErrors } from "@/types";
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "http://localhost:8010";
 
+export const API_ERROR_TOAST_EVENT = "nasuru:api-error";
+
+type ApiErrorToastDetail = {
+  message: string;
+  tone: "info" | "success" | "error";
+};
+
+export function publishToast(message: string, tone: ApiErrorToastDetail["tone"] = "error"): void {
+  if (typeof window === "undefined" || !message.trim()) return;
+  window.dispatchEvent(
+    new CustomEvent<ApiErrorToastDetail>(API_ERROR_TOAST_EVENT, {
+      detail: { message, tone },
+    }),
+  );
+}
+
+function publishApiErrorToast(message: string, status: number, code: string): void {
+  if (
+    code === "mfa_required" ||
+    code === "access_fee_required" ||
+    (status === 401 && code !== "invalid_credentials" && code !== "mfa_invalid")
+  ) {
+    return;
+  }
+  publishToast(message, "error");
+}
+
 export class ApiError extends Error {
   status: number;
   /** Per-field messages, keyed the same way the form schema keys fields. */
@@ -41,17 +68,25 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
   const { body, token, headers, ...rest } = options;
 
   const isFormData = typeof FormData !== "undefined" && body instanceof FormData;
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...rest,
-    headers: {
-      Accept: "application/json",
-      ...(isFormData ? {} : body !== undefined ? { "Content-Type": "application/json" } : {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...headers,
-    },
-    body: isFormData ? (body as FormData) : body !== undefined ? JSON.stringify(body) : undefined,
-    credentials: "include",
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...rest,
+      headers: {
+        Accept: "application/json",
+        ...(isFormData ? {} : body !== undefined ? { "Content-Type": "application/json" } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...headers,
+      },
+      body: isFormData ? (body as FormData) : body !== undefined ? JSON.stringify(body) : undefined,
+      credentials: "include",
+    });
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") throw error;
+    const message = "Unable to connect to the server. Check your connection and try again.";
+    publishApiErrorToast(message, 0, "network_error");
+    throw new ApiError(message, 0, {}, "network_error");
+  }
 
   if (response.status === 204) return undefined as T;
 
@@ -77,7 +112,9 @@ export function apiErrorFrom(status: number, payload: unknown): ApiError {
     if (key === "detail" || key === "code") continue;
     fieldErrors[key] = Array.isArray(value) ? value.map(String) : [String(value)];
   }
-  return new ApiError(detail, status, fieldErrors, String(data.code ?? ""));
+  const code = String(data.code ?? "");
+  publishApiErrorToast(detail, status, code);
+  return new ApiError(detail, status, fieldErrors, code);
 }
 
 export const api = {

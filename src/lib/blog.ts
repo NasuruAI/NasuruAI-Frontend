@@ -11,7 +11,7 @@
  * anyone expects a new article to appear.
  */
 
-import { API_BASE_URL } from "@/lib/api";
+import { API_BASE_URL, apiErrorFrom } from "@/lib/api";
 
 const REVALIDATE_SECONDS = 300;
 
@@ -263,14 +263,19 @@ export async function submitComment(
     seconds_on_page?: number;
   },
 ): Promise<{ detail: string; published: boolean; comment: BlogComment | null }> {
-  const response = await fetch(
-    `${API_BASE_URL}/api/blog/posts/${encodeURIComponent(slug)}/comments/`,
-    {
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}/api/blog/posts/${encodeURIComponent(slug)}/comments/`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(payload),
-    },
-  );
+    });
+  } catch {
+    throw apiErrorFrom(0, {
+      detail: "Unable to connect to the server. Check your connection and try again.",
+      code: "network_error",
+    });
+  }
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     const message =
@@ -279,7 +284,7 @@ export async function submitComment(
         : typeof data.email === "string" || Array.isArray(data.email)
           ? String(Array.isArray(data.email) ? data.email[0] : data.email)
           : "That did not go through. Please try again.";
-    throw new Error(message);
+    throw apiErrorFrom(response.status, { ...data, detail: message });
   }
   return data;
 }

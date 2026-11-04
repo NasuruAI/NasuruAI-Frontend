@@ -6,6 +6,7 @@
  */
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiErrorFrom } from "@/lib/api";
 import { ai, ApiError, unwrap } from "./client";
 import type { components } from "./schema";
 
@@ -237,12 +238,12 @@ export function fileName(disposition: string | null, fallback: string): string {
  * otherwise read `?format=pdf` as a request for a renderer named "pdf".
  */
 export async function downloadDocument(document: GeneratedDoc, format: "pdf" | "docx") {
-  const { data, response } = await ai.GET(
+  const { data, error, response } = await ai.GET(
     "/api/ai/v1/me/generated-documents/{document_id}/download/",
     { params: { path: { document_id: document.id }, query: { as: format } }, parseAs: "blob" },
   );
-  if (!response.ok || !data)
-    throw new ApiError("That download didn't work. Try again.", response.status);
+  if (!response.ok) throw apiErrorFrom(response.status, error);
+  if (!data) throw new ApiError("That download didn't work. Try again.", response.status);
   const url = URL.createObjectURL(data as Blob);
   const link = window.document.createElement("a");
   link.href = url;

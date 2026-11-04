@@ -32,5 +32,7 @@ describe("redirectToAi", () => {
     expect(redirectToAi("/api/auth/login/")).toBeNull();
     expect(redirectToAi("/_next/static/chunks/app.js")).toBeNull();
     expect(redirectToAi("/favicon.ico")).toBeNull();
+    expect(redirectToAi("/icon.png")).toBeNull();
+    expect(redirectToAi("/apple-icon.png")).toBeNull();
   });
 });

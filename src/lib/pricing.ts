@@ -15,7 +15,7 @@
  * a visibly missing one.
  */
 
-import { API_BASE_URL } from "@/lib/api";
+import { API_BASE_URL, apiErrorFrom } from "@/lib/api";
 
 const REVALIDATE_SECONDS = 300;
 
@@ -99,9 +99,22 @@ export async function fetchPricing(): Promise<Pricing> {
     const response = await fetch(`${API_BASE_URL}/api/pricing/`, {
       headers: { Accept: "application/json" },
     });
-    if (!response.ok) return PRICING_UNAVAILABLE;
+    if (!response.ok) {
+      let payload: unknown = null;
+      try {
+        payload = await response.json();
+      } catch {
+        payload = null;
+      }
+      apiErrorFrom(response.status, payload);
+      return PRICING_UNAVAILABLE;
+    }
     return (await response.json()) as Pricing;
   } catch {
+    apiErrorFrom(0, {
+      detail: "Unable to connect to the server. Check your connection and try again.",
+      code: "network_error",
+    });
     return PRICING_UNAVAILABLE;
   }
 }

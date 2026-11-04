@@ -9,6 +9,7 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CostKind, CostLine } from "@/components/ai/evidence/Money";
 import type { Check } from "@/components/ai/evidence/Trust";
+import { apiErrorFrom } from "@/lib/api";
 import { ai, ApiError, unwrap } from "./client";
 import { fileName, packKeys, type Card } from "./packs";
 import type { components } from "./schema";
@@ -319,9 +320,11 @@ export function useMyDeadlines(type = "") {
 
 /** Fetched and saved (needs the session token, so it can't just be a plain link). */
 export async function downloadDeadlinesIcs() {
-  const { data, response } = await ai.GET("/api/ai/v1/me/deadlines/ics/", { parseAs: "blob" });
-  if (!response.ok || !data)
-    throw new ApiError("That download didn't work. Try again.", response.status);
+  const { data, error, response } = await ai.GET("/api/ai/v1/me/deadlines/ics/", {
+    parseAs: "blob",
+  });
+  if (!response.ok) throw apiErrorFrom(response.status, error);
+  if (!data) throw new ApiError("That download didn't work. Try again.", response.status);
   const url = URL.createObjectURL(data as Blob);
   const link = window.document.createElement("a");
   link.href = url;

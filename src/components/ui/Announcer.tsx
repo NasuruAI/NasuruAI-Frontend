@@ -27,6 +27,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { API_ERROR_TOAST_EVENT } from "@/lib/api";
 
 type Tone = "info" | "success" | "error";
 
@@ -56,6 +57,8 @@ export function AnnouncerProvider({ children }: { children: React.ReactNode }) {
   const [assertive, setAssertive] = useState("");
   const [toasts, setToasts] = useState<Toast[]>([]);
   const nextId = useRef(0);
+  const activeToasts = useRef(new Set<string>());
+  const toastsById = useRef(new Map<number, Toast>());
 
   const announce = useCallback((message: string, isAssertive = false) => {
     const set = isAssertive ? setAssertive : setPolite;
@@ -67,14 +70,32 @@ export function AnnouncerProvider({ children }: { children: React.ReactNode }) {
 
   const toast = useCallback(
     (message: string, tone: Tone = "info") => {
+      const key = `${tone}:${message}`;
+      if (activeToasts.current.has(key)) return;
+      activeToasts.current.add(key);
       const id = nextId.current++;
-      setToasts((current) => [...current, { id, message, tone }]);
+      const item = { id, message, tone };
+      toastsById.current.set(id, item);
+      setToasts((current) => [...current, item]);
       announce(message, tone === "error");
     },
     [announce],
   );
 
+  useEffect(() => {
+    const onApiError = (event: Event) => {
+      const { message, tone } = (event as CustomEvent<{ message: string; tone: Tone }>).detail;
+      toast(message, tone);
+    };
+
+    window.addEventListener(API_ERROR_TOAST_EVENT, onApiError);
+    return () => window.removeEventListener(API_ERROR_TOAST_EVENT, onApiError);
+  }, [toast]);
+
   const dismiss = useCallback((id: number) => {
+    const dismissed = toastsById.current.get(id);
+    if (dismissed) activeToasts.current.delete(`${dismissed.tone}:${dismissed.message}`);
+    toastsById.current.delete(id);
     setToasts((current) => current.filter((item) => item.id !== id));
   }, []);
 
@@ -95,7 +116,7 @@ export function AnnouncerProvider({ children }: { children: React.ReactNode }) {
       {toasts.length > 0 && (
         <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex flex-col items-center gap-2 p-4 sm:items-end">
           {toasts.map((item) => (
-            <ToastCard key={item.id} toast={item} onDismiss={() => dismiss(item.id)} />
+            <ToastCard key={item.id} toast={item} dismiss={dismiss} />
           ))}
         </div>
       )}
@@ -103,14 +124,11 @@ export function AnnouncerProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ToastCard({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }) {
+function ToastCard({ toast, dismiss }: { toast: Toast; dismiss: (id: number) => void }) {
   useEffect(() => {
-    // Errors stay until dismissed; a message someone needs to act on should not
-    // time out while they are reading it.
-    if (toast.tone === "error") return;
-    const timer = setTimeout(onDismiss, 6000);
+    const timer = setTimeout(() => dismiss(toast.id), 5000);
     return () => clearTimeout(timer);
-  }, [toast.tone, onDismiss]);
+  }, [dismiss, toast.id]);
 
   return (
     <div
@@ -125,7 +143,7 @@ function ToastCard({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }
       </span>
       <button
         type="button"
-        onClick={onDismiss}
+        onClick={() => dismiss(toast.id)}
         className="shrink-0 rounded opacity-70 transition hover:opacity-100"
       >
         <span aria-hidden="true">×</span>

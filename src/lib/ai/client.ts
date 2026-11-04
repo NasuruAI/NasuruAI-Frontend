@@ -11,7 +11,7 @@
  */
 
 import createClient from "openapi-fetch";
-import { API_BASE_URL, ApiError, apiErrorFrom } from "@/lib/api";
+import { API_BASE_URL, ApiError, apiErrorFrom, publishToast } from "@/lib/api";
 import { refreshAccessToken } from "@/lib/auth/client";
 import { getAccessToken } from "@/lib/auth/store";
 import type { paths } from "./schema";
@@ -29,10 +29,17 @@ async function authedFetch(input: Request): Promise<Response> {
   // Cloned before sending: a request body can be read only once, and the
   // replay after a refresh needs it again.
   const replay = input.clone();
-  const response = await fetch(withToken(input));
-  if (response.status !== 401 || !getAccessToken()) return response;
-  if (!(await refreshAccessToken())) return response;
-  return fetch(withToken(replay));
+  try {
+    const response = await fetch(withToken(input));
+    if (response.status !== 401 || !getAccessToken()) return response;
+    if (!(await refreshAccessToken())) return response;
+    return await fetch(withToken(replay));
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") throw error;
+    const message = "Unable to connect to the server. Check your connection and try again.";
+    publishToast(message);
+    throw new ApiError(message, 0, {}, "network_error");
+  }
 }
 
 export const ai = createClient<paths>({

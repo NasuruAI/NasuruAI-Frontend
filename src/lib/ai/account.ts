@@ -7,7 +7,7 @@
  */
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ApiError } from "@/lib/api";
+import { ApiError, apiErrorFrom } from "@/lib/api";
 import { fileName } from "./packs";
 import { ai, unwrap } from "./client";
 import type { components } from "./schema";
@@ -213,12 +213,15 @@ export function useRequestExport() {
 
 /** Downloads need the session token, so they're fetched and saved, not linked. */
 export async function downloadExport(exportId: string) {
-  const { data, response } = await ai.GET("/api/ai/v1/me/data/exports/{export_id}/download/", {
-    params: { path: { export_id: exportId } },
-    parseAs: "blob",
-  });
-  if (!response.ok || !data)
-    throw new ApiError("That download didn't work. Try again.", response.status);
+  const { data, error, response } = await ai.GET(
+    "/api/ai/v1/me/data/exports/{export_id}/download/",
+    {
+      params: { path: { export_id: exportId } },
+      parseAs: "blob",
+    },
+  );
+  if (!response.ok) throw apiErrorFrom(response.status, error);
+  if (!data) throw new ApiError("That download didn't work. Try again.", response.status);
   const url = URL.createObjectURL(data as Blob);
   const link = document.createElement("a");
   link.href = url;

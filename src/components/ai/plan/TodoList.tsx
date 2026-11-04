@@ -2,11 +2,10 @@
 
 import { ArrowRight, CircleCheck } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { ApiError } from "@/lib/api";
 import { type Todo, useSetTodo } from "@/lib/ai/plan";
+import { useAnnouncer } from "@/components/ui/Announcer";
 import { Checkbox } from "../choice";
-import { EmptyState, InlineAlert } from "../feedback";
+import { EmptyState } from "../feedback";
 import { useToast } from "../Toast";
 
 function TodoRow({
@@ -44,22 +43,20 @@ function TodoRow({
 export function TodoList({ todos }: { todos: Todo[] }) {
   const setTodo = useSetTodo();
   const toast = useToast();
-  const [error, setError] = useState<string | null>(null);
+  const { toast: errorToast } = useAnnouncer();
 
   const open = todos.filter((todo) => todo.status === "open");
   const done = todos.filter((todo) => todo.status === "done");
   const resolved = todos.filter((todo) => todo.status === "resolved");
 
   function fail(err: unknown) {
-    setError(
-      err instanceof ApiError && err.status === 409
-        ? "That changed on another device. We've loaded the latest list."
-        : "That didn't save. Check your connection and try again.",
+    errorToast(
+      err instanceof Error ? err.message : "That didn't save. Check your connection and try again.",
+      "error",
     );
   }
 
   function toggle(todo: Todo, isDone: boolean) {
-    setError(null);
     const saved = setTodo.mutateAsync({ todo, done: isDone });
     saved.catch(fail);
     if (isDone) {
@@ -88,7 +85,6 @@ export function TodoList({ todos }: { todos: Todo[] }) {
 
   return (
     <div>
-      {error && <InlineAlert tone="danger" title={error} className="mb-3" />}
       {open.length ? (
         <ul className="divide-y divide-line">
           {open.map((todo) => (

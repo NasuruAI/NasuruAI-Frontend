@@ -23,7 +23,7 @@ function RailLink({ item, pathname }: { item: NavItem; pathname: string }) {
       aria-current={active ? "page" : undefined}
       title={item.label}
       className={cx(
-        "relative flex h-11 items-center gap-3 rounded-r-md px-3 text-body font-semibold transition-[background-color,color,transform] duration-m-fast ease-m hover:translate-x-0.5",
+        "relative flex h-10 min-w-0 items-center gap-2 rounded-r-md px-2.5 text-sm font-semibold whitespace-nowrap transition-[background-color,color,transform] duration-m-fast ease-m hover:translate-x-0.5",
         "md:justify-center lg:justify-start",
         active
           ? "bg-brand-blue-soft text-brand-blue-deep"
@@ -37,7 +37,7 @@ function RailLink({ item, pathname }: { item: NavItem; pathname: string }) {
         />
       )}
       <Icon aria-hidden className={cx("size-5 shrink-0", active && "text-accent")} />
-      <span className="md:sr-only lg:not-sr-only">{item.label}</span>
+      <span className="min-w-0 truncate md:sr-only lg:not-sr-only">{item.label}</span>
     </Link>
   );
 }
@@ -50,10 +50,10 @@ export function PlanChip() {
   return (
     <Link
       href="/ai/billing"
-      className="flex h-11 items-center gap-2 rounded-r-md border border-line px-3 text-body-s hover:bg-sunken md:justify-center lg:justify-start"
+      className="flex h-10 min-w-0 items-center gap-2 rounded-r-md border border-line px-2.5 text-body-s whitespace-nowrap hover:bg-sunken md:justify-center lg:justify-start"
       title={`${data.plan.name} plan${quota ? `, ${quota} answer packs this month` : ""}`}
     >
-      <span className="font-semibold text-ink">{data.plan.name}</span>
+      <span className="min-w-0 truncate font-semibold text-ink">{data.plan.name}</span>
       {quota && (
         <span className="text-metric-s tabular-nums text-muted md:hidden lg:inline">
           · {quota}
@@ -73,10 +73,10 @@ function GetTheApp() {
           type="button"
           {...props}
           title="Get the app"
-          className="flex h-11 w-full items-center gap-3 rounded-r-md px-3 text-body-s font-semibold text-muted hover:bg-sunken hover:text-ink md:justify-center lg:justify-start"
+          className="flex h-10 w-full min-w-0 items-center gap-2 rounded-r-md px-2.5 text-body-s font-semibold whitespace-nowrap text-muted hover:bg-sunken hover:text-ink md:justify-center lg:justify-start"
         >
           <Smartphone aria-hidden className="size-5 shrink-0" />
-          <span className="md:sr-only lg:not-sr-only">Get the app</span>
+          <span className="min-w-0 truncate md:sr-only lg:not-sr-only">Get the app</span>
         </button>
       )}
     >
@@ -101,7 +101,7 @@ export function NavRail({ offset = 0 }: { offset?: number }) {
     <nav
       aria-label="Main"
       style={{ height: `calc(100dvh - 4rem - ${offset}px)` }}
-      className="sticky top-16 hidden w-[72px] shrink-0 flex-col gap-2 overflow-y-auto border-r border-line p-3 md:flex lg:w-60"
+      className="sticky top-16 hidden w-[72px] shrink-0 flex-col gap-1.5 overflow-y-auto border-r border-line p-3 md:flex lg:w-64"
     >
       {NAV_MODULES.map((module) => {
         const Icon = module.icon;
@@ -117,7 +117,7 @@ export function NavRail({ offset = 0 }: { offset?: number }) {
               title={module.label}
               onClick={() => setExpansion({ pathname, id: expanded ? null : module.id })}
               className={cx(
-                "relative flex h-11 w-full items-center gap-3 rounded-r-md px-3 text-body font-semibold transition-colors duration-m-fast ease-m",
+                "relative flex h-10 w-full min-w-0 items-center gap-2 rounded-r-md px-2.5 text-sm font-semibold whitespace-nowrap transition-colors duration-m-fast ease-m",
                 "md:justify-center lg:justify-start",
                 active
                   ? "bg-brand-blue-soft text-brand-blue-deep"
@@ -131,7 +131,9 @@ export function NavRail({ offset = 0 }: { offset?: number }) {
                 />
               )}
               <Icon aria-hidden className={cx("size-5 shrink-0", active && "text-accent")} />
-              <span className="md:sr-only lg:not-sr-only">{module.label}</span>
+              <span className="min-w-0 flex-1 truncate md:sr-only lg:not-sr-only">
+                {module.label}
+              </span>
               <ChevronDown
                 aria-hidden
                 className={cx(
@@ -140,7 +142,7 @@ export function NavRail({ offset = 0 }: { offset?: number }) {
                 )}
               />
             </button>
-            <ul id={listId} hidden={!expanded} className="mt-1 space-y-1 lg:pl-3">
+            <ul id={listId} hidden={!expanded} className="mt-1 space-y-0.5 lg:pl-3">
               {module.items.map((item) => (
                 <li key={item.href}>
                   <RailLink item={item} pathname={pathname} />
@@ -221,14 +223,14 @@ export function BottomTabs() {
                     aria-current={itemActive ? "page" : undefined}
                     onClick={() => setMenuState({ pathname, id: null })}
                     className={cx(
-                      "flex min-h-11 items-center gap-3 rounded-r-sm px-3 text-body-s font-semibold",
+                      "flex min-h-10 items-center gap-2 rounded-r-sm px-2.5 text-sm font-semibold whitespace-nowrap",
                       itemActive
                         ? "bg-brand-blue-soft text-brand-blue-deep"
                         : "text-muted hover:bg-sunken hover:text-ink",
                     )}
                   >
                     <Icon aria-hidden className="size-5 shrink-0" />
-                    {item.label}
+                    <span className="min-w-0 truncate">{item.label}</span>
                   </Link>
                 </li>
               );

@@ -168,7 +168,9 @@ describe("PhoneFlow", () => {
     await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: "Send code" }));
     });
-    expect(screen.getByRole("alert")).toHaveTextContent("Try again in 2:05");
+    expect(
+      await screen.findByText(/Try again in 2:05/, { selector: '[aria-hidden="true"]' }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Send code" })).toBeDisabled();
   });
 

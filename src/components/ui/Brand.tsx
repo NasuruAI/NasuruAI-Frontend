@@ -1,11 +1,13 @@
+import Image from "next/image";
 import { cx } from "./cx";
 
 type BrandMarkSize = "sm" | "md" | "lg";
+const BRAND_LOGO_URL = "https://res.cloudinary.com/odpip1h9/image/upload/f_auto,q_auto/edu_logo";
 
 const MARK_SIZES: Record<BrandMarkSize, string> = {
-  sm: "size-8 rounded-r-sm",
-  md: "size-9 rounded-r-md",
-  lg: "size-11 rounded-r-md",
+  sm: "size-10 rounded-r-sm",
+  md: "size-11 rounded-r-md",
+  lg: "size-14 rounded-r-md",
 };
 
 export function BrandMark({
@@ -19,21 +21,19 @@ export function BrandMark({
     <span
       aria-hidden="true"
       className={cx(
-        "relative inline-flex shrink-0 items-center justify-center bg-gradient-to-br from-brand-blue to-brand-blue-deep text-on-accent shadow-e1",
+        "relative inline-flex shrink-0 items-center justify-center overflow-hidden border border-brand-gold-line bg-white shadow-e1",
         MARK_SIZES[size],
         className,
       )}
     >
-      <svg viewBox="0 0 24 24" fill="none" className="size-[58%]">
-        <path
-          d="M5 18V6l7 8 7-8v12"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <span className="absolute top-[18%] right-[16%] size-[18%] rounded-full bg-brand-gold" />
+      <Image
+        src={BRAND_LOGO_URL}
+        alt=""
+        width={2048}
+        height={2048}
+        sizes="56px"
+        className="size-full object-cover"
+      />
     </span>
   );
 }
