@@ -1,7 +1,8 @@
 "use client";
 
-import { ClipboardCheck, Plus } from "lucide-react";
+import { ClipboardCheck, Lock, Plus } from "lucide-react";
 import Link from "next/link";
+import { ApiError } from "@/lib/api";
 import { useMyApplications } from "@/lib/ai/my-application";
 import { Button, ButtonLink } from "../Button";
 import { EmptyState, InlineAlert, ProgressBar, Skeleton } from "../feedback";
@@ -12,6 +13,8 @@ import { EmptyState, InlineAlert, ProgressBar, Skeleton } from "../feedback";
 export function MyApplicationsView() {
   const applications = useMyApplications();
   const results = applications.data?.results ?? [];
+  const needsAccessFee =
+    applications.error instanceof ApiError && applications.error.needsAccessFee;
 
   return (
     <>
@@ -38,6 +41,16 @@ export function MyApplicationsView() {
           <Skeleton className="h-32 w-full" />
           <Skeleton className="h-32 w-full" />
         </div>
+      ) : needsAccessFee ? (
+        <EmptyState icon={<Lock />} title="Activate your access">
+          Your platform access isn&apos;t active yet. Activate it to add schools and build your
+          checklists.
+          <div className="mt-4">
+            <ButtonLink href="/ai/billing" size="sm">
+              Activate access
+            </ButtonLink>
+          </div>
+        </EmptyState>
       ) : applications.isError ? (
         <InlineAlert
           tone="danger"

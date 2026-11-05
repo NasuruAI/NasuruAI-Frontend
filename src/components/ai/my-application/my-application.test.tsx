@@ -14,11 +14,67 @@ import { NewApplicationView } from "./NewApplicationView";
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
   usePathname: () => "/ai/my-application",
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 vi.mock("@/lib/ai/client", async (importOriginal) => {
   const original = await importOriginal<typeof import("@/lib/ai/client")>();
   return { ...original, ai: { GET: vi.fn(), POST: vi.fn(), PATCH: vi.fn(), DELETE: vi.fn() } };
+});
+
+// The /ai/my-application/new picker now reads the shared programme catalogue.
+vi.mock("@/lib/public-programmes", async (importOriginal) => {
+  const original = await importOriginal<typeof import("@/lib/public-programmes")>();
+  return {
+    ...original,
+    fetchPublicProgrammeFilterOptions: vi.fn(async () => ({
+      countries: [],
+      levels: [],
+      school_types: [],
+      currencies: [],
+    })),
+    fetchPublicProgrammes: vi.fn(async () => ({
+      count: 1,
+      next: null,
+      previous: null,
+      results: [
+        {
+          id: "p1",
+          name: "MSc Data Science",
+          level: "postgraduate",
+          duration_months: 24,
+          tuition_amount: "12000",
+          tuition_currency: "EUR",
+          language_of_instruction: "English",
+          intakes: ["2027-10-01"],
+          application_opens: null,
+          application_deadline: null,
+          school: {
+            id: "s1",
+            name: "Example University",
+            kind: "",
+            country_name: "Germany",
+            country_code: "DEU",
+            city: "Berlin",
+            province: "Berlin",
+            website: "",
+            description: "",
+            logo_url: "https://example.test/logo.png",
+          },
+          applyboard: {
+            program_level_label: "Master's Degree",
+            min_length: 24,
+            max_length: 24,
+            application_fee: 100,
+            program_intakes: [{ startDate: "2027-10-01" }],
+            tags: ["scholarships_available"],
+            success_score: { label: "High" },
+            application_enabled: true,
+          },
+        },
+      ],
+    })),
+  };
 });
 
 const api = ai as unknown as Record<"GET" | "POST" | "PATCH" | "DELETE", ReturnType<typeof vi.fn>>;
@@ -79,57 +135,27 @@ describe("MyApplicationsView", () => {
     render(wrap(<MyApplicationsView />));
     expect(await screen.findByText("No schools yet")).toBeInTheDocument();
   });
+
+  it("prompts to activate access when the student has not paid the access fee", async () => {
+    api.GET.mockImplementation(() =>
+      Promise.resolve({
+        error: { detail: "Your platform access is not active yet.", code: "access_fee_required" },
+        response: new Response(null, { status: 403 }),
+      }),
+    );
+    render(wrap(<MyApplicationsView />));
+    expect(await screen.findByText("Activate your access")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Activate access" })).toHaveAttribute(
+      "href",
+      "/ai/billing",
+    );
+  });
 });
 
 describe("NewApplicationView", () => {
-  it("shows imported programmes as cards and creates an application from a selected intake", async () => {
-    api.GET.mockImplementation((path: string) => {
-      if (path === "/api/schools/") {
-        return ok({
-          count: 1,
-          next: null,
-          previous: null,
-          results: [
-            {
-              id: "s1",
-              name: "Example University",
-              country_name: "Germany",
-              city: "Berlin",
-              attributes: {
-                applyboard: { logo_url: "https://example.test/logo.png", province: "Berlin" },
-              },
-              programmes: [
-                {
-                  id: "p1",
-                  name: "MSc Data Science",
-                  level: "postgraduate",
-                  duration_months: 24,
-                  tuition_amount: "12000",
-                  tuition_currency: "EUR",
-                  intakes: ["2027-10-01"],
-                  attributes: {
-                    applyboard: {
-                      program_level_label: "Master's Degree",
-                      min_length: 24,
-                      max_length: 24,
-                      application_fee: 100,
-                      program_intakes: [{ startDate: "2027-10-01" }],
-                      tags: ["scholarships_available"],
-                      success_score: { label: "High" },
-                      application_enabled: true,
-                    },
-                  },
-                },
-              ],
-            },
-          ],
-        });
-      }
-      return ok({});
-    });
+  it("shows catalogue programmes as cards and creates an application from a selected intake", async () => {
     api.POST.mockReturnValue(ok({ id: "a1" }));
     render(wrap(<NewApplicationView />));
-    await waitFor(() => expect(api.GET).toHaveBeenCalledWith("/api/schools/", expect.anything()));
     expect(await screen.findByRole("heading", { name: "MSc Data Science" })).toBeInTheDocument();
     expect(screen.getByText("Scholarships Available")).toBeInTheDocument();
     expect(screen.getByText("Berlin, DEU")).toBeInTheDocument();
