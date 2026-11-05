@@ -8,6 +8,7 @@ import { SkipLink } from "../SkipLink";
 
 const PUBLIC_PREFIXES = [
   "/ai/tools",
+  "/ai/programs",
   "/ai/how-it-works",
   "/ai/how-ranking-works",
   "/ai/pricing",
@@ -40,6 +41,12 @@ function PublicHeader() {
             className="text-sm font-semibold text-muted transition hover:text-ink"
           >
             Free tools
+          </Link>
+          <Link
+            href="/ai/programs"
+            className="text-sm font-semibold text-muted transition hover:text-ink"
+          >
+            Programs
           </Link>
           <Link
             href="/ai/how-it-works"
@@ -85,6 +92,9 @@ function PublicFooter() {
         <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2">
           <Link href="/ai/tools" className="transition hover:text-ink">
             Free tools
+          </Link>
+          <Link href="/ai/programs" className="transition hover:text-ink">
+            Programs
           </Link>
           <Link href="/ai/how-ranking-works" className="transition hover:text-ink">
             How ranking works

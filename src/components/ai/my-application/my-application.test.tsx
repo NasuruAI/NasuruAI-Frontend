@@ -82,7 +82,7 @@ describe("MyApplicationsView", () => {
 });
 
 describe("NewApplicationView", () => {
-  it("builds the intake options from the chosen school and programme", async () => {
+  it("shows imported programmes as cards and creates an application from a selected intake", async () => {
     api.GET.mockImplementation((path: string) => {
       if (path === "/api/schools/") {
         return ok({
@@ -94,21 +94,54 @@ describe("NewApplicationView", () => {
               id: "s1",
               name: "Example University",
               country_name: "Germany",
-              programmes: [{ id: "p1", name: "MSc Data Science", intakes: ["October 2027"] }],
+              city: "Berlin",
+              attributes: {
+                applyboard: { logo_url: "https://example.test/logo.png", province: "Berlin" },
+              },
+              programmes: [
+                {
+                  id: "p1",
+                  name: "MSc Data Science",
+                  level: "postgraduate",
+                  duration_months: 24,
+                  tuition_amount: "12000",
+                  tuition_currency: "EUR",
+                  intakes: ["2027-10-01"],
+                  attributes: {
+                    applyboard: {
+                      program_level_label: "Master's Degree",
+                      min_length: 24,
+                      max_length: 24,
+                      application_fee: 100,
+                      program_intakes: [{ startDate: "2027-10-01" }],
+                      tags: ["scholarships_available"],
+                      success_score: { label: "High" },
+                      application_enabled: true,
+                    },
+                  },
+                },
+              ],
             },
           ],
         });
       }
       return ok({});
     });
+    api.POST.mockReturnValue(ok({ id: "a1" }));
     render(wrap(<NewApplicationView />));
-    const school = await screen.findByRole("combobox", { name: "School" });
-    fireEvent.change(school, { target: { value: "s1" } });
-    const programme = await screen.findByRole("combobox", { name: "Course" });
-    fireEvent.change(programme, { target: { value: "p1" } });
-    const intake = await screen.findByRole("combobox", { name: "Intake" });
-    expect([...intake.querySelectorAll("option")].map((o) => o.textContent)).toContain(
-      "October 2027",
+    await waitFor(() => expect(api.GET).toHaveBeenCalledWith("/api/schools/", expect.anything()));
+    expect(await screen.findByRole("heading", { name: "MSc Data Science" })).toBeInTheDocument();
+    expect(screen.getByText("Scholarships Available")).toBeInTheDocument();
+    expect(screen.getByText("Berlin, DEU")).toBeInTheDocument();
+    expect(screen.getByText("Oct 2027")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Create application" }));
+    await waitFor(() =>
+      expect(api.POST).toHaveBeenCalledWith(
+        "/api/applications/",
+        expect.objectContaining({
+          body: { school: "s1", programme: "p1", intake: "2027-10-01" },
+        }),
+      ),
     );
   });
 });

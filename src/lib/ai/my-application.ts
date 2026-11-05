@@ -19,7 +19,34 @@ export type School = {
   id: string;
   name: string;
   country_name: string | null;
-  programmes: { id: string; name: string; intakes: string[] }[];
+  city: string;
+  attributes: {
+    applyboard?: {
+      logo_url?: string;
+      province?: string;
+    };
+  };
+  programmes: {
+    id: string;
+    name: string;
+    level: string;
+    duration_months: number | null;
+    tuition_amount: string | null;
+    tuition_currency: string;
+    intakes: string[];
+    attributes: {
+      applyboard?: {
+        program_level_label?: string;
+        min_length?: number | null;
+        max_length?: number | null;
+        application_fee?: number | null;
+        program_intakes?: { startDate?: string }[];
+        tags?: string[];
+        success_score?: { label?: string };
+        application_enabled?: boolean;
+      };
+    };
+  }[];
 };
 
 const applicationsKey = ["ai", "my-applications"] as const;
@@ -57,10 +84,15 @@ export function useMyChecklist(applicationId: string) {
   });
 }
 
-export function useSchools() {
+export function useSchools(search: string, page: number) {
   return useQuery({
-    queryKey: ["ai", "schools"] as const,
-    queryFn: async () => (await unwrap(ai.GET("/api/schools/"))) as unknown as Paginated<School>,
+    queryKey: ["ai", "schools", search, page] as const,
+    queryFn: async () =>
+      (await unwrap(
+        ai.GET("/api/schools/", {
+          params: { query: { search, page, page_size: 25 } as never },
+        }),
+      )) as unknown as Paginated<School>,
     staleTime: 10 * 60 * 1000,
   });
 }

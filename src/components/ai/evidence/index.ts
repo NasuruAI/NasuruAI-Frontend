@@ -52,6 +52,7 @@ export {
   PathwayCard,
   JobCard,
   ProgrammeCard,
+  ApplyBoardProgrammeCard,
   ScholarshipCard,
   FactCard,
   DocumentCard,

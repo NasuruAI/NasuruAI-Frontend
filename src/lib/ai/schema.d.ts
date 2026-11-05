@@ -11228,7 +11228,7 @@ export interface components {
          *     * `language` - Language course
          * @enum {string}
          */
-        ProgrammeLevelEnum: "foundation" | "undergraduate" | "postgraduate" | "doctorate" | "language";
+        ProgrammeLevelEnum: "foundation" | "undergraduate" | "postgraduate" | "doctorate" | "secondary" | "language";
         ProgrammeNotShown: {
             not_admissible: number;
         };

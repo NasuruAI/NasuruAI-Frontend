@@ -1,129 +1,190 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, GraduationCap, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ApiError } from "@/lib/api";
 import { useCreateMyApplication, useSchools } from "@/lib/ai/my-application";
+import { ApplyBoardProgrammeCard } from "../evidence";
 import { Button } from "../Button";
-import { InlineAlert, Skeleton } from "../feedback";
+import { EmptyState, Skeleton } from "../feedback";
 import { TextField } from "../fields";
-import { Select } from "../Select";
+import { useToast } from "../Toast";
 
-/** /ai/my-application/new: start a school's checklist, built from its actual requirements. */
+const COUNTRY_CODES: Record<string, string> = {
+  Australia: "AUS",
+  Canada: "CAN",
+  Germany: "DEU",
+  Ireland: "IRL",
+  Malaysia: "MYS",
+  Malta: "MLT",
+  Singapore: "SGP",
+  Spain: "ESP",
+  "United Arab Emirates": "ARE",
+  "United Kingdom": "GBR",
+  "United States": "USA",
+};
+
+/** /ai/my-application/new: browse schools and start an application from a programme card. */
 export function NewApplicationView() {
   const router = useRouter();
-  const schools = useSchools();
+  const [searchDraft, setSearchDraft] = useState("");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const schools = useSchools(search, page);
   const create = useCreateMyApplication();
-  const [schoolId, setSchoolId] = useState("");
-  const [programmeId, setProgrammeId] = useState("");
-  const [intake, setIntake] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
 
-  const options = schools.data?.results ?? [];
-  const school = options.find((item) => item.id === schoolId);
-  const programme = school?.programmes.find((item) => item.id === programmeId);
+  useEffect(() => {
+    if (schools.isError) toast({ message: "We couldn't load schools." });
+  }, [schools.isError, toast]);
 
-  function submit(event: React.FormEvent) {
+  function submitSearch(event: React.FormEvent) {
     event.preventDefault();
-    setError(null);
+    setPage(1);
+    setSearch(searchDraft.trim());
+  }
+
+  function createApplication(schoolId: string, programmeId: string, intake: string) {
     create.mutate(
       { school: schoolId, programme: programmeId || undefined, intake },
       {
         onSuccess: (application) => router.push(`/ai/my-application/${application.id}`),
         onError: (err) =>
-          setError(
-            err instanceof ApiError
-              ? (Object.values(err.fieldErrors)[0]?.[0] ?? err.message)
-              : "We couldn't start this application. Try again.",
-          ),
+          toast({
+            message:
+              err instanceof ApiError
+                ? (Object.values(err.fieldErrors)[0]?.[0] ?? err.message)
+                : "We couldn't start this application. Try again.",
+          }),
       },
     );
   }
 
+  const schoolsInPage = schools.data?.results ?? [];
+  const programmeCards = schoolsInPage.flatMap((school) =>
+    school.programmes.map((programme) => ({ school, programme })),
+  );
+  const totalPages = schools.data ? Math.max(1, Math.ceil(schools.data.count / 25)) : 1;
+
   return (
-    <div className="mx-auto max-w-md">
+    <div className="mx-auto max-w-6xl">
       <Link
         href="/ai/my-application"
         className="mb-4 inline-flex items-center gap-1 text-body-s font-semibold text-accent hover:underline"
       >
         <ArrowLeft aria-hidden className="size-4" /> My application
       </Link>
-      <h1 className="font-display text-h1 text-ink">Add a school</h1>
+      <h1 className="font-display text-h1 text-ink">Choose a programme</h1>
       <p className="mt-2 text-body text-muted">
-        We&apos;ll build your checklist from this school&apos;s actual requirements. Apply to as
-        many schools as you like, each gets its own checklist.
+        Compare school programmes, fees, locations, and available intakes. We&apos;ll build your
+        checklist when you create an application.
       </p>
 
+      <form onSubmit={submitSearch} role="search" className="mt-6 flex flex-wrap items-end gap-3">
+        <TextField
+          label="Search schools and programmes"
+          placeholder="Search by school, city, or programme"
+          value={searchDraft}
+          onChange={(event) => setSearchDraft(event.target.value)}
+          className="min-w-60 flex-1"
+        />
+        <Button type="submit" variant="secondary" icon={<Search aria-hidden className="size-4" />}>
+          Search
+        </Button>
+      </form>
+
       {schools.isPending ? (
-        <Skeleton className="mt-8 h-64 w-full" />
-      ) : (
-        <form onSubmit={submit} className="mt-8 space-y-5">
-          {error && <InlineAlert tone="danger" title={error} />}
-
-          <Select
-            label="School"
-            options={[
-              { value: "", label: "Select a school…" },
-              ...options.map((option) => ({
-                value: option.id,
-                label: option.country_name
-                  ? `${option.name} — ${option.country_name}`
-                  : option.name,
-              })),
-            ]}
-            value={schoolId}
-            onChange={(event) => {
-              setSchoolId(event.target.value);
-              setProgrammeId("");
-              setIntake("");
-            }}
-            required
-          />
-
-          {school && school.programmes.length > 0 && (
-            <Select
-              label="Course"
-              options={[
-                { value: "", label: "Not sure yet" },
-                ...school.programmes.map((option) => ({ value: option.id, label: option.name })),
-              ]}
-              value={programmeId}
-              onChange={(event) => {
-                setProgrammeId(event.target.value);
-                setIntake("");
-              }}
-            />
-          )}
-
-          {programme && programme.intakes.length > 0 ? (
-            <Select
-              label="Intake"
-              helper="Which start date you're aiming for."
-              options={[
-                { value: "", label: "Select an intake…" },
-                ...programme.intakes.map((option) => ({ value: option, label: option })),
-              ]}
-              value={intake}
-              onChange={(event) => setIntake(event.target.value)}
-              required
-            />
-          ) : (
-            <TextField
-              label="Intake"
-              helper="Which start date you're aiming for, e.g. October 2027."
-              placeholder="October 2027"
-              value={intake}
-              onChange={(event) => setIntake(event.target.value)}
-              required
-            />
-          )}
-
-          <Button type="submit" disabled={!schoolId} loading={create.isPending} className="w-full">
-            Start this application
+        <div
+          className="mt-6 grid gap-4 md:grid-cols-2"
+          aria-busy="true"
+          aria-label="Loading schools"
+        >
+          <Skeleton className="h-[30rem] w-full" />
+          <Skeleton className="h-[30rem] w-full" />
+        </div>
+      ) : schools.isError ? (
+        <div className="mt-6">
+          <Button size="sm" variant="secondary" onClick={() => void schools.refetch()}>
+            Try again
           </Button>
-        </form>
+        </div>
+      ) : programmeCards.length === 0 ? (
+        <div className="mt-6">
+          <EmptyState icon={<GraduationCap />} title="No programmes found">
+            Try another school or programme name.
+          </EmptyState>
+        </div>
+      ) : (
+        <>
+          <p role="status" className="mt-6 mb-3 text-body-s text-muted">
+            {schools.data?.count.toLocaleString("en-GB")} schools · {programmeCards.length}{" "}
+            programmes on this page
+          </p>
+          <ol className="grid items-stretch gap-4 md:grid-cols-2" aria-label="School programmes">
+            {programmeCards.map(({ school, programme }) => {
+              const details = programme.attributes.applyboard;
+              const country = school.country_name ?? "";
+              const countryCode = COUNTRY_CODES[country] ?? country;
+              const rawIntakes =
+                details?.program_intakes
+                  ?.map((intake) => intake.startDate)
+                  .filter((value): value is string => Boolean(value)) ?? programme.intakes;
+              const intakes = [...new Set(rawIntakes)];
+
+              return (
+                <li key={programme.id}>
+                  <ApplyBoardProgrammeCard
+                    schoolName={school.name}
+                    schoolLogo={school.attributes.applyboard?.logo_url}
+                    country={countryCode}
+                    province={school.attributes.applyboard?.province}
+                    city={school.city}
+                    name={programme.name}
+                    level={details?.program_level_label ?? programme.level}
+                    tuition={
+                      programme.tuition_amount === null ? null : Number(programme.tuition_amount)
+                    }
+                    currency={programme.tuition_currency}
+                    applicationFee={details?.application_fee}
+                    minLength={details?.min_length ?? programme.duration_months}
+                    maxLength={details?.max_length ?? programme.duration_months}
+                    successChance={details?.success_score?.label}
+                    tags={details?.tags}
+                    intakes={intakes}
+                    instantSubmission={details?.application_enabled}
+                    creating={create.isPending}
+                    onCreate={(intake) => createApplication(school.id, programme.id, intake)}
+                  />
+                </li>
+              );
+            })}
+          </ol>
+          {totalPages > 1 && (
+            <nav aria-label="School pages" className="mt-6 flex items-center justify-between gap-3">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={page <= 1}
+                onClick={() => setPage((current) => current - 1)}
+              >
+                Previous
+              </Button>
+              <span className="text-body-s text-muted tabular-nums">
+                Page {page} of {totalPages}
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={page >= totalPages}
+                onClick={() => setPage((current) => current + 1)}
+              >
+                Next
+              </Button>
+            </nav>
+          )}
+        </>
       )}
     </div>
   );

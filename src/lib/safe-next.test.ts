@@ -24,11 +24,13 @@ describe("redirectToAi", () => {
   it("redirects non-AI pages to the same route under /ai", () => {
     expect(redirectToAi("/")).toBe("/ai");
     expect(redirectToAi("/login")).toBe("/ai/login");
+    expect(redirectToAi("/programs")).toBe("/ai/programs");
     expect(redirectToAi("/dashboard")).toBe("/ai/dashboard");
   });
 
   it("keeps /ai routes, API calls and internal assets alone", () => {
     expect(redirectToAi("/ai/plan")).toBeNull();
+    expect(redirectToAi("/ai/programs")).toBeNull();
     expect(redirectToAi("/api/auth/login/")).toBeNull();
     expect(redirectToAi("/_next/static/chunks/app.js")).toBeNull();
     expect(redirectToAi("/favicon.ico")).toBeNull();

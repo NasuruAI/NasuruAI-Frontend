@@ -8,16 +8,20 @@ import {
   Bookmark,
   BookmarkCheck,
   Building2,
+  CalendarDays,
   CalendarClock,
   Check,
+  FileCheck2,
   FileText,
   Flag as FlagIcon,
+  Heart,
   Home,
   MapPin,
   Pencil,
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Button, ButtonLink } from "../Button";
 import { Pill } from "../Chip";
 import { cx } from "../cx";
@@ -353,6 +357,219 @@ export function ProgrammeCard({
         </ButtonLink>
       </div>
     </Card>
+  );
+}
+
+const APPLYBOARD_TAGS: Record<string, string> = {
+  high_job_availability: "High Job Demand",
+  scholarships_available: "Scholarships Available",
+  popular_programs: "Popular",
+  fast_loa: "Fast Acceptance",
+};
+
+function formatIntake(value: string) {
+  const parsed = new Date(`${value.slice(0, 10)}T00:00:00`);
+  if (!Number.isNaN(parsed.getTime()) && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+    return new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(parsed);
+  }
+  return value;
+}
+
+function formatProgrammeMoney(amount: number | null | undefined, currency: string) {
+  if (amount === null || amount === undefined || !currency) return "Not listed";
+  try {
+    return new Intl.NumberFormat("en", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `${amount.toLocaleString("en")} ${currency}`;
+  }
+}
+
+export function ApplyBoardProgrammeCard({
+  schoolName,
+  schoolLogo,
+  country,
+  province,
+  city,
+  name,
+  level,
+  tuition,
+  currency,
+  applicationFee,
+  minLength,
+  maxLength,
+  successChance,
+  tags,
+  intakes,
+  instantSubmission,
+  onCreate,
+  creating = false,
+}: {
+  schoolName: string;
+  schoolLogo?: string;
+  country: string;
+  province?: string;
+  city?: string;
+  name: string;
+  level: string;
+  tuition?: number | null;
+  currency?: string;
+  applicationFee?: number | null;
+  minLength?: number | null;
+  maxLength?: number | null;
+  successChance?: string;
+  tags?: string[];
+  intakes?: string[];
+  instantSubmission?: boolean;
+  onCreate: (intake: string) => void;
+  creating?: boolean;
+}) {
+  const [selectedIntake, setSelectedIntake] = useState(intakes?.[0] ?? "");
+  const [saved, setSaved] = useState(false);
+  const visibleTags = [...new Set((tags ?? []).map((tag) => APPLYBOARD_TAGS[tag]).filter(Boolean))];
+  const duration =
+    minLength && maxLength
+      ? minLength === maxLength
+        ? `${minLength} months`
+        : `${minLength}–${maxLength} months`
+      : minLength
+        ? `${minLength}+ months`
+        : "Not listed";
+  const location = [province, country].filter(Boolean).join(", ");
+
+  return (
+    <article className="relative flex h-full flex-col rounded-r-lg border border-line bg-surface p-4 shadow-e1 transition-[border-color,box-shadow] hover:border-brand-blue-soft hover:shadow-e2 sm:p-5">
+      {instantSubmission && (
+        <span className="absolute -top-2.5 right-4 rounded-full bg-success px-3 py-1 text-caption font-semibold text-on-success">
+          Instant Submission
+        </span>
+      )}
+      <header className="flex min-w-0 items-center gap-3">
+        <span className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-surface text-body-s font-semibold text-muted">
+          {schoolLogo ? (
+            // ApplyBoard returns external school logos, so next/image cannot optimize them.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={schoolLogo} alt="" loading="lazy" className="size-full object-contain p-1" />
+          ) : (
+            schoolName.charAt(0).toUpperCase()
+          )}
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-body-s font-semibold text-ink">{schoolName}</p>
+          <p className="truncate text-caption text-muted">
+            {city && <>{city} · </>}
+            {location}
+          </p>
+        </div>
+        <button
+          type="button"
+          aria-label={saved ? `Remove ${name} from saved programmes` : `Save ${name}`}
+          aria-pressed={saved}
+          onClick={() => setSaved((current) => !current)}
+          className="flex size-11 shrink-0 items-center justify-center rounded-r-md border border-line text-muted transition-colors hover:bg-sunken hover:text-accent"
+        >
+          <Heart aria-hidden className={cx("size-5", saved && "fill-current text-accent")} />
+        </button>
+      </header>
+
+      <div className="mt-4">
+        <p className="text-body-s text-muted">{level}</p>
+        <h2 className="mt-0.5 font-display text-h3 text-ink underline decoration-transparent underline-offset-2 hover:decoration-current">
+          {name}
+        </h2>
+      </div>
+
+      {(visibleTags.length > 0 || instantSubmission) && (
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {visibleTags.map((tag) => (
+            <Pill key={tag} tone={tag === "Popular" ? "accent" : "success"}>
+              {tag}
+            </Pill>
+          ))}
+          {instantSubmission && (
+            <Pill tone="info" icon={<FileCheck2 aria-hidden className="size-3.5" />}>
+              Fast application
+            </Pill>
+          )}
+        </div>
+      )}
+
+      <dl className="mt-4 space-y-2 border-y border-line py-3">
+        {[
+          ["Location", location || "Not listed"],
+          ["Campus city", city || "Not listed"],
+          ["Tuition", formatProgrammeMoney(tuition, currency ?? "")],
+          ["Application fee", formatProgrammeMoney(applicationFee, currency ?? "")],
+          ["Duration", duration],
+        ].map(([label, value]) => (
+          <div key={label} className="flex items-start justify-between gap-4 text-body-s">
+            <dt className="text-muted">{label}</dt>
+            <dd className="text-right font-medium text-ink">{value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      {successChance && (
+        <div className="flex items-center justify-between gap-3 border-b border-line py-3 text-body-s">
+          <span className="text-ink">Success chance</span>
+          <span className="flex items-center gap-1.5 text-ink">
+            <span aria-hidden className="size-2 rounded-full bg-success" />
+            {successChance}
+          </span>
+        </div>
+      )}
+
+      {intakes && intakes.length > 0 ? (
+        <fieldset className="mt-3">
+          <legend className="mb-2 flex items-center gap-1.5 text-body-s font-medium text-ink">
+            <CalendarDays aria-hidden className="size-4 text-muted" />
+            Available intakes
+          </legend>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {intakes.map((intake) => (
+              <button
+                key={intake}
+                type="button"
+                aria-pressed={selectedIntake === intake}
+                onClick={() => setSelectedIntake(intake)}
+                className={cx(
+                  "rounded-r-sm border px-2 py-1.5 text-body-s transition-colors",
+                  selectedIntake === intake
+                    ? "border-accent bg-accent-soft font-semibold text-accent"
+                    : "border-line text-ink hover:bg-sunken",
+                )}
+              >
+                {formatIntake(intake)}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      ) : (
+        <label className="mt-3 block text-body-s font-medium text-ink">
+          Intake
+          <input
+            value={selectedIntake}
+            onChange={(event) => setSelectedIntake(event.target.value)}
+            placeholder="e.g. January 2027"
+            className="mt-1 h-10 w-full rounded-r-sm border border-field-line bg-surface px-3 text-body text-ink"
+          />
+        </label>
+      )}
+
+      <Button
+        className="mt-4 w-full"
+        variant="secondary"
+        icon={<FileCheck2 aria-hidden className="size-4" />}
+        disabled={!selectedIntake.trim()}
+        loading={creating}
+        onClick={() => onCreate(selectedIntake)}
+      >
+        Create application
+      </Button>
+    </article>
   );
 }
 

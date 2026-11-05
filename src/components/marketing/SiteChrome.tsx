@@ -16,6 +16,7 @@ import { buttonClasses } from "@/components/ui/buttonStyles";
 
 const SECTIONS = [
   { href: "/#what-we-do", label: "What we do" },
+  { href: "/ai/programs", label: "Programs" },
   { href: "/#costs", label: "Real costs" },
   { href: "/#fees", label: "Our fee" },
   { href: "/blog", label: "Guides" },
@@ -36,8 +37,10 @@ export function SiteHeader({ current }: { current?: string }) {
               aria-current={current === section.href ? "page" : undefined}
               className={
                 current === section.href
-                  ? "font-semibold text-accent underline decoration-brand-gold underline-offset-8"
-                  : "text-muted transition hover:text-ink"
+                  ? "rounded-full bg-accent px-3 py-2 font-semibold text-on-accent"
+                  : section.href === "/ai/programs"
+                    ? "rounded-full bg-accent-soft px-3 py-2 font-semibold text-accent transition hover:text-ink"
+                    : "text-muted transition hover:text-ink"
               }
             >
               {section.label}
