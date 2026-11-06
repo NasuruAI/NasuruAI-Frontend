@@ -7,7 +7,8 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CostKind, CostLine } from "@/components/ai/evidence/Money";
-import { ai, unwrap } from "./client";
+import { ai, ApiError, unwrap } from "./client";
+import { enqueueTodoSet } from "./offline";
 import type { CostItem, Pathway } from "./onboarding";
 import type { components } from "./schema";
 
@@ -87,7 +88,13 @@ export function useSetTodo() {
       );
       return { before };
     },
-    onError: (_error, _vars, context) => {
+    onError: (error, { todo, done }, context) => {
+      // A dead connection is not a refusal: keep the tick and send it when the
+      // person is back online (web.md §14).
+      if (error instanceof ApiError && error.status === 0) {
+        enqueueTodoSet(todo, done);
+        return;
+      }
       if (context?.before) client.setQueryData(planKeys.plan, context.before);
     },
     onSuccess: (saved) => {
@@ -101,7 +108,11 @@ export function useSetTodo() {
       );
     },
     onSettled: (_data, error) => {
-      if (error) void client.invalidateQueries({ queryKey: planKeys.plan });
+      // Queued actions keep the optimistic state; refetching now would show
+      // the server's older truth and undo what the person just did.
+      if (error && !(error instanceof ApiError && error.status === 0)) {
+        void client.invalidateQueries({ queryKey: planKeys.plan });
+      }
     },
   });
 }

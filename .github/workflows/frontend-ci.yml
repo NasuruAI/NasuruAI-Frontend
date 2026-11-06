@@ -73,6 +73,8 @@ jobs:
       - run: npm ci
       - name: next build
         run: npx next build
+      - name: Plan route transfer budget
+        run: npm run check:bundle
 
   ci-passed:
     name: ci-passed

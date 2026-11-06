@@ -52,6 +52,7 @@ function CatalogueSkeleton() {
   return (
     <div
       className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+      role="status"
       aria-label="Loading programmes"
       aria-busy="true"
     >

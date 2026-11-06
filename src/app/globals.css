@@ -35,6 +35,7 @@
   --color-brand-gold-deep: var(--brand-gold-deep);
   --color-brand-gold-soft: var(--brand-gold-soft);
   --color-brand-gold-line: var(--brand-gold-line);
+  --color-brand-gold-on-ink: var(--brand-gold-on-ink);
 
   --color-ink: var(--ink);
   --color-muted: var(--muted);
@@ -94,6 +95,10 @@
   --brand-gold-deep: #70500a;
   --brand-gold-soft: #fff5d6;
   --brand-gold-line: #e8cf89;
+  /* Gold that reads on the `ink` surface. In the light theme `ink` is the
+     dark blue, so the gold must be bright; in the dark theme `ink` flips to a
+     light surface, so it must be deep. */
+  --brand-gold-on-ink: #e9bd57;
 
   --ink: #102b48;
   --muted: #40546c;
@@ -151,6 +156,7 @@
     --brand-gold-deep: #ffdc83;
     --brand-gold-soft: #3a321b;
     --brand-gold-line: #78602c;
+    --brand-gold-on-ink: #70500a;
 
     --ink: #edf3fa;
     --muted: #b8c6d5;
@@ -205,6 +211,7 @@
   --brand-gold-deep: #ffdc83;
   --brand-gold-soft: #3a321b;
   --brand-gold-line: #78602c;
+  --brand-gold-on-ink: #70500a;
 
   --ink: #edf3fa;
   --muted: #b8c6d5;

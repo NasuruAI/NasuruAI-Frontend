@@ -66,6 +66,53 @@ test.describe("document structure", () => {
   }
 });
 
+test.describe("AI public routes", () => {
+  /**
+   * The `/ai` product is light-only by design (`data-theme="light"`), so one
+   * scheme is enough. These routes are scanned against the same WCAG tags as
+   * the agency pages; the signed-in AI routes need the fixture API and are
+   * covered separately in authenticated.spec.ts.
+   */
+  test.use({ colorScheme: "light", reducedMotion: "reduce" });
+
+  const AI_PUBLIC_ROUTES = [
+    { path: "/ai", name: "AI landing" },
+    { path: "/ai/pricing", name: "AI pricing" },
+    { path: "/ai/how-it-works", name: "AI how it works" },
+    { path: "/ai/how-ranking-works", name: "AI ranking method" },
+    { path: "/ai/trust", name: "AI trust" },
+    { path: "/ai/scams", name: "AI scams" },
+    { path: "/ai/changes", name: "AI changelog" },
+    { path: "/ai/tools", name: "AI tools" },
+    { path: "/ai/tools/eligibility", name: "AI eligibility tool" },
+    { path: "/ai/tools/crs", name: "AI CRS tool" },
+    { path: "/ai/tools/opportunity-card", name: "AI Opportunity Card tool" },
+    { path: "/ai/tools/uk-points", name: "AI UK points tool" },
+    { path: "/ai/tools/grade-converter", name: "AI grade converter" },
+    { path: "/ai/programs", name: "AI programme catalogue" },
+    { path: "/ai/login", name: "AI sign in" },
+    { path: "/ai/signup", name: "AI sign up" },
+    { path: "/ai/forgot-password", name: "AI forgot password" },
+    { path: "/ai/reset-password?token=example", name: "AI reset password" },
+    { path: "/ai/verify-email?token=example", name: "AI verify email" },
+    { path: "/ai/no-such-page", name: "AI 404" },
+  ];
+
+  for (const route of AI_PUBLIC_ROUTES) {
+    test(`${route.name} has no axe violations`, async ({ page }) => {
+      await page.goto(route.path);
+      await expect(page.locator("h1")).toHaveCount(1);
+      const results = await scan(page).analyze();
+      expect(
+        results.violations,
+        results.violations
+          .map((v) => `${v.id} (${v.impact}): ${v.help}\n    ${v.nodes[0]?.html ?? ""}`)
+          .join("\n"),
+      ).toEqual([]);
+    });
+  }
+});
+
 test.describe("keyboard only", () => {
   /**
    * The skip link lives in the signed-in shell, where there is a repeated nav

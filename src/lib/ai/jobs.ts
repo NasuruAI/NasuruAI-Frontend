@@ -7,7 +7,8 @@
 
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Check, HardFilter, RankFactor } from "@/components/ai/evidence/Trust";
-import { ai, unwrap } from "./client";
+import { ai, ApiError, unwrap } from "./client";
+import { enqueueJobSave } from "./offline";
 import type { components } from "./schema";
 
 type Schemas = components["schemas"];
@@ -328,8 +329,19 @@ export function useSaveJob() {
       return saved;
     },
     onMutate: ({ id, saved }) => setSaved(id, saved),
-    onError: (_error, { id, saved }) => setSaved(id, !saved),
-    onSettled: () => void client.invalidateQueries({ queryKey: jobKeys.saved }),
+    onError: (error, { id, saved }) => {
+      // Keep the optimistic state and replay the write on reconnect.
+      if (error instanceof ApiError && error.status === 0) {
+        enqueueJobSave(id, "this job", saved);
+        return;
+      }
+      setSaved(id, !saved);
+    },
+    onSettled: (_data, error) => {
+      if (error && !(error instanceof ApiError && error.status === 0)) {
+        void client.invalidateQueries({ queryKey: jobKeys.saved });
+      }
+    },
   });
 }
 

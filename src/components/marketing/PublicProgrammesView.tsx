@@ -234,10 +234,19 @@ export function PublicProgrammesView() {
   return (
     <div className="bg-canvas">
       <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-10">
-        <ProgrammeCatalogue
-          basePath="/ai/programs"
-          renderCard={(programme) => <ProgrammeCard programme={programme} />}
-        />
+        <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          Schools and programmes abroad
+        </h1>
+        <p className="mt-2 max-w-3xl text-body leading-relaxed text-muted">
+          Compare tuition, intakes, deadlines and entry requirements across destinations, then
+          shortlist the ones that fit your plan.
+        </p>
+        <div className="mt-6">
+          <ProgrammeCatalogue
+            basePath="/ai/programs"
+            renderCard={(programme) => <ProgrammeCard programme={programme} />}
+          />
+        </div>
 
         <aside className="mt-10 rounded-xl border border-line bg-sunken p-4 text-sm leading-relaxed text-muted">
           <p className="font-semibold text-ink">Before you apply</p>

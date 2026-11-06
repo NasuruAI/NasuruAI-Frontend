@@ -132,6 +132,8 @@ const PAIRS = [
   ["ink", "accent-soft", 4.5, "Text on a selected row or nav item", "text"],
   ["accent", "accent-soft", 4.5, "Selected chip label", "text"],
   ["ink-inverse", "ink", 4.5, "Toast text on an ink surface", "text"],
+  ["brand-gold-on-ink", "ink", 4.5, "Gold overline on an ink surface", "text"],
+  ["brand-gold-on-ink", "brand-blue-deep", 4.5, "Gold overline on the deep blue panel", "text"],
 
   ["danger-line", "danger-bg", 1.2, "Error panel border", "decor"],
   ["warning-line", "warning-bg", 1.2, "Warning panel border", "decor"],

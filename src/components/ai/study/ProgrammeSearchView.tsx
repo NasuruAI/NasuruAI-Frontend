@@ -233,7 +233,7 @@ export function ProgrammeSearchView() {
       </p>
 
       {programmes.isPending ? (
-        <div className="space-y-3" aria-busy="true" aria-label="Loading programmes">
+        <div className="space-y-3" role="status" aria-busy="true" aria-label="Loading programmes">
           <Skeleton className="h-44 w-full" />
           <Skeleton className="h-44 w-full" />
         </div>

@@ -452,7 +452,7 @@ export default function AiLandingPage() {
           />
           <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-4 py-14 sm:px-6 sm:py-16 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-overline font-bold tracking-[0.12em] text-brand-gold uppercase">
+              <p className="text-overline font-bold tracking-[0.12em] text-brand-gold-on-ink uppercase">
                 Your next step is free
               </p>
               <h2 className="mt-3 max-w-2xl font-display text-3xl leading-tight font-bold text-balance sm:text-4xl">

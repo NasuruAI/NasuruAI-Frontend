@@ -10,9 +10,10 @@
  * "Backend gaps").
  */
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { authFetch } from "@/lib/auth/client";
 import { useSession } from "@/lib/auth/SessionProvider";
+import { flushOfflineQueue, useOfflineQueue } from "@/lib/ai/offline";
 import { type RuleChange, useOnline, useRuleChanges } from "@/lib/ai/shell";
 import { Button, ButtonLink } from "../Button";
 import { Banner } from "../feedback";
@@ -70,6 +71,8 @@ export function GlobalBanners() {
   const offlineSince = useOfflineSince(online);
   const { session } = useSession();
   const { data: changes } = useRuleChanges();
+  const queue = useOfflineQueue();
+  const [sending, setSending] = useState(false);
   const storedSeen = useSyncExternalStore(
     noop,
     () => read(SEEN_KEY),
@@ -79,12 +82,43 @@ export function GlobalBanners() {
   const [resent, setResent] = useState(false);
   const change = unseenChange(changes, seen ?? storedSeen);
 
+  // Replay queued writes as soon as the connection returns. A failure that is
+  // not a refusal leaves the rest queued for the next attempt.
+  useEffect(() => {
+    if (online && queue.length > 0) void flushOfflineQueue();
+  }, [online, queue.length]);
+
   const banners: React.ReactNode[] = [];
 
   if (!online) {
     banners.push(
       <Banner key="offline" tone="warning">
         You&apos;re offline. Showing what you saw at {offlineSince}.
+      </Banner>,
+    );
+  }
+
+  if (queue.length > 0) {
+    banners.push(
+      <Banner
+        key="queue"
+        tone="warning"
+        action={
+          <Button
+            size="sm"
+            variant="secondary"
+            disabled={!online || sending}
+            onClick={() => {
+              setSending(true);
+              void flushOfflineQueue().finally(() => setSending(false));
+            }}
+          >
+            {!online ? "Waiting" : sending ? "Sending…" : "Send now"}
+          </Button>
+        }
+      >
+        {queue.length} {queue.length === 1 ? "action" : "actions"} will send when you&apos;re
+        online.
       </Banner>,
     );
   }

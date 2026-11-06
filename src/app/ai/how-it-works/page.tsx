@@ -79,7 +79,7 @@ export default function HowItWorksPage() {
 
         <section className="mt-10 grid gap-8 rounded-r-lg bg-brand-blue-deep p-6 text-ink-inverse shadow-e2 sm:p-9 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
-            <p className="text-overline font-bold tracking-[0.12em] text-brand-gold uppercase">
+            <p className="text-overline font-bold tracking-[0.12em] text-brand-gold-on-ink uppercase">
               Your future stays yours
             </p>
             <h2 className="mt-3 font-display text-2xl font-bold text-balance sm:text-3xl">
@@ -87,7 +87,7 @@ export default function HowItWorksPage() {
             </h2>
             <Link
               href="/ai/how-ranking-works"
-              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink-inverse underline decoration-brand-gold underline-offset-4 transition hover:text-brand-gold"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink-inverse underline decoration-brand-gold underline-offset-4 transition hover:text-brand-gold-on-ink"
             >
               See how we check and rank jobs
               <ArrowRight aria-hidden className="size-4" />

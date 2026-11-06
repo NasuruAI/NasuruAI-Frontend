@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "check:contrast": "node scripts/check-contrast.mjs",
+    "check:bundle": "node scripts/check-bundle-budget.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"scripts/*.mjs\"",
     "verify": "npm run check:contrast && npm run check:launch && npm run lint && npm run typecheck && npm run test",
     "check:launch": "node scripts/check-launch-ready.mjs",
