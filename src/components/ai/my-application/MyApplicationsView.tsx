@@ -46,7 +46,7 @@ export function MyApplicationsView() {
           Your platform access isn&apos;t active yet. Activate it to add schools and build your
           checklists.
           <div className="mt-4">
-            <ButtonLink href="/ai/billing" size="sm">
+            <ButtonLink href="/ai/checkout" size="sm">
               Activate access
             </ButtonLink>
           </div>

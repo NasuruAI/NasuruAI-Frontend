@@ -67,7 +67,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     (error: unknown): boolean => {
       if (!(error instanceof ApiError)) return false;
       if (error.needsAccessFee) {
-        router.replace("/checkout");
+        router.replace("/ai/checkout");
         return true;
       }
       if (error.status === 401) {

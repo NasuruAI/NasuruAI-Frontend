@@ -147,7 +147,7 @@ describe("MyApplicationsView", () => {
     expect(await screen.findByText("Activate your access")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Activate access" })).toHaveAttribute(
       "href",
-      "/ai/billing",
+      "/ai/checkout",
     );
   });
 });
