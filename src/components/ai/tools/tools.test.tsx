@@ -6,6 +6,7 @@ import { makeQueryClient } from "@/lib/ai/QueryProvider";
 import { POINTS_TOOLS } from "@/lib/ai/tools";
 import { EligibilityToolView } from "./EligibilityToolView";
 import { GradeToolView } from "./GradeToolView";
+import { OfferCheckerView } from "./OfferCheckerView";
 import { PointsToolView } from "./PointsToolView";
 
 vi.mock("next/navigation", () => ({
@@ -79,6 +80,51 @@ describe("GradeToolView", () => {
     fireEvent.click(screen.getByRole("button", { name: "Convert my grade" }));
     expect(await screen.findByText("Upper second (2:1)")).toBeInTheDocument();
     expect(screen.getByText(/Indicative only/)).toBeInTheDocument();
+  });
+});
+
+describe("OfferCheckerView", () => {
+  it("checks a pasted offer anonymously and shows the scam verdict", async () => {
+    api.POST.mockImplementation(() => ok({ id: "chk-1", status: "checking" }, 202));
+    api.GET.mockImplementation(() =>
+      ok({
+        id: "chk-1",
+        status: "done",
+        verdict: "scam",
+        verdict_label: "Likely scam",
+        checks: [
+          {
+            check: "fee_requested",
+            label: "Fee requested",
+            outcome: "fail",
+            evidence: "Asks for a ₦250,000 processing fee.",
+          },
+        ],
+        extracted: { company_name: "Fake Global Ltd" },
+        next_steps: [],
+        error: "",
+        task_id: null,
+        created_at: "2026-11-20T00:00:00Z",
+        completed_at: "2026-11-20T00:00:00Z",
+      }),
+    );
+    render(wrap(<OfferCheckerView />));
+    fireEvent.change(screen.getByLabelText("The offer"), {
+      target: { value: "Pay ₦250,000 to secure your Certificate of Sponsorship." },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Check this offer" }));
+    expect(await screen.findByText("Likely scam")).toBeInTheDocument();
+    expect(screen.getByText("Fee requested")).toBeInTheDocument();
+    expect(screen.getByText(/About: Fake Global Ltd/)).toBeInTheDocument();
+  });
+
+  it("doesn't spend a check on a blank paste", () => {
+    render(wrap(<OfferCheckerView />));
+    fireEvent.change(screen.getByLabelText("The offer"), { target: { value: "   " } });
+    fireEvent.click(screen.getByRole("button", { name: "Check this offer" }));
+    // The blank guard holds client-side: nothing is sent (a danger InlineAlert
+    // with no action announces via the toast region, which isn't mounted here).
+    expect(api.POST).not.toHaveBeenCalled();
   });
 });
 

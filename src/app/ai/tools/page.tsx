@@ -3,6 +3,7 @@ import {
   BriefcaseBusiness,
   Globe,
   GraduationCap,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -52,6 +53,14 @@ const TOOLS = [
     icon: GraduationCap,
     blurb:
       "Convert your Nigerian degree result to the UK and German scales, with the method shown.",
+  },
+  {
+    href: "/ai/tools/offer-checker",
+    title: "Is this job offer a scam?",
+    eyebrow: "Scam check",
+    icon: ShieldAlert,
+    blurb:
+      "Paste an offer from WhatsApp or email and check it free against the company's records and the usual scam signs.",
   },
 ];
 

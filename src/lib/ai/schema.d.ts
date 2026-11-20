@@ -4835,6 +4835,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/ai/v1/tasks/{task_id}/events/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Server-sent events for one task the owner started (web.md §15).
+         *
+         *     Same task, same ownership rules, same public shape as ``TaskStatusView``:
+         *     the frame carries the public state, progress, result and timestamps. The
+         *     stream holds the connection for the task's lifetime and closes itself on the
+         *     terminal state; an abandoned stream is bounded by ``SSE_MAX_STREAM_SECONDS``.
+         */
+        get: operations["ai_v1_tasks_events_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/ai/v1/tools/eligibility/": {
         parameters: {
             query?: never;
@@ -4870,6 +4894,50 @@ export interface paths {
          *     account. Reuses the same conversion as the signed-in view.
          */
         post: operations["ai_v1_tools_grade_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/tools/offer-check/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description The free, no-account offer checker (web.md §3, §7.3): paste an offer and
+         *     get the same scam verdict a candidate gets. Anonymous and text-only, held
+         *     down by the ``public_offer_check`` scope (on top of the global anonymous
+         *     floor) so the paid model step can't be run up by a stranger. The unguessable
+         *     check id is the only handle on the result, read back through
+         *     ``PublicOfferCheckDetailView``.
+         */
+        post: operations["ai_v1_tools_offer_check_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/ai/v1/tools/offer-check/{check_id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Poll an anonymous check by its id. Scoped to anonymous checks only, so a
+         *     guessed id can never surface a signed-in candidate's check.
+         */
+        get: operations["ai_v1_tools_offer_check_retrieve"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -5569,6 +5637,39 @@ export interface paths {
             cookie?: never;
         };
         get: operations["blog_tags_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/catalogue/programme-filters/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["catalogue_programme_filters_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/catalogue/programmes/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Public school and programme discovery, kept separate from student APIs. */
+        get: operations["catalogue_programmes_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -6564,7 +6665,10 @@ export interface components {
             /** Format: uuid */
             programme?: string | null;
             readonly programme_name: string;
-            /** @description e.g. "October 2027" */
+            /**
+             * @description e.g. "October 2027"
+             * @default
+             */
             intake: string;
             readonly status: components["schemas"]["ApplicationStatusEnum"];
             readonly status_display: string;
@@ -6593,7 +6697,10 @@ export interface components {
             school: string;
             /** Format: uuid */
             programme?: string | null;
-            /** @description e.g. "October 2027" */
+            /**
+             * @description e.g. "October 2027"
+             * @default
+             */
             intake: string;
             /** Format: date */
             target_submission_date?: string | null;
@@ -7866,6 +7973,7 @@ export interface components {
             readonly id: string;
             readonly name: string;
             readonly normalized_name: string;
+            /** @default  */
             readonly country: string;
             /** @description The employer's own website domain. */
             domain?: string;
@@ -8068,6 +8176,7 @@ export interface components {
             readonly version: number;
             title: string;
             description?: string;
+            /** @default draft */
             readonly status: components["schemas"]["PublishStatusEnum"];
             audience?: components["schemas"]["FormAudienceEnum"];
             purpose?: components["schemas"]["FormPurposeEnum"];
@@ -9517,6 +9626,21 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Programme"][];
         };
+        PaginatedPublicProgrammeList: {
+            /** @example 123 */
+            count: number;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?page=4
+             */
+            next?: string | null;
+            /**
+             * Format: uri
+             * @example http://api.example.org/accounts/?page=2
+             */
+            previous?: string | null;
+            results: components["schemas"]["PublicProgramme"][];
+        };
         PaginatedRawPostingList: {
             /** @example 123 */
             count: number;
@@ -9957,8 +10081,11 @@ export interface components {
             school?: string;
             /** Format: uuid */
             programme?: string | null;
-            /** @description e.g. "October 2027" */
-            intake?: string;
+            /**
+             * @description e.g. "October 2027"
+             * @default
+             */
+            intake: string;
             /** Format: date */
             target_submission_date?: string | null;
             /** @description School or uni-assist application number. */
@@ -10660,13 +10787,15 @@ export interface components {
         };
         PatchedStaffReferralCodeRequest: {
             code?: string;
-            owner_type?: components["schemas"]["ReferralOwnerTypeEnum"];
+            /** @default student */
+            owner_type: components["schemas"]["ReferralOwnerTypeEnum"];
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
             partner_email?: string;
             partner_phone?: string;
-            is_active?: boolean;
+            /** @default true */
+            is_active: boolean;
             /** Format: date-time */
             expires_at?: string | null;
             /** @description Blank means unlimited. */
@@ -11225,6 +11354,7 @@ export interface components {
          *     * `undergraduate` - Undergraduate
          *     * `postgraduate` - Postgraduate
          *     * `doctorate` - Doctorate
+         *     * `secondary` - Secondary school
          *     * `language` - Language course
          * @enum {string}
          */
@@ -11345,6 +11475,97 @@ export interface components {
             readonly allow_drafts: boolean;
             readonly submit_button_label: string;
             readonly success_message: string;
+        };
+        /**
+         * @description What an anonymous caller may read back: the verdict and its evidence from
+         *     their own pasted text, and nothing that belongs to a candidate (no file,
+         *     saved document, or employer link).
+         */
+        PublicOfferCheck: {
+            /** Format: uuid */
+            readonly id: string;
+            status?: components["schemas"]["CheckStatusEnum"];
+            verdict?: components["schemas"]["VerdictEnum"] | components["schemas"]["BlankEnum"];
+            readonly verdict_label: string;
+            readonly checks: unknown;
+            /** @description What the offer says: company, sender, fees… */
+            extracted?: unknown;
+            readonly next_steps: {
+                [key: string]: unknown;
+            }[];
+            error?: string;
+            /** Format: uuid */
+            task_id?: string | null;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            completed_at?: string | null;
+        };
+        /**
+         * @description The public free tool: pasted text only (web.md §3). No file field — an
+         *     upload needs the candidate-bound vault, so it stays a signed-in feature.
+         */
+        PublicOfferCheckCreateRequest: {
+            text: string;
+        };
+        PublicProgramme: {
+            /** Format: uuid */
+            readonly id: string;
+            name: string;
+            level?: components["schemas"]["ProgrammeLevelEnum"];
+            duration_months?: number | null;
+            /** Format: decimal */
+            tuition_amount?: string | null;
+            tuition_currency?: string;
+            language_of_instruction?: string;
+            /** @description e.g. ["October 2027", "April 2028"] */
+            intakes?: unknown;
+            /** Format: date */
+            application_opens?: string | null;
+            /** Format: date */
+            application_deadline?: string | null;
+            readonly school: components["schemas"]["PublicProgrammeSchool"];
+            readonly applyboard: components["schemas"]["PublicProgrammeApplyBoard"];
+        };
+        PublicProgrammeApplyBoard: {
+            program_level_label?: string;
+            min_length?: number | null;
+            max_length?: number | null;
+            program_intakes?: {
+                [key: string]: unknown;
+            }[];
+            tags?: string[];
+            application_fee?: unknown;
+            application_enabled?: boolean | null;
+            success_score?: unknown;
+        };
+        PublicProgrammeCountryOption: {
+            code: string;
+            name: string;
+            programme_count: number;
+        };
+        PublicProgrammeFilterOptions: {
+            countries: components["schemas"]["PublicProgrammeCountryOption"][];
+            levels: {
+                [key: string]: unknown;
+            }[];
+            school_types: {
+                [key: string]: unknown;
+            }[];
+            currencies: string[];
+        };
+        PublicProgrammeSchool: {
+            /** Format: uuid */
+            readonly id: string;
+            name: string;
+            kind?: components["schemas"]["SchoolKindEnum"];
+            readonly country_name: string | null;
+            readonly country_code: string | null;
+            city?: string;
+            readonly province: string;
+            website?: string;
+            description?: string;
+            readonly logo_url: string;
         };
         PublicScam: {
             company_name: string;
@@ -12469,14 +12690,16 @@ export interface components {
             /** Format: uuid */
             readonly id: string;
             code: string;
-            owner_type?: components["schemas"]["ReferralOwnerTypeEnum"];
+            /** @default student */
+            owner_type: components["schemas"]["ReferralOwnerTypeEnum"];
             readonly owner_label: string;
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
             partner_email?: string;
             partner_phone?: string;
-            is_active?: boolean;
+            /** @default true */
+            is_active: boolean;
             /** Format: date-time */
             expires_at?: string | null;
             /** @description Blank means unlimited. */
@@ -12491,13 +12714,15 @@ export interface components {
         };
         StaffReferralCodeRequest: {
             code: string;
-            owner_type?: components["schemas"]["ReferralOwnerTypeEnum"];
+            /** @default student */
+            owner_type: components["schemas"]["ReferralOwnerTypeEnum"];
             /** Format: uuid */
             student?: string | null;
             partner_name?: string;
             partner_email?: string;
             partner_phone?: string;
-            is_active?: boolean;
+            /** @default true */
+            is_active: boolean;
             /** Format: date-time */
             expires_at?: string | null;
             /** @description Blank means unlimited. */
@@ -23808,6 +24033,41 @@ export interface operations {
             };
         };
     };
+    ai_v1_tasks_events_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskStatus"];
+                };
+            };
+            /** @description Authentication required. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Task not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ai_v1_tools_eligibility_create: {
         parameters: {
             query?: never;
@@ -23854,6 +24114,52 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["YourGrade"];
+                };
+            };
+        };
+    };
+    ai_v1_tools_offer_check_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicOfferCheckCreateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PublicOfferCheckCreateRequest"];
+                "multipart/form-data": components["schemas"]["PublicOfferCheckCreateRequest"];
+            };
+        };
+        responses: {
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicOfferCheck"];
+                };
+            };
+        };
+    };
+    ai_v1_tools_offer_check_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                check_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicOfferCheck"];
                 };
             };
         };
@@ -24897,6 +25203,81 @@ export interface operations {
             };
         };
     };
+    catalogue_programme_filters_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProgrammeFilterOptions"];
+                };
+            };
+        };
+    };
+    catalogue_programmes_list: {
+        parameters: {
+            query?: {
+                city?: string;
+                country?: string;
+                currency?: string;
+                deadline_after?: string;
+                deadline_before?: string;
+                duration_max?: number;
+                duration_min?: number;
+                intake_year?: number;
+                language?: string;
+                /**
+                 * @description * `foundation` - Foundation / pathway
+                 *     * `undergraduate` - Undergraduate
+                 *     * `postgraduate` - Postgraduate
+                 *     * `doctorate` - Doctorate
+                 *     * `secondary` - Secondary school
+                 *     * `language` - Language course
+                 */
+                level?: "doctorate" | "foundation" | "language" | "postgraduate" | "secondary" | "undergraduate";
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                q?: string;
+                /**
+                 * @description * `university` - University
+                 *     * `college` - College
+                 *     * `language_school` - Language school
+                 *     * `pathway` - Pathway / foundation provider
+                 *     * `other` - Other
+                 */
+                school_type?: "college" | "language_school" | "other" | "pathway" | "university";
+                tuition_max?: number;
+                tuition_min?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPublicProgrammeList"];
+                };
+            };
+        };
+    };
     checklist_items_list: {
         parameters: {
             query?: {
@@ -25600,9 +25981,10 @@ export interface operations {
                  *     * `undergraduate` - Undergraduate
                  *     * `postgraduate` - Postgraduate
                  *     * `doctorate` - Doctorate
+                 *     * `secondary` - Secondary school
                  *     * `language` - Language course
                  */
-                level?: "doctorate" | "foundation" | "language" | "postgraduate" | "undergraduate";
+                level?: "doctorate" | "foundation" | "language" | "postgraduate" | "secondary" | "undergraduate";
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
                 /** @description A page number within the paginated result set. */

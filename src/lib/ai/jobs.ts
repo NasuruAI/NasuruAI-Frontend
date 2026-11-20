@@ -229,6 +229,7 @@ export const jobKeys = {
   alertHistory: ["ai", "job-alerts", "sent"] as const,
   offers: ["ai", "offer-checks"] as const,
   offer: (id: string) => ["ai", "offer-check", id] as const,
+  publicOffer: (id: string) => ["ai", "tools", "offer-check", id] as const,
 };
 
 /** The query string the list endpoint takes; defaults are left out. */
@@ -567,6 +568,34 @@ export function useStartOfferCheck() {
       return unwrap(ai.POST("/api/ai/v1/checks/offers/", { body: { text: text ?? "" }, headers }));
     },
     onSuccess: () => void client.invalidateQueries({ queryKey: jobKeys.offers }),
+  });
+}
+
+export type PublicOfferCheck = components["schemas"]["PublicOfferCheck"];
+
+/**
+ * The free, no-account offer checker (web.md §3): paste text and get the same
+ * scam verdict a candidate gets. Anonymous, so it polls (no bearer token for the
+ * SSE stream) and can't save or report — those stay signed-in features.
+ */
+export function useStartPublicOfferCheck() {
+  return useMutation({
+    mutationFn: (text: string) =>
+      unwrap(ai.POST("/api/ai/v1/tools/offer-check/", { body: { text } })),
+  });
+}
+
+export function usePublicOfferCheck(id: string | null) {
+  return useQuery({
+    queryKey: jobKeys.publicOffer(id ?? ""),
+    queryFn: () =>
+      unwrap(
+        ai.GET("/api/ai/v1/tools/offer-check/{check_id}/", {
+          params: { path: { check_id: id! } },
+        }),
+      ),
+    enabled: Boolean(id),
+    refetchInterval: (query) => (query.state.data?.status === "checking" ? 2000 : false),
   });
 }
 

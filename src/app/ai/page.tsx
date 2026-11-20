@@ -7,6 +7,7 @@ import {
   FileCheck,
   Globe,
   Search,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -57,6 +58,12 @@ const TOOLS = [
     label: "Grade converter",
     description: "Make sense of your qualifications.",
     icon: FileCheck,
+  },
+  {
+    href: "/ai/tools/offer-checker",
+    label: "Is this offer a scam?",
+    description: "Paste a WhatsApp or email offer and check it.",
+    icon: ShieldAlert,
   },
 ];
 
