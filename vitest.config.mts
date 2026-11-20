@@ -1,9 +1,14 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, type Plugin } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 
 export default defineConfig({
-  plugins: [react()],
+  // @vitejs/plugin-react is typed against the top-level Vite 8, while vitest 3.x
+  // bundles its own Vite 7; the two Plugin types differ only in internal
+  // rolldown/rollup hook signatures, so the array is retyped as vitest's own
+  // Plugin to shed that skew. At runtime vitest loads the plugin under its own
+  // Vite and the suite is green — this is a types-only cross-package artifact.
+  plugins: [react()] as unknown as Plugin[],
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
