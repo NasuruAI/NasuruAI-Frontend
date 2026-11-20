@@ -9,6 +9,7 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import type { Check, HardFilter, RankFactor } from "@/components/ai/evidence/Trust";
 import { ai, ApiError, unwrap } from "./client";
 import { enqueueJobSave } from "./offline";
+import { useTaskProgress } from "./stream";
 import type { components } from "./schema";
 
 type Schemas = components["schemas"];
@@ -526,10 +527,10 @@ export function useOfferChecks() {
   });
 }
 
-/** One check, polled every 2 s while it runs. A finished check refreshes the history. */
+/** One check, streamed while it runs (polling fallback). A finished check refreshes the history. */
 export function useOfferCheck(id: string | null) {
   const client = useQueryClient();
-  return useQuery({
+  const query = useQuery({
     queryKey: jobKeys.offer(id ?? ""),
     queryFn: async () => {
       const check = await unwrap(
@@ -541,6 +542,8 @@ export function useOfferCheck(id: string | null) {
     enabled: Boolean(id),
     refetchInterval: (query) => (query.state.data?.status === "checking" ? 2000 : false),
   });
+  useTaskProgress(query.data?.task_id, query.data?.status === "checking", query.refetch);
+  return query;
 }
 
 /** Paste text or upload a file (PDF or screenshot). */

@@ -8,6 +8,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ai, unwrap } from "./client";
+import { useTaskProgress } from "./stream";
 import type { components } from "./schema";
 
 type Schemas = components["schemas"];
@@ -104,7 +105,7 @@ export function useSessions() {
 /** Polled while questions are being written, or any answer is still being scored. */
 export function useSession(id: string | null) {
   const client = useQueryClient();
-  return useQuery({
+  const query = useQuery({
     queryKey: coachingKeys.session(id ?? ""),
     queryFn: async () => {
       const session = normalize(
@@ -127,6 +128,9 @@ export function useSession(id: string | null) {
       return false;
     },
   });
+  // Stream the session's prepare task; per-attempt scoring stays on the poll.
+  useTaskProgress(query.data?.task_id, query.data?.status === "preparing", query.refetch);
+  return query;
 }
 
 export function useStartSession() {

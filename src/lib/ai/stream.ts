@@ -14,7 +14,7 @@
 import { API_BASE_URL } from "@/lib/api";
 import { refreshAccessToken } from "@/lib/auth/client";
 import { getAccessToken } from "@/lib/auth/store";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export type TaskEvent = {
   id?: string;
@@ -160,4 +160,62 @@ export function useTaskEvents(
       controller.abort();
     };
   }, [taskId, enabled]);
+}
+
+/**
+ * The fields of a frame that mean the task actually moved. The backend re-sends
+ * the same frame about once a second as a heartbeat, so two frames with the same
+ * signature are the same news and only the first is worth acting on.
+ */
+export function taskFrameSignature(taskId: string | undefined, event: TaskEvent): string {
+  return JSON.stringify([taskId, event.state, event.progress, event.result, event.finished_at]);
+}
+
+/**
+ * Whether a frame is fresh news since the last one acted on (`previous`, empty
+ * before any). A `"unavailable"` frame is the reader giving up, not progress, so
+ * it never counts — the caller's polling fallback covers that case.
+ */
+export function isNewTaskFrame(
+  previous: string,
+  taskId: string | undefined,
+  event: TaskEvent,
+): boolean {
+  if (event.state === "unavailable") return false;
+  return taskFrameSignature(taskId, event) !== previous;
+}
+
+/**
+ * Accelerate a polled task query with its own event stream (web.md §15).
+ *
+ * While `active`, this opens the task's SSE stream and calls `refetch` the
+ * moment a frame reports a change — so a stage advancing or the task finishing
+ * shows at once instead of on the next poll. Repeated heartbeat frames are
+ * dropped (see `isNewTaskFrame`), and when the stream can't be opened this does
+ * nothing: the caller's `refetchInterval` stays the fallback, and the caller
+ * still owns terminal state (its refetch reads the domain status and stops its
+ * own polling).
+ */
+export function useTaskProgress(
+  taskId: string | null | undefined,
+  active: boolean,
+  refetch: () => void,
+) {
+  const lastRef = useRef<string>("");
+  const refetchRef = useRef(refetch);
+  useEffect(() => {
+    refetchRef.current = refetch;
+  }, [refetch]);
+
+  const onEvent = useCallback(
+    (event: TaskEvent) => {
+      const id = taskId ?? undefined;
+      if (!isNewTaskFrame(lastRef.current, id, event)) return;
+      lastRef.current = taskFrameSignature(id, event);
+      refetchRef.current();
+    },
+    [taskId],
+  );
+
+  useTaskEvents(taskId ?? undefined, active, { onEvent });
 }

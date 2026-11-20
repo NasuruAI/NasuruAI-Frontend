@@ -8,6 +8,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ai, unwrap } from "./client";
+import { useTaskProgress } from "./stream";
 import type { EligibilityResult } from "./onboarding";
 import { planKeys } from "./plan";
 import type { components } from "./schema";
@@ -153,7 +154,7 @@ export function useAsk() {
 }
 
 export function useAnswer(id: string | null) {
-  return useQuery({
+  const query = useQuery({
     queryKey: routeKeys.answer(id ?? ""),
     queryFn: () =>
       unwrap(
@@ -162,6 +163,8 @@ export function useAnswer(id: string | null) {
     enabled: Boolean(id),
     refetchInterval: (query) => (query.state.data?.status === "answering" ? 2000 : false),
   });
+  useTaskProgress(query.data?.task_id, query.data?.status === "answering", query.refetch);
+  return query;
 }
 
 /** Add a to-do yourself: a gap, or a points improvement. Adding twice adds it once. */

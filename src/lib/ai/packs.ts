@@ -8,6 +8,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiErrorFrom } from "@/lib/api";
 import { ai, ApiError, unwrap } from "./client";
+import { useTaskProgress } from "./stream";
 import type { components } from "./schema";
 
 type Schemas = components["schemas"];
@@ -56,9 +57,9 @@ export function usePacks() {
   });
 }
 
-/** One pack, polled while it's being built or an answer is being written again. */
+/** One pack, streamed while it's built (polling fallback; answer rewrites stay polled). */
 export function usePack(id: string) {
-  return useQuery({
+  const query = useQuery({
     queryKey: packKeys.detail(id),
     queryFn: async () =>
       (await unwrap(
@@ -73,6 +74,9 @@ export function usePack(id: string) {
         : false;
     },
   });
+  // The build task streams; writing a single answer again stays on the poll.
+  useTaskProgress(query.data?.task_id, isBuilding(query.data?.status), query.refetch);
+  return query;
 }
 
 function replaceAnswer(pack: Pack | undefined, answer: PackAnswer): Pack | undefined {
@@ -169,9 +173,9 @@ export function useDocuments() {
   });
 }
 
-/** One document, polled while it's queued or a bullet is being tightened. */
+/** One document, streamed while it's generated (polling fallback; bullet tightening stays polled). */
 export function useDocument(id: string) {
-  return useQuery({
+  const query = useQuery({
     queryKey: packKeys.document(id),
     queryFn: () =>
       unwrap(
@@ -191,6 +195,9 @@ export function useDocument(id: string) {
       return tightening ? 1500 : false;
     },
   });
+  // The generate task streams; tightening a single bullet stays on the poll.
+  useTaskProgress(query.data?.task_id, query.data?.status === "queued", query.refetch);
+  return query;
 }
 
 /**

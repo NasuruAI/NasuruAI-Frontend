@@ -8,6 +8,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CandidateDocument } from "./onboarding";
 import { ai, unwrap } from "./client";
+import { useTaskProgress } from "./stream";
 import type { components } from "./schema";
 
 type Schemas = components["schemas"];
@@ -70,10 +71,10 @@ export function useFundsChecks() {
   });
 }
 
-/** Polled every 2 s while the statements are being read. */
+/** Streamed while the statements are being read (polling fallback). */
 export function useFundsCheck(id: string | null) {
   const client = useQueryClient();
-  return useQuery({
+  const query = useQuery({
     queryKey: fundsKeys.check(id ?? ""),
     queryFn: async () => {
       const check = (await unwrap(
@@ -86,6 +87,8 @@ export function useFundsCheck(id: string | null) {
     enabled: Boolean(id),
     refetchInterval: (query) => (query.state.data?.status === "checking" ? 2000 : false),
   });
+  useTaskProgress(query.data?.task_id, query.data?.status === "checking", query.refetch);
+  return query;
 }
 
 export function useStartFundsCheck() {
